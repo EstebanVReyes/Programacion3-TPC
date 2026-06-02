@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ComercioWeb.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>Sistema Comercio</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+
+        .navbar {
+            background-color: #1f2937;
+            color: white;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 32px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        footer {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+
+        <header class="navbar">
+            <h2>Sistema Comercio</h2>
+
+            <nav>
+                <a href="Default.aspx">Inicio</a>
+                <a href="Productos.aspx">Productos</a>
+                <a href="Clientes.aspx">Clientes</a>
+                <a href="Ventas.aspx">Ventas</a>
+            </nav>
+        </header>
+
+        <main class="container">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <footer>
+            Sistema Comercio - Programación III - Grupo #
+        </footer>
+
+    </form>
+</body>
+</html>

@@ -10,8 +10,13 @@ namespace Dominio
     {
         public int Id { get; set; }
         public string NumeroFactura { get; set; }
+
+        public decimal PrecioUnitario { get; set; }
+        public int Cantidad { get; set; }
         public DateTime Fecha { get; set; }
         public Cliente Cliente { get; set; }
+
+        public Producto Producto { get; set; }
         public decimal Total { get; set; }
         public List<DetalleVenta> Detalles { get; set; }
     }
