@@ -24,6 +24,11 @@ namespace Dominio
 
         public List<Proveedor> Proveedores { get; set; }
 
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }
 

@@ -18,29 +18,12 @@ namespace ComercioWeb
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            decimal precio;
-            int stock;
-
-            if (!decimal.TryParse(txtPrecio.Text, out precio))
-            {
-                lblMensaje.Text = "El precio debe ser numérico.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
-
-            if (!int.TryParse(txtStock.Text, out stock))
-            {
-                lblMensaje.Text = "El stock debe ser numérico.";
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
-
             Producto producto = new Producto
             {
                 Nombre = txtNombre.Text,
                 Descripcion = txtDescripcion.Text,
-                Precio = precio,
-                StockActual = stock
+                Precio = decimal.Parse(txtPrecio.Text),
+                StockActual = int.Parse(txtStock.Text)
             };
 
             productos.Add(producto);

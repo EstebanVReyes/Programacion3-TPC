@@ -143,7 +143,7 @@
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
                 <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                <asp:BoundField DataField="Stock" HeaderText="Stock" />
+                <asp:BoundField DataField="StockActual" HeaderText="Stock" />
             </Columns>
         </asp:GridView>
     </div>
