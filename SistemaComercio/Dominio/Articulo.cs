@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Producto
+    public class Articulo
+
     {
         public int Id { get; set; }
         public string Codigo { get; set; }
@@ -22,7 +23,7 @@ namespace Dominio
         public int StockMinimo { get; set; }
         public decimal PorcentajeGanancia { get; set; }
 
-        public List<Proveedor> Proveedores { get; set; }
+        public Proveedor Proveedor { get; set; }
 
 
         public override string ToString()

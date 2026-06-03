@@ -11,8 +11,7 @@ namespace Dominio
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public Cliente Cliente { get; set; }
-        public string Estado { get; set; } 
-
+        public string Estado { get; set; }  
         public MetodoEnvio MetodoEnvio { get; set; }
         public MetodoPago MetodoPago { get; set; }
 
