@@ -106,6 +106,23 @@ CREATE TABLE Facturas (
     TotalFacturado DECIMAL(10,2),
     FOREIGN KEY (Pedido_ID) REFERENCES Pedidos(ID)
 );
+CREATE TABLE Compras (
+    ID INT PRIMARY KEY,
+    Proveedor_ID INT,
+    FechaCompra DATETIME,
+    Total DECIMAL(10,2),
+    FOREIGN KEY (Proveedor_ID) REFERENCES Proveedor(ID)
+);
+
+CREATE TABLE Detalles_Compra (
+    ID INT PRIMARY KEY,
+    Compra_ID INT,
+    Articulo_ID INT,
+    Cantidad INT,
+    PrecioCosto DECIMAL(10,2),
+    FOREIGN KEY (Compra_ID) REFERENCES Compras(ID),
+    FOREIGN KEY (Articulo_ID) REFERENCES Articulos(ID)
+);
 
 
 INSERT INTO Usuarios (ID, Nombre, Apellido, Email, PasswordHash, Telefono, FechaRegistro) VALUES 
@@ -151,3 +168,11 @@ INSERT INTO Pedidos_Detalle (ID, Pedido_ID, Articulo_ID, Cantidad, PrecioUnitari
 
 INSERT INTO Facturas (ID, Pedido_ID, TipoFactura, CUIT_DNI, NombreRazonSocial, FechaEmision, TotalFacturado) VALUES 
 (1, 1, 'B', '20123456789', 'Francisco Benitez', '2026-06-03 11:30:00', 358500.00);
+
+INSERT INTO Compras (ID, Proveedor_ID, FechaCompra, Total) VALUES 
+(1, 1, '2026-05-15 09:30:00', 880000.00); 
+
+
+INSERT INTO Detalles_Compra (ID, Compra_ID, Articulo_ID, Cantidad, PrecioCosto) VALUES 
+(1, 1, 1, 2, 290000.00), -- Compramos 2 placas RTX 4060 a precio de costo
+(2, 1, 2, 2, 150000.00); -- Compramos 2 Ryzen 5 a precio de costo

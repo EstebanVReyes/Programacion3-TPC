@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    namespace Dominio
-    {
-        public class Marca
+    
+        public class MetodoPago
         {
             public int Id { get; set; }
-            public string Descripcion { get; set; }
+            public string Nombre { get; set; } 
+            public decimal RecargoPorcentaje { get; set; }
         }
-    }
+    
 }
-

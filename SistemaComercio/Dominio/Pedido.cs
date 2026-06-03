@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Venta
+    public class Pedido
     {
         public int Id { get; set; }
-        public string NumeroFactura { get; set; }
-
-        public decimal PrecioUnitario { get; set; }
-        public int Cantidad { get; set; }
         public DateTime Fecha { get; set; }
         public Cliente Cliente { get; set; }
+        public string Estado { get; set; } 
 
-        public Producto Producto { get; set; }
+        public MetodoEnvio MetodoEnvio { get; set; }
+        public MetodoPago MetodoPago { get; set; }
+
         public decimal Total { get; set; }
-        public List<DetalleVenta> Detalles { get; set; }
+
+       
+        public List<DetallePedido> Detalles { get; set; }
     }
 }
