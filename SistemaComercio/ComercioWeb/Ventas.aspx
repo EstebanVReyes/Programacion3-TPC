@@ -94,46 +94,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="page-title">
-        <h1>Ventas</h1>
-        <p>Registro y listado de ventas realizadas.</p>
-    </div>
-
-    <div class="card">
-        <h2>Nueva venta</h2>
-
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="txtCliente">Cliente</label>
-                <asp:TextBox ID="txtCliente" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtProducto">Producto</label>
-                <asp:TextBox ID="txtProducto" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtCantidad">Cantidad</label>
-                <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtPrecioUnitario">Precio unitario</label>
-                <asp:TextBox ID="txtPrecioUnitario" runat="server" CssClass="form-control" />
-            </div>
-        </div>
-
-        <div class="actions">
-            <asp:Button ID="btnGuardar" runat="server" Text="Registrar venta" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-            <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />
-        </div>
-
-        <br />
-
-        <asp:Label ID="lblMensaje" runat="server" />
-    </div>
-
+   
     <div class="card">
         <h2>Listado de ventas</h2>
 

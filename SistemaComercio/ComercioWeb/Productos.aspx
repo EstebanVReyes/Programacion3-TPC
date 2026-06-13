@@ -95,45 +95,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="page-title">
-        <h1>Productos</h1>
-        <p>Alta y listado de productos del sistema.</p>
-    </div>
-
-    <div class="card">
-        <h2>Nuevo producto</h2>
-
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="txtNombre">Nombre</label>
-                <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtDescripcion">Descripción</label>
-                <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtPrecio">Precio</label>
-                <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtStock">Stock</label>
-                <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" />
-            </div>
-        </div>
-
-        <div class="actions">
-            <asp:Button ID="btnGuardar" runat="server" Text="Guardar producto" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-            <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />
-        </div>
-
-        <br />
-
-        <asp:Label ID="lblMensaje" runat="server" />
-    </div>
+  
 
     <div class="card">
         <h2>Listado de productos</h2>

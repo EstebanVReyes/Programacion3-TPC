@@ -16,6 +16,8 @@ namespace Dominio
         public string Telefono { get; set; }
         public List<Direccion> Direcciones { get; set; }
 
+        public string Rol { get; set; }
+
         public override string ToString()
         {
             return Nombre + " " + Apellido;

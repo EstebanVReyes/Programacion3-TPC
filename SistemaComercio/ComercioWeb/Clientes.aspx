@@ -113,56 +113,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="page-title">
-        <h1>Clientes</h1>
-        <p>Alta y listado de clientes del sistema.</p>
-    </div>
-
-    <div class="card">
-        <h2>Nuevo cliente</h2>
-
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="txtNombre">Nombre</label>
-                <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtApellido">Apellido</label>
-                <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtDni">DNI</label>
-                <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtEmail">Email</label>
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtTelefono">Teléfono</label>
-                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtDireccion">Dirección</label>
-                <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" />
-            </div>
-        </div>
-
-        <div class="actions">
-            <asp:Button ID="btnGuardar" runat="server" Text="Guardar cliente" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-            <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />
-        </div>
-
-        <br />
-
-        <asp:Label ID="lblMensaje" runat="server" />
-    </div>
-
     <div class="card">
         <h2>Listado de clientes</h2>
 
