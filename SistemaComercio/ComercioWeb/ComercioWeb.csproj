@@ -69,6 +69,8 @@
     <Content Include="Login.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="ProductosABM.aspx" />
+    <Content Include="Usuarios.aspx" />
+    <Content Include="UsuariosABM.aspx" />
     <Content Include="Ventas.aspx" />
     <Content Include="VentasABM.aspx" />
     <Content Include="Web.config" />
@@ -126,6 +128,20 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.aspx.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuarios.aspx.designer.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosABM.aspx.cs">
+      <DependentUpon>UsuariosABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuariosABM.aspx.designer.cs">
+      <DependentUpon>UsuariosABM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Ventas.aspx.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>

@@ -135,6 +135,18 @@
 
                     </ul>
                 </div>
+
+                     <div class="dropdown">
+                         <a class="btn btn-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                             Usuarios
+                         </a>
+
+                         <ul class="dropdown-menu">
+                             <li><a class="dropdown-item" href="Usuarios.aspx">Lista de Usuarios</a></li>
+                             <li><a class="dropdown-item" href="UsuariosABM.aspx">Administrar Usuarios</a></li>
+
+                         </ul>
+                     </div>
                       </div>
                 
                
