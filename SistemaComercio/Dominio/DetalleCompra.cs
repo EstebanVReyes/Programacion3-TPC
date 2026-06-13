@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    namespace Dominio
-    {
+   
         public class DetalleCompra
         {
             public int Id { get; set; }
@@ -15,5 +14,5 @@ namespace Dominio
             public int Cantidad { get; set; }
             public decimal PrecioCosto { get; set; }
         }
-    }
+    
 }

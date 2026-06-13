@@ -6,7 +6,7 @@ namespace ComercioWeb
 {
     public partial class Ventas : System.Web.UI.Page
     {
-        private static List<Venta> ventas = new List<Venta>();
+        private static List<Pedido> pedidos = new List<Pedido>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,28 +23,32 @@ namespace ComercioWeb
             decimal precioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
 
-
-            Venta venta = new Venta
+            Pedido pedido = new Pedido
             {
-
-                Cliente = new Cliente
+                Usuario = new Usuario
                 {
                     Nombre = txtCliente.Text
                 },
 
-                Producto = new Producto
-                {
-                    Nombre = txtProducto.Text
-                },
-
-                Cantidad = cantidad,
-                PrecioUnitario = precioUnitario,
-                Total = cantidad * precioUnitario,
                 Fecha = DateTime.Now,
-                NumeroFactura = "FAC-" + DateTime.Now.Ticks
+                NumeroFactura = "FAC-" + DateTime.Now.Ticks,
+                Total = cantidad * precioUnitario,
+
+                Detalles = new List<DetallePedido>
+    {
+        new DetallePedido
+        {
+            Articulo = new Articulo
+            {
+                Nombre = txtProducto.Text
+            },
+            Cantidad = cantidad,
+            PrecioUnitario = precioUnitario
+        }
+    }
             };
 
-            ventas.Add(venta);
+            pedidos.Add(pedido);
 
             LimpiarFormulario();
             CargarVentas();
@@ -60,7 +64,7 @@ namespace ComercioWeb
 
         private void CargarVentas()
         {
-            gvVentas.DataSource = ventas;
+            gvVentas.DataSource = pedidos;
             gvVentas.DataBind();
         }
 

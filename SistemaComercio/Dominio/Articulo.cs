@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Dominio
         public string Descripcion { get; set; }
 
         public decimal Precio { get; set; }
-        
+
         public Marca Marca { get; set; }
         public Categoria Categoria { get; set; }
 
@@ -32,5 +33,4 @@ namespace Dominio
         }
     }
 }
-
 

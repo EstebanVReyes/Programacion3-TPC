@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    
-        public class MetodoPago
-        {
-            public int Id { get; set; }
-            public string Nombre { get; set; } 
-            public decimal RecargoPorcentaje { get; set; }
-        }
-    
+
+    public class MetodoPago
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public decimal RecargoPorcentaje { get; set; }
+    }
+
 }

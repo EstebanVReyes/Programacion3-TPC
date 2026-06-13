@@ -6,7 +6,7 @@ namespace ComercioWeb
 {
     public partial class Clientes : System.Web.UI.Page
     {
-        private static List<Cliente> clientes = new List<Cliente>();
+        private static List<Usuario> Usuarios = new List<Usuario>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,17 +18,24 @@ namespace ComercioWeb
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Cliente cliente = new Cliente
+
+        Usuario usuario = new Usuario
             {
                 Nombre = txtNombre.Text,
                 Apellido = txtApellido.Text,
                 DNI = txtDni.Text,
                 Email = txtEmail.Text,
-                Telefono = int.Parse(txtTelefono.Text),
-                Direccion = txtDireccion.Text
-            };
+                Telefono = txtTelefono.Text,
+            Direcciones = new List<Direccion>
+{
+    new Direccion
+    {
+        Calle = txtDireccion.Text
+    }
+}
+        };
 
-            clientes.Add(cliente);
+            Usuarios.Add(usuario);
 
             LimpiarFormulario();
             CargarClientes();
@@ -45,7 +52,7 @@ namespace ComercioWeb
 
         private void CargarClientes()
         {
-            gvClientes.DataSource = clientes;
+            gvClientes.DataSource = Usuarios;
             gvClientes.DataBind();
         }
 

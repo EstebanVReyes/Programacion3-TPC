@@ -6,7 +6,7 @@ namespace ComercioWeb
 {
     public partial class Productos : System.Web.UI.Page
     {
-        private static List<Producto> productos = new List<Producto>();
+        private static List<Articulo> articulos = new List<Articulo>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,7 +18,7 @@ namespace ComercioWeb
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Producto producto = new Producto
+            Articulo articulo = new Articulo
             {
                 Nombre = txtNombre.Text,
                 Descripcion = txtDescripcion.Text,
@@ -26,7 +26,7 @@ namespace ComercioWeb
                 StockActual = int.Parse(txtStock.Text)
             };
 
-            productos.Add(producto);
+            articulos.Add(articulo);
 
             LimpiarFormulario();
             CargarProductos();
@@ -43,7 +43,7 @@ namespace ComercioWeb
 
         private void CargarProductos()
         {
-            gvProductos.DataSource = productos;
+            gvProductos.DataSource = articulos;
             gvProductos.DataBind();
         }
 
