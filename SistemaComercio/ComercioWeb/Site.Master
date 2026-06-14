@@ -118,7 +118,7 @@
 
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="Clientes.aspx">Lista de Clientes</a></li>
-                        <li><a class="dropdown-item" href="ClientesABM.aspx">Agregar nuevo Clientes</a></li>
+                        <li><a class="dropdown-item" href="ClientesABM.aspx">Agregar nuevos Clientes</a></li>
 
                     </ul>
                 </div>
