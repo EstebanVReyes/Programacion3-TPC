@@ -143,11 +143,6 @@
                 <label for="txtTelefono">Teléfono</label>
                 <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
             </div>
-
-            <div class="form-group">
-                <label for="txtDireccion">Dirección</label>
-                <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" />
-            </div>
         </div>
 
         <div class="actions">

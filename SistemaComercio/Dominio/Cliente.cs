@@ -14,8 +14,7 @@ namespace Dominio
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
-        public List<Direccion> Direcciones { get; set; }
-                
+               
         public override string ToString()
         {
             return Nombre + " " + Apellido;

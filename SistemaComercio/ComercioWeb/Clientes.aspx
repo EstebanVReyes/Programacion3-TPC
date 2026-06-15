@@ -123,7 +123,6 @@
                 <asp:BoundField DataField="Dni" HeaderText="DNI" />
                 <asp:BoundField DataField="Email" HeaderText="Email" />
                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
-                <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
             </Columns>
         </asp:GridView>
     </div>
