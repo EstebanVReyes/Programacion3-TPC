@@ -6,7 +6,7 @@ namespace ComercioWeb
 {
     public partial class Ventas : System.Web.UI.Page
     {
-        private static List<Pedido> pedidos = new List<Pedido>();
+        private static List<Venta> pedidos = new List<Venta>();
 
         protected void Page_Load(object sender, EventArgs e)
         {

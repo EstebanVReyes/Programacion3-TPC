@@ -20,7 +20,6 @@ namespace Negocio
 
         public AccesoDatos()
         {
-            // Apuntamos directamente a la base de datos que creamos
             conexion = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=ComercioFrgp;Integrated Security=True");
             comando = new SqlCommand();
         }

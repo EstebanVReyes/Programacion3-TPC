@@ -4,12 +4,12 @@ using Dominio;
 
 namespace Negocio
 {
-    public class ArticuloNegocio
+    public class ProductoNegocio
     {
 
-        public List<Articulo> Listar()
+        public List<Producto> Listar()
         {
-            List<Articulo> lista = new List<Articulo>();
+            List<Producto> lista = new List<Producto>();
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -20,7 +20,7 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
+                    Producto aux = new Producto();
                     aux.Id = (int)datos.Lector["ID"];
                     aux.Codigo = (string)datos.Lector["CodigoSKU"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
@@ -52,7 +52,7 @@ namespace Negocio
         }
 
         
-        public void Agregar(Articulo nuevo)
+        public void Agregar(Producto nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -80,7 +80,7 @@ namespace Negocio
         }
 
         
-        public void Modificar(Articulo art)
+        public void Modificar(Producto art)
         {
             AccesoDatos datos = new AccesoDatos();
             try

@@ -10,7 +10,7 @@ namespace ComercioWeb
 {
     public partial class VentasABM : System.Web.UI.Page
     {
-        private static List<Pedido> pedidos = new List<Pedido>();
+        private static List<Venta> pedidos = new List<Venta>();
 
         protected void Page_Load(object sender, EventArgs e)
 
@@ -25,7 +25,7 @@ namespace ComercioWeb
             decimal precioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
 
-            Pedido pedido = new Pedido
+            Venta pedido = new Venta
             {
                 Usuario = new Usuario
                 {
@@ -33,14 +33,13 @@ namespace ComercioWeb
                 },
 
                 Fecha = DateTime.Now,
-                NumeroFactura = "FAC-" + DateTime.Now.Ticks,
                 Total = cantidad * precioUnitario,
 
-                Detalles = new List<DetallePedido>
+                Detalles = new List<DetalleVenta>
     {
-        new DetallePedido
+        new DetalleVenta
         {
-            Articulo = new Articulo
+            Producto = new Producto
             {
                 Nombre = txtProducto.Text
             },

@@ -10,7 +10,7 @@ namespace ComercioWeb
 {
     public partial class ProductosABM : System.Web.UI.Page
     {
-        private static List<Articulo> articulos = new List<Articulo>();
+        private static List<Producto> articulos = new List<Producto>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +19,7 @@ namespace ComercioWeb
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Articulo articulo = new Articulo
+            Producto articulo = new Producto
             {
                 Nombre = txtNombre.Text,
                 Descripcion = txtDescripcion.Text,
