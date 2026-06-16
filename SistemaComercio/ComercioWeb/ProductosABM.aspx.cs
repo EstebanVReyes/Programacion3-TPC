@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ComercioWeb
 {
     public partial class ProductosABM : System.Web.UI.Page
     {
-        private static List<Producto> articulos = new List<Producto>();
+        private static List<Producto> productos = new List<Producto>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +20,7 @@ namespace ComercioWeb
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Producto articulo = new Producto
+            Producto nuevoProducto = new Producto
             {
                 Nombre = txtNombre.Text,
                 Descripcion = txtDescripcion.Text,
@@ -27,7 +28,10 @@ namespace ComercioWeb
                 StockActual = int.Parse(txtStock.Text)
             };
 
-            articulos.Add(articulo);
+            ProductoNegocio negocio = new ProductoNegocio();
+            negocio.Agregar(nuevoProducto);
+
+            productos.Add(nuevoProducto);
 
             LimpiarFormulario();
 
@@ -40,8 +44,6 @@ namespace ComercioWeb
             LimpiarFormulario();
             lblMensaje.Text = "";
         }
-
-       
 
         private void LimpiarFormulario()
         {

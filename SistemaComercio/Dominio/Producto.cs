@@ -24,8 +24,12 @@ namespace Dominio
         public int StockMinimo { get; set; }
         public decimal PorcentajeGanancia { get; set; }
 
-        public Proveedor Proveedor { get; set; }
+        public List<Proveedor> Proveedores { get; set; }
 
+        public Producto()
+        {
+            Proveedores = new List<Proveedor>();
+        }
 
         public override string ToString()
         {

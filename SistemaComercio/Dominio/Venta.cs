@@ -11,11 +11,17 @@ namespace Dominio
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public Usuario Usuario { get; set; }
-        public string Estado { get; set; }    
+        public Cliente Cliente { get; set; }
+        public string Estado { get; set; }
+        public string NumeroFactura { get; set; }
         public decimal Total { get; set; }
 
-        public int Cantidad { get; set; }
-
         public List<DetalleVenta> Detalles { get; set; }
+
+        public Venta()
+        {
+            Detalles = new List<DetalleVenta>();
+        }
+
     }
 }

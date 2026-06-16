@@ -10,46 +10,45 @@ namespace ComercioWeb
 {
     public partial class VentasABM : System.Web.UI.Page
     {
-        private static List<Venta> pedidos = new List<Venta>();
+        private static List<Venta> ventas = new List<Venta>();
 
         protected void Page_Load(object sender, EventArgs e)
-
         {
 
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-
             int cantidad = int.Parse(txtCantidad.Text);
             decimal precioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
 
-            Venta pedido = new Venta
+            Venta nuevaVenta = new Venta
             {
-                Usuario = new Usuario
+                Cliente = new Cliente
                 {
                     Nombre = txtCliente.Text
                 },
 
                 Fecha = DateTime.Now,
+                NumeroFactura = "FAC-" + DateTime.Now.Ticks,
                 Total = cantidad * precioUnitario,
 
                 Detalles = new List<DetalleVenta>
-    {
-        new DetalleVenta
-        {
-            Producto = new Producto
-            {
-                Nombre = txtProducto.Text
-            },
-            Cantidad = cantidad,
-            PrecioUnitario = precioUnitario
-        }
-    }
+                {
+                    new DetalleVenta
+                    {
+                    Producto = new Producto
+                    {
+                    Nombre = txtProducto.Text
+                    },
+                     Cantidad = cantidad,
+                    PrecioUnitario = precioUnitario
+                    }
+                 }
             };
 
-            pedidos.Add(pedido);
+            ventas.Add(nuevaVenta);
 
             LimpiarFormulario();
 
