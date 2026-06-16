@@ -104,12 +104,16 @@
      <div class="form-grid">
          <div class="form-group">
              <label for="txtCliente">Cliente</label>
-             <asp:TextBox ID="txtCliente" runat="server" CssClass="form-control" />
+            <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control">
+                <asp:ListItem Text="Seleccione un cliente..." Value="" />
+            </asp:DropDownList>
          </div>
 
          <div class="form-group">
              <label for="txtProducto">Producto</label>
-             <asp:TextBox ID="txtProducto" runat="server" CssClass="form-control" />
+           <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged">
+                    <asp:ListItem Text="Seleccione un producto..." Value="" />
+            </asp:DropDownList>
          </div>
 
          <div class="form-group">

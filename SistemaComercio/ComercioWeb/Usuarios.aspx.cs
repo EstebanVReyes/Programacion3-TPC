@@ -1,33 +1,42 @@
-﻿using Dominio;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using Negocio; 
 
 namespace ComercioWeb
 {
     public partial class Usuarios : System.Web.UI.Page
     {
-        private static List<Usuarios> usuarios = new List<Usuarios>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CargarProductos();
+
+                CargarUsuarios();
             }
         }
 
-
-
-
-        private void CargarProductos()
+        private void CargarUsuarios()
         {
-            gvUsuarios.DataSource = usuarios;
-            gvUsuarios.DataBind();
-        }
 
+            UsuarioNegocio negocio = new UsuarioNegocio();
+
+            try
+            {
+               
+                gvUsuarios.DataSource = negocio.ListarActivos();
+                gvUsuarios.DataBind();
+            }
+            catch (Exception ex)
+            {
+               
+                Session["Error"] = "Hubo un problema al cargar los usuarios: " + ex.Message;
+               
+            }
+        }
     }
 }

@@ -11,32 +11,59 @@ namespace ComercioWeb
 {
     public partial class ProductosABM : System.Web.UI.Page
     {
-        private static List<Producto> productos = new List<Producto>();
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
-      
+
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Producto nuevoProducto = new Producto
+          
+            try
             {
-                Nombre = txtNombre.Text,
-                Descripcion = txtDescripcion.Text,
-                Precio = decimal.Parse(txtPrecio.Text),
-                StockActual = int.Parse(txtStock.Text)
-            };
+                Producto nuevoProducto = new Producto
+                {
+                    Nombre = txtNombre.Text,
+                    Descripcion = txtDescripcion.Text,
+                    Precio = decimal.Parse(txtPrecio.Text),
+                    StockActual = int.Parse(txtStock.Text)
+                };
 
-            ProductoNegocio negocio = new ProductoNegocio();
-            negocio.Agregar(nuevoProducto);
+                
+                nuevoProducto.Codigo = "PROD-" + DateTime.Now.ToString("HHmmss"); 
+                nuevoProducto.PorcentajeGanancia = 30; 
+                nuevoProducto.StockMinimo = 5;      
 
-            productos.Add(nuevoProducto);
+                nuevoProducto.Marca = new Marca();
+                nuevoProducto.Marca.Id = 1;            
 
-            LimpiarFormulario();
+                nuevoProducto.Categoria = new Categoria();
+                nuevoProducto.Categoria.Id = 1;        
 
-            lblMensaje.Text = "Producto guardado correctamente.";
-            lblMensaje.ForeColor = System.Drawing.Color.Green;
+                ProductoNegocio negocio = new ProductoNegocio();
+                negocio.Agregar(nuevoProducto);
+
+               
+
+                LimpiarFormulario();
+
+                lblMensaje.Text = "Producto guardado correctamente en la Base de Datos.";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+            }
+            catch (FormatException)
+            {
+               
+                lblMensaje.Text = "Por favor, ingrese números válidos en Precio y Stock.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+            catch (Exception ex)
+            {
+             
+                lblMensaje.Text = "Error al guardar: " + ex.Message;
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)

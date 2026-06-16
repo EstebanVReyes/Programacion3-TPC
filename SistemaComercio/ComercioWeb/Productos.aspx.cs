@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dominio;
+using Negocio;
 
 namespace ComercioWeb
 {
     public partial class Productos : System.Web.UI.Page
     {
-        private static List<Producto> articulos = new List<Producto>();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -16,15 +17,25 @@ namespace ComercioWeb
             }
         }
 
-  
-
-     
         private void CargarProductos()
         {
-            gvProductos.DataSource = articulos;
-            gvProductos.DataBind();
-        }
+          
+            ProductoNegocio negocio = new ProductoNegocio();
 
-       
+            try
+            {
+               
+                gvProductos.DataSource = negocio.Listar();
+                gvProductos.DataBind();
+            }
+            catch (Exception ex)
+            {
+               
+
+               
+                Session.Add("error", ex.ToString());
+               
+            }
+        }
     }
 }

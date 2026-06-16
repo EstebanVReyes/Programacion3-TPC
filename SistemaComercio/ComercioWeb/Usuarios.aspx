@@ -92,16 +92,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-       <div class="card">
-       <h2>Listado de usuarios</h2>
+      <div class="card">
+        <h2>Listado de usuarios</h2>
 
-       <asp:GridView ID="gvUsuarios" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="No hay usuarios cargados.">
-           <Columns>
-               <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-               <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-               <asp:BoundField DataField="Precio" HeaderText="Precio" />
-               <asp:BoundField DataField="StockActual" HeaderText="Stock" />
-           </Columns>
-       </asp:GridView>
-   </div>
+        <asp:GridView ID="gvUsuarios" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="No hay usuarios cargados.">
+            <Columns>
+                <asp:BoundField DataField="Username" HeaderText="Nombre de Usuario" />
+                <asp:BoundField DataField="TipoUsuario" HeaderText="Rol del Sistema" /> 
+            </Columns>
+        </asp:GridView>
+    </div>
 </asp:Content>

@@ -96,18 +96,40 @@
 
    
     <div class="card">
-        <h2>Listado de ventas</h2>
+    <h2>Listado de ventas</h2>
+    
+    <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false" 
+                  DataKeyNames="Id" OnSelectedIndexChanged="gvVentas_SelectedIndexChanged" EmptyDataText="No hay ventas cargadas.">
+        <Columns>
+            <asp:CommandField ShowSelectButton="True" SelectText="Ver detalle 🔍" ControlStyle-CssClass="btn btn-primary" />
+            <asp:BoundField DataField="NumeroFactura" HeaderText="N° Factura" />
+            <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+            <asp:TemplateField HeaderText="Cliente">
+                <ItemTemplate>
+                    <%# Eval("Cliente.Nombre") %> <%# Eval("Cliente.Apellido") %>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField DataField="Total" HeaderText="Total" DataFormatString="{0:C}" />
+            <asp:BoundField DataField="Estado" HeaderText="Estado" />
+        </Columns>
+    </asp:GridView>
+</div>
 
-        <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="No hay ventas cargadas.">
-            <Columns>
-                <asp:BoundField DataField="Cliente" HeaderText="Cliente" />
-                <asp:BoundField DataField="Producto" HeaderText="Producto" />
-                <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio unitario" />
-                <asp:BoundField DataField="Total" HeaderText="Total" />
-                <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
-            </Columns>
-        </asp:GridView>
-    </div>
+<div class="card">
+    <h2><asp:Label ID="lblTituloDetalle" runat="server" Text="Seleccione una venta para ver sus detalles"></asp:Label></h2>
+    
+    <asp:GridView ID="gvDetalles" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="Esperando selección...">
+        <Columns>
+            <asp:TemplateField HeaderText="Producto">
+                <ItemTemplate>
+                    <%# Eval("Producto.Nombre") %>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+            <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
+          
+        </Columns>
+    </asp:GridView>
+</div>
 
 </asp:Content>

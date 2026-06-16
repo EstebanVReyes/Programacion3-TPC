@@ -1,36 +1,46 @@
 ﻿using Dominio;
+using Negocio;
 using System;
-using System.Collections.Generic;
 
 namespace ComercioWeb
 {
     public partial class UsuariosABM : System.Web.UI.Page
     {
-        private static List<Usuario> Usuarios = new List<Usuario>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario
+            try
             {
-                Nombre = txtNombre.Text,
-                Apellido = txtApellido.Text,
-                DNI = txtDni.Text,
-                Email = txtEmail.Text,
-                Telefono = txtTelefono.Text,
-                Rol = ddlRol.SelectedValue
-            };
+               
+                Usuario nuevoUsuario = new Usuario
+                {
+                    
+                    Username = txtUsername.Text,
+                    PasswordHash = txtPassword.Text,
+                    TipoUsuario = ddlTipoUsuario.SelectedValue
+                };
 
-            Usuarios.Add(usuario);
+                
+                UsuarioNegocio negocio = new UsuarioNegocio();
 
-            LimpiarFormulario();
-
-            lblMensaje.Text = "Usuario guardado correctamente.";
-            lblMensaje.ForeColor = System.Drawing.Color.Green;
+                
+                if (negocio.Agregar(nuevoUsuario))
+                {
+                    LimpiarFormulario();
+                    lblMensaje.Text = "Usuario guardado correctamente en la base de datos.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                lblMensaje.Text = "Error al guardar el usuario: " + ex.Message;
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
@@ -41,12 +51,16 @@ namespace ComercioWeb
 
         private void LimpiarFormulario()
         {
-            txtNombre.Text = "";
-            txtApellido.Text = "";
-            txtDni.Text = "";
-            txtEmail.Text = "";
-            txtTelefono.Text = "";
-            ddlRol.Text = "";
+          
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+            ddlTipoUsuario.SelectedIndex = 0;
+            lblMensaje.Text = "";
+        }
+
+        protected void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

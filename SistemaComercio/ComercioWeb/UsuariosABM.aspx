@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UsuariosABM.aspx.cs" Inherits="ComercioWeb.UsuariosABM" %>
+﻿<%@ Page Title="Alta de Usuarios" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UsuariosABM.aspx.cs" Inherits="ComercioWeb.UsuariosABM" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -102,34 +101,19 @@
         <div class="form-grid">
 
             <div class="form-group">
-                <label for="txtNombre">Nombre</label>
-                <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+                <label for="txtUsername">Nombre de usuario (Username)</label>
+                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control"  OnTextChanged="txtUsername_TextChanged" />
             </div>
 
             <div class="form-group">
-                <label for="txtApellido">Apellido</label>
-                <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
+                <label for="txtPassword">Contraseña</label>
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" />
             </div>
 
             <div class="form-group">
-                <label for="txtDni">DNI</label>
-                <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtEmail">Email</label>
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
-            </div>
-
-            <div class="form-group">
-                <label for="txtTelefono">Teléfono</label>
-                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="ddlRol">Rol</label>
-                <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control">
-                    <asp:ListItem Text="Seleccione un rol" Value="" />
+                <label for="ddlTipoUsuario">Tipo de usuario (Rol)</label>
+                <asp:DropDownList ID="ddlTipoUsuario" runat="server" CssClass="form-control">
+                    <asp:ListItem Text="Seleccione un rol..." Value="" />
                     <asp:ListItem Text="Administrador" Value="Administrador" />
                     <asp:ListItem Text="Vendedor" Value="Vendedor" />
                 </asp:DropDownList>
