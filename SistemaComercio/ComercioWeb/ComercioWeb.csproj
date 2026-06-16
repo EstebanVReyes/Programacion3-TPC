@@ -63,7 +63,7 @@
   <ItemGroup>
     <Content Include="Clientes.aspx" />
     <Content Include="ClientesABM.aspx" />
-    <Content Include="Inicio.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Productos.aspx" />
@@ -89,12 +89,12 @@
     <Compile Include="ClientesABM.aspx.designer.cs">
       <DependentUpon>ClientesABM.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Inicio.aspx.cs">
-      <DependentUpon>Inicio.aspx</DependentUpon>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Inicio.aspx.designer.cs">
-      <DependentUpon>Inicio.aspx</DependentUpon>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
