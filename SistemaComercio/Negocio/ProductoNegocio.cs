@@ -15,7 +15,7 @@ namespace Negocio
             try
             {
 
-                datos.SetearConsulta("SELECT P.ID, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.Marca_ID, P.Categoria_ID, M.Nombre AS MarcaNombre, C.Nombre AS CategoriaNombre FROM Productos P INNER JOIN Marcas M ON P.Marca_ID = M.ID INNER JOIN Categorias C ON P.Categoria_ID = C.ID");
+                datos.SetearConsulta("SELECT P.ID, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.Marca_ID, P.Categoria_ID, M.Nombre AS MarcaNombre, C.Nombre AS CategoriaNombre FROM Productos P INNER JOIN Marcas M ON P.Marca_ID = M.ID INNER JOIN Categorias C ON P.Categoria_ID = C.ID WHERE P.Estado = 1");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())

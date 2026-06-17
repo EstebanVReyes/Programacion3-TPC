@@ -102,14 +102,21 @@
         <h2>Listado de productos</h2>
 
        <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id">
-    <Columns>
-        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-        <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
-        <asp:BoundField DataField="StockActual" HeaderText="Stock" />
-        <asp:HyperLinkField HeaderText="Acción" Text="✍️" 
-            DataNavigateUrlFields="Id" 
-            DataNavigateUrlFormatString="FormularioProducto.aspx?id={0}" />
-    </Columns>
+   <Columns>
+    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+    <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
+    <asp:BoundField DataField="StockActual" HeaderText="Stock" />
+    
+    <asp:TemplateField HeaderText="Categoría">
+        <ItemTemplate>
+            <%# Eval("Categoria.Descripcion") %>
+        </ItemTemplate>
+    </asp:TemplateField>
+
+    <asp:HyperLinkField HeaderText="Acción" Text="✍️" 
+        DataNavigateUrlFields="Id" 
+        DataNavigateUrlFormatString="FormularioProducto.aspx?id={0}" />
+</Columns>
 </asp:GridView>
     </div>
 

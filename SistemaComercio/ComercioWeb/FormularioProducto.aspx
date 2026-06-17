@@ -38,6 +38,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h2>Formulario de Producto</h2>
 
+    <asp:Label ID="lblMensajes" runat="server" CssClass="form-control" />
+
     <div class="form-container">
      
         <div class="columna-izq">
@@ -60,8 +62,11 @@
                 <label>Stock:</label>
                 <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" />
             </div>
-
-        
+            <div class="form-group">
+                      <label for="ddlCategorias">Categoría</label>
+                     <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-control"></asp:DropDownList>
+            </div>
+                
             
 
             <div class="acciones-inferiores">
