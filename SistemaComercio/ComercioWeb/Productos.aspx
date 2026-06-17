@@ -1,4 +1,5 @@
 ﻿
+  
     <%@ Page Title="Productos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Productos.aspx.cs" Inherits="ComercioWeb.Productos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -100,14 +101,16 @@
     <div class="card">
         <h2>Listado de productos</h2>
 
-        <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="No hay productos cargados.">
-            <Columns>
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                <asp:BoundField DataField="StockActual" HeaderText="Stock" />
-            </Columns>
-        </asp:GridView>
+       <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id">
+    <Columns>
+        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+        <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
+        <asp:BoundField DataField="StockActual" HeaderText="Stock" />
+        <asp:HyperLinkField HeaderText="Acción" Text="✍️" 
+            DataNavigateUrlFields="Id" 
+            DataNavigateUrlFormatString="FormularioProducto.aspx?id={0}" />
+    </Columns>
+</asp:GridView>
     </div>
 
 </asp:Content>

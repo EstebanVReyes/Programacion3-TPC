@@ -6,7 +6,7 @@ namespace Negocio
 {
     public class VentaNegocio
     {
-        
+
         public List<Venta> listar()
         {
             List<Venta> lista = new List<Venta>();
@@ -47,7 +47,7 @@ namespace Negocio
             }
         }
 
-        
+
         public List<DetalleVenta> listarDetalles(int idVenta)
         {
             List<DetalleVenta> lista = new List<DetalleVenta>();
@@ -87,27 +87,26 @@ namespace Negocio
             }
         }
 
-        
+
         public void agregar(Venta nuevaVenta)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-               
+
                 datos.SetearConsulta("INSERT INTO Ventas (NumeroFactura, Estado, Total, Cliente_ID, Usuario_ID) OUTPUT INSERTED.ID VALUES (@numeroFactura, @estado, @total, @idCliente, @idUsuario)");
 
                 datos.SetearParametro("@numeroFactura", nuevaVenta.NumeroFactura);
-                datos.SetearParametro("@estado", "Pagado"); 
+                datos.SetearParametro("@estado", "Pagado");
                 datos.SetearParametro("@total", nuevaVenta.Total);
                 datos.SetearParametro("@idCliente", nuevaVenta.Cliente.Id);
-                datos.SetearParametro("@idUsuario", 2); 
+                datos.SetearParametro("@idUsuario", 2);
 
-               
                 datos.EjecutarLectura();
                 if (datos.Lector.Read())
                 {
-                 
+
                     nuevaVenta.Id = (int)datos.Lector["ID"];
                 }
             }
@@ -120,12 +119,15 @@ namespace Negocio
                 datos.CerrarConexion();
             }
 
-            
+
+            ProductoNegocio negocioProd = new ProductoNegocio();
+
             foreach (DetalleVenta item in nuevaVenta.Detalles)
             {
                 AccesoDatos datosDetalle = new AccesoDatos();
                 try
                 {
+
                     datosDetalle.SetearConsulta("INSERT INTO Detalles_Venta (Venta_ID, Producto_ID, Cantidad, PrecioUnitario) VALUES (@idVenta, @idProducto, @cantidad, @precioUnitario)");
 
                     datosDetalle.SetearParametro("@idVenta", nuevaVenta.Id);
@@ -134,6 +136,10 @@ namespace Negocio
                     datosDetalle.SetearParametro("@precioUnitario", item.PrecioUnitario);
 
                     datosDetalle.EjecutarAccion();
+
+
+
+                    negocioProd.actualizarStock(item.Producto.Id, item.Cantidad * -1);
                 }
                 catch (Exception ex)
                 {

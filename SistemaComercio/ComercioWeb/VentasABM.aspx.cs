@@ -42,6 +42,9 @@ namespace ComercioWeb
             ddlProducto.DataBind();
 
             ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+
+
+            ddlProducto.SelectedIndex = 0;
         }
 
         protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,11 +108,8 @@ namespace ComercioWeb
 
 
                 Venta nuevaVenta = new Venta();
-
-
                 nuevaVenta.Cliente = new Cliente();
                 nuevaVenta.Detalles = new List<DetalleVenta>();
-
 
                 nuevaVenta.NumeroFactura = "FAC-" + DateTime.Now.ToString("yyyyMMddHHmmss");
                 nuevaVenta.Cliente.Id = int.Parse(ddlCliente.SelectedValue);
@@ -117,14 +117,10 @@ namespace ComercioWeb
 
 
                 DetalleVenta detalle = new DetalleVenta();
-
-
                 detalle.Producto = new Producto();
-
                 detalle.Producto.Id = idProducto;
                 detalle.Cantidad = cantidadIngresada;
                 detalle.PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
-
 
                 nuevaVenta.Detalles.Add(detalle);
 
@@ -132,12 +128,14 @@ namespace ComercioWeb
                 VentaNegocio negocioVenta = new VentaNegocio();
                 negocioVenta.agregar(nuevaVenta);
 
+                btnLimpiar_Click(null, null);
+
+
+                CargarProductos();
+
+
                 lblMensaje.Text = "¡Venta registrada con éxito!";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-
-                
-                btnLimpiar_Click(null, null);
-                CargarProductos();
             }
             catch (Exception ex)
             {
@@ -145,7 +143,6 @@ namespace ComercioWeb
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
-
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             ddlCliente.SelectedIndex = 0;
