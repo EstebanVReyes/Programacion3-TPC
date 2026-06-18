@@ -26,7 +26,7 @@ namespace Negocio
                     aux.Apellido = (string)datos.Lector["Apellido"];
                     aux.Email = (string)datos.Lector["Email"];
 
-                    // Validación clave: Como Telefono admite NULL, revisamos antes de asignarlo
+                   
                     if (!(datos.Lector["Telefono"] is DBNull))
                     {
                         aux.Telefono = (string)datos.Lector["Telefono"];

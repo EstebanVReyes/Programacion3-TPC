@@ -114,17 +114,21 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="card">
-        <h2>Listado de clientes</h2>
+    <h2>Listado de Clientes</h2>
+    <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
 
-        <asp:GridView ID="gvClientes" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="No hay clientes cargados.">
-            <Columns>
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-                <asp:BoundField DataField="Dni" HeaderText="DNI" />
-                <asp:BoundField DataField="Email" HeaderText="Email" />
-                <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
-            </Columns>
-        </asp:GridView>
-    </div>
+    <asp:GridView ID="gvClientes" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id">
+        <Columns>
+            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+            <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+            <asp:BoundField DataField="DNI" HeaderText="DNI" />
+            <asp:BoundField DataField="Email" HeaderText="Email" />
+            
+            <asp:HyperLinkField HeaderText="Acción" Text="✍️" 
+                DataNavigateUrlFields="Id" 
+                DataNavigateUrlFormatString="FormularioCliente.aspx?id={0}" />
+        </Columns>
+    </asp:GridView>
+</div>
 
 </asp:Content>
