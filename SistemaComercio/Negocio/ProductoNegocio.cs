@@ -158,5 +158,41 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public List<ProductoBajoStock> ListarProductosConMenosStock()
+        {
+            List<ProductoBajoStock> lista = new List<ProductoBajoStock>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("EXEC SP_ProductosConMenosStock");
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    ProductoBajoStock aux = new ProductoBajoStock();
+
+                    aux.IdProducto = Convert.ToInt32(datos.Lector["IdProducto"]);
+                    aux.NombreProducto = datos.Lector["NombreProducto"].ToString();
+                    aux.StockActual = Convert.ToInt32(datos.Lector["StockActual"]);
+                    aux.StockMinimo = Convert.ToInt32(datos.Lector["StockMinimo"]);
+                    aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]);
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
     }
+
 }

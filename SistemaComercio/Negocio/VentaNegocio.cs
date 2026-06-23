@@ -151,5 +151,71 @@ namespace Negocio
                 }
             }
         }
+
+
+        public ResumenVenta ObtenerResumenVentasUltimos30Dias()
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("EXEC SP_ResumenVentasUltimos30Dias");
+                datos.EjecutarLectura();
+
+                ResumenVenta resumen = new ResumenVenta();
+
+                if (datos.Lector.Read())
+                {
+                    resumen.CantidadVentas = Convert.ToInt32(datos.Lector["CantidadVentas"]);
+                    resumen.CantidadProductosVendidos = Convert.ToInt32(datos.Lector["CantidadProductosVendidos"]);
+                    resumen.ImporteTotal = Convert.ToDecimal(datos.Lector["ImporteTotal"]);
+                }
+
+                return resumen;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public List<ProductoMasVendido> ListarProductosMasVendidosUltimos30Dias()
+        {
+            List<ProductoMasVendido> lista = new List<ProductoMasVendido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("EXEC SP_ProductosMasVendidosUltimos30Dias");
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    ProductoMasVendido aux = new ProductoMasVendido();
+
+                    aux.IdProducto = Convert.ToInt32(datos.Lector["IdProducto"]);
+                    aux.NombreProducto = datos.Lector["NombreProducto"].ToString();
+                    aux.CantidadVendida = Convert.ToInt32(datos.Lector["CantidadVendida"]);
+                    aux.ImporteTotal = Convert.ToDecimal(datos.Lector["ImporteTotal"]);
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+
     }
 }

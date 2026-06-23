@@ -101,7 +101,6 @@
     <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false" 
                   DataKeyNames="Id" OnSelectedIndexChanged="gvVentas_SelectedIndexChanged" EmptyDataText="No hay ventas cargadas.">
         <Columns>
-            <asp:CommandField ShowSelectButton="True" SelectText="Ver detalle 🔍" ControlStyle-CssClass="btn btn-primary" />
             <asp:BoundField DataField="NumeroFactura" HeaderText="N° Factura" />
             <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
             <asp:TemplateField HeaderText="Cliente">
@@ -111,6 +110,8 @@
             </asp:TemplateField>
             <asp:BoundField DataField="Total" HeaderText="Total" DataFormatString="{0:C}" />
             <asp:BoundField DataField="Estado" HeaderText="Estado" />
+            <asp:CommandField ShowSelectButton="True" SelectText="Ver detalle 🔍" ControlStyle-CssClass="btn btn-primary" />
+
         </Columns>
     </asp:GridView>
 </div>

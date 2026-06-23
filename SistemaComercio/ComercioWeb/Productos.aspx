@@ -112,10 +112,27 @@
             <%# Eval("Categoria.Descripcion") %>
         </ItemTemplate>
     </asp:TemplateField>
+    <asp:TemplateField HeaderText="Acciones">
+            <ItemTemplate>
+                <asp:Button 
+                    ID="btnEditar" 
+                    runat="server"
+                    Text="✍️ Editar"
+                    CssClass="btn btn-primary btn-sm"
+                    CommandName="EditarProducto"
+                    CommandArgument='<%# Eval("Id") %>' />
 
-    <asp:HyperLinkField HeaderText="Acción" Text="✍️" 
-        DataNavigateUrlFields="Id" 
-        DataNavigateUrlFormatString="FormularioProducto.aspx?id={0}" />
+                <asp:Button 
+                    ID="btnEliminar" 
+                    runat="server"
+                    Text="🗑️ Eliminar"
+                    CssClass="btn btn-danger btn-sm"
+                    CommandName="EliminarProducto"
+                    CommandArgument='<%# Eval("Id") %>'
+                    OnClientClick="return confirm('¿Seguro que querés eliminar este producto?');" />
+            </ItemTemplate>
+        </asp:TemplateField>
+
 </Columns>
 </asp:GridView>
     </div>

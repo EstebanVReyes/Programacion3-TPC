@@ -6,8 +6,9 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title>Compra Gamer</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         body {
             margin: 0;
@@ -16,33 +17,36 @@
             color: #111827;
         }
 
-        .navbar {
-            background-color:#212529; 
-            color: white;
-            padding: 16px 32px;
+        .app-layout {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            min-height: 100vh;
         }
 
-        .navbar h2 {
+        .sidebar {
+            width: 280px;
+            min-height: 100vh;
+        }
+
+        .page-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background-color: #212529;
+            color: white;
+            padding: 16px 32px;
+        }
+
+        .topbar h2 {
             margin: 0;
             font-size: 22px;
         }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 15px;
-        }
-
-        .navbar a:hover {
-            text-decoration: underline;
-        }
-
-        .container {
+        .page-content {
             max-width: 1100px;
+            width: 100%;
             margin: 40px auto;
             background-color: white;
             padding: 32px;
@@ -53,33 +57,23 @@
         footer {
             text-align: center;
             color: #6b7280;
-            margin-top: 40px;
+            margin-top: auto;
             padding: 20px;
             font-size: 14px;
         }
-        nav .menu {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
 
-        .navbar a {
-            margin-left: 0;
-        }
-
-        .dropdown-menu a {
-            color: #111827;
-        }
-
-        .btn-menu {
+        .sidebar .nav-link:hover {
+            background-color: #1f2940;
             color: white;
         }
 
-            .btn-menu:hover {
-                background-color:#1f2940;
-                color: white;
-            }
-
+        .sidebar .nav-link.active {
+            background-color: #2563eb;
+        }
+        .btn-toggle-nav a:hover {
+    background-color: #4b5563;
+    color: grey;
+}
 
     </style>
 
@@ -90,76 +84,179 @@
 <body>
     <form id="form1" runat="server">
 
-        <header class="navbar">
-            <h2>Compra Gamer</h2>
+        <div class="app-layout">
 
-            <nav>
+            <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
 
-                 <div class="menu">
+                <a href="Default.aspx" class="d-flex align-items-center mb-3 text-white text-decoration-none">
+                    <span class="fs-4">Compra Gamer</span>
+                </a>
 
-                <a href="Default.aspx">Inicio</a>
-                      <a href="Login.aspx">Login</a>
+                <hr />
+             <ul class="list-unstyled ps-0">
+
+    <li class="mb-1">
+        <a href="Default.aspx" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100">
+            Inicio
+        </a>
+    </li>
+
+    <li class="mb-1">
+        <button 
+            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#productos-collapse"
+            aria-expanded="false">
+            Productos
+        </button>
+
+        <div class="collapse" id="productos-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                    <a href="Productos.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Productos
+                    </a>
+                </li>
+                <li>
+                    <a href="ProductosABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Agregar nuevo Producto
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="mb-1">
+        <button 
+            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#clientes-collapse"
+            aria-expanded="false">
+            Clientes
+        </button>
+
+        <div class="collapse" id="clientes-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                    <a href="Clientes.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Clientes
+                    </a>
+                </li>
+                <li>
+                    <a href="ClientesABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Agregar nuevo Cliente
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="mb-1">
+        <button 
+            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#ventas-collapse"
+            aria-expanded="false">
+            Ventas
+        </button>
+
+        <div class="collapse" id="ventas-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                    <a href="Ventas.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Ventas
+                    </a>
+                </li>
+                <li>
+                    <a href="VentasABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Registrar nueva Venta
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+    <li class="mb-1">
+        <button 
+            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#usuarios-collapse"
+            aria-expanded="false">
+            Usuarios
+        </button>
+
+        <div class="collapse" id="usuarios-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                    <a href="Usuarios.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Usuarios
+                    </a>
+                </li>
+                <li>
+                    <a href="UsuariosABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Agregar nuevo Usuario
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
+</ul>
+
+                <hr />
 
                 <div class="dropdown">
-                    <a class="btn btn-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos
+                    <a href="#"
+                       class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+
+                        <strong>Administrador</strong>
                     </a>
 
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="Productos.aspx">Lista de Productos</a></li>
-                        <li><a class="dropdown-item" href="ProductosABM.aspx">Agregar nuevo Producto</a></li>
-
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li>
+                            <a class="dropdown-item" href="#">Perfil</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Configuración</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="Login.aspx">Cerrar sesión</a>
+                        </li>
                     </ul>
-                </div>
+                </div> 
 
-                <div class="dropdown">
-                    <a class="btn btn-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Clientes
-                    </a>
+            </div>
 
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="Clientes.aspx">Lista de Clientes</a></li>
-                        <li><a class="dropdown-item" href="ClientesABM.aspx">Agregar nuevos Clientes</a></li>
+            <div class="page-area">
 
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <a class="btn btn-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas
-                    </a>
+                <header class="topbar">
+                    <h2>Sistema Comercio</h2>
+                </header>
 
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="Ventas.aspx">Listado de Ventas</a></li>
-                        <li><a class="dropdown-item" href="VentasABM.aspx">Registrar Venta</a></li>
+                <main class="page-content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </main>
 
-                    </ul>
-                </div>
+                <footer>
+                    Sistema Comercio - Programación III - Grupo 22B
+                </footer>
 
-                     <div class="dropdown">
-                         <a class="btn btn-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                             Usuarios
-                         </a>
+            </div>
 
-                         <ul class="dropdown-menu">
-                             <li><a class="dropdown-item" href="Usuarios.aspx">Lista de Usuarios</a></li>
-                             <li><a class="dropdown-item" href="UsuariosABM.aspx">Administrar Usuarios</a></li>
-
-                         </ul>
-                     </div>
-                      </div>
-                
-               
-            </nav>
-        </header>
-
-        <main class="container">
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </main>
-
-        <footer>
-            Sistema Comercio - Programación III - Grupo 22B
-        </footer>
+        </div>
 
     </form>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

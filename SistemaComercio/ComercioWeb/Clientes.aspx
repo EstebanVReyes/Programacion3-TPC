@@ -123,10 +123,28 @@
             <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
             <asp:BoundField DataField="DNI" HeaderText="DNI" />
             <asp:BoundField DataField="Email" HeaderText="Email" />
-            
-            <asp:HyperLinkField HeaderText="Acción" Text="✍️" 
-                DataNavigateUrlFields="Id" 
-                DataNavigateUrlFormatString="FormularioCliente.aspx?id={0}" />
+           <asp:TemplateField HeaderText="">
+    <ItemTemplate>
+        <asp:Button 
+            ID="btnEditar" 
+            runat="server"
+            Text="✍️ Editar"
+            CssClass="btn btn-primary btn-sm"
+            CommandName="EditarCliente"
+            CommandArgument='<%# Eval("Id") %>' 
+            DataNavigateUrlFormatString="FormularioCliente.aspx?id={0}" />
+
+        <asp:Button 
+            ID="btnEliminar" 
+            runat="server"
+            Text="🗑️ Eliminar"
+            CssClass="btn btn-danger btn-sm"
+            CommandName="EliminarCliente"
+            CommandArgument='<%# Eval("Id") %>'
+            OnClientClick="return confirm('¿Seguro que querés eliminar este cliente?');" />
+    </ItemTemplate>
+</asp:TemplateField>
+        
         </Columns>
     </asp:GridView>
 </div>
