@@ -103,11 +103,19 @@
             <div class="form-group">
                 <label for="txtUsername">Nombre de usuario (Username)</label>
                 <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control"  OnTextChanged="txtUsername_TextChanged" />
+                <asp:RequiredFieldValidator ID="rfvUsername" runat="server"
+                    ControlToValidate="txtUsername"
+                    ErrorMessage="El username es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
             <div class="form-group">
                 <label for="txtPassword">Password</label>
                 <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvPassword" runat="server"
+                    ControlToValidate="txtPassword"
+                    ErrorMessage="La contraseña es obligatoria."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
             <div class="form-group">
@@ -117,6 +125,11 @@
                     <asp:ListItem Text="Administrador" Value="Administrador" />
                     <asp:ListItem Text="Vendedor" Value="Vendedor" />
                 </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfvTipoUsuario" runat="server"
+                    ControlToValidate="ddlTipoUsuario"
+                    InitialValue=""
+                    ErrorMessage="Debe seleccionar un rol."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
         </div>

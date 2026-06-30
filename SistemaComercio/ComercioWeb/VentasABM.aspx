@@ -107,6 +107,11 @@
             <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control">
                 <asp:ListItem Text="Seleccione un cliente..." Value="" />
             </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvCliente" runat="server"
+                ControlToValidate="ddlCliente"
+                InitialValue=""
+                ErrorMessage="Debe seleccionar un cliente."
+                ForeColor="Red" Display="Dynamic" />
          </div>
 
          <div class="form-group">
@@ -114,16 +119,29 @@
            <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged">
                     <asp:ListItem Text="Seleccione un producto..." Value="" />
             </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvProducto" runat="server"
+                ControlToValidate="ddlProducto"
+                InitialValue=""
+                ErrorMessage="Debe seleccionar un producto."
+                ForeColor="Red" Display="Dynamic" />
          </div>
 
          <div class="form-group">
              <label for="txtCantidad">Cantidad</label>
              <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" />
+             <asp:RequiredFieldValidator ID="rfvCantidad" runat="server"
+                 ControlToValidate="txtCantidad"
+                 ErrorMessage="La cantidad es obligatoria."
+                 ForeColor="Red" Display="Dynamic" />
          </div>
 
          <div class="form-group">
              <label for="txtPrecioUnitario">Precio unitario</label>
              <asp:TextBox ID="txtPrecioUnitario" runat="server" CssClass="form-control" />
+             <asp:RequiredFieldValidator ID="rfvPrecioUnitario" runat="server"
+                 ControlToValidate="txtPrecioUnitario"
+                 ErrorMessage="El precio unitario es obligatorio."
+                 ForeColor="Red" Display="Dynamic" />
          </div>
      </div>
 

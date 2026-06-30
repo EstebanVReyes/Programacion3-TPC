@@ -104,21 +104,50 @@
           <div class="form-group">
               <label for="txtNombre">Nombre</label>
               <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+              <asp:RequiredFieldValidator ID="rfvNombre" runat="server"
+                  ControlToValidate="txtNombre"
+                  ErrorMessage="El nombre es obligatorio."
+                  ForeColor="Red" Display="Dynamic" />
           </div>
 
           <div class="form-group">
               <label for="txtDescripcion">Descripción</label>
               <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" />
+              <asp:RequiredFieldValidator ID="rfvDescripcion" runat="server"
+                  ControlToValidate="txtDescripcion"
+                  ErrorMessage="La descripción es obligatoria."
+                  ForeColor="Red" Display="Dynamic" />
           </div>
 
           <div class="form-group">
               <label for="txtPrecio">Precio</label>
               <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvPrecio" runat="server"
+                    ControlToValidate="txtPrecio"
+                    ErrorMessage="El precio es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
+                <asp:CompareValidator ID="cvPrecio" runat="server"
+                    ControlToValidate="txtPrecio"
+                    Operator="DataTypeCheck"
+                    Type="Double"
+                    ErrorMessage="El precio debe ser un número válido."
+                    ForeColor="Red" Display="Dynamic" />
           </div>
 
           <div class="form-group">
               <label for="txtStock">Stock</label>
               <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvStock" runat="server"
+                    ControlToValidate="txtStock"
+                    ErrorMessage="El stock es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
+                <asp:RangeValidator ID="rvStock" runat="server"
+                    ControlToValidate="txtStock"
+                    Type="Integer"
+                    MinimumValue="1"
+                    MaximumValue="100"
+                    ErrorMessage="El stock debe estar entre 1 y 100."
+                    ForeColor="Red" Display="Dynamic" />
           </div>
       </div>
 

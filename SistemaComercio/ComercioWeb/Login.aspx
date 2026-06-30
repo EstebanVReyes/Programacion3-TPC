@@ -113,6 +113,10 @@
                         ID="txtUsuario" 
                         runat="server" 
                         CssClass="form-control" />
+                    <asp:RequiredFieldValidator ID="rfvUsuario" runat="server"
+                        ControlToValidate="txtUsuario"
+                        ErrorMessage="El usuario es obligatorio."
+                        ForeColor="Red" Display="Dynamic" />
                 </div>
 
                 <div class="form-group">
@@ -122,6 +126,10 @@
                         runat="server" 
                         CssClass="form-control" 
                         TextMode="Password" />
+                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server"
+                        ControlToValidate="txtPassword"
+                        ErrorMessage="La contraseña es obligatoria."
+                        ForeColor="Red" Display="Dynamic" />
                 </div>
 
                 <asp:Button 

@@ -122,21 +122,37 @@
             <div class="form-group">
                 <label for="txtNombre">Nombre</label>
                 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvNombre" runat="server"
+                    ControlToValidate="txtNombre"
+                    ErrorMessage="El nombre es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
             <div class="form-group">
                 <label for="txtApellido">Apellido</label>
                 <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvApellido" runat="server"
+                    ControlToValidate="txtApellido"
+                    ErrorMessage="El apellido es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
             <div class="form-group">
                 <label for="txtDni">DNI</label>
                 <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvDni" runat="server"
+                    ControlToValidate="txtDni"
+                    ErrorMessage="El DNI es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
             <div class="form-group">
                 <label for="txtEmail">Email</label>
                 <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
+                <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
+                    ControlToValidate="txtEmail"
+                    ErrorMessage="El email es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
             </div>
 
             <div class="form-group">

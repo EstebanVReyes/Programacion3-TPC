@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
 
@@ -58,6 +59,7 @@ namespace ComercioWeb
                 ddlCategorias.DataTextField = "Descripcion"; 
                 ddlCategorias.DataValueField = "Id";         
                 ddlCategorias.DataBind();
+                ddlCategorias.Items.Insert(0, new ListItem("Seleccione una categoría...", ""));
             }
             catch (Exception ex)
             {
@@ -67,6 +69,9 @@ namespace ComercioWeb
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            Page.Validate();
+            if (!Page.IsValid) return;
+
             try
             {
                 Producto nuevoProducto = new Producto();
