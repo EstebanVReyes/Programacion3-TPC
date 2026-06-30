@@ -7,6 +7,8 @@ namespace ComercioWeb
 {
     public partial class Usuarios : System.Web.UI.Page
     {
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!(Seguridad.esAdmin(Session["usuario"])))
@@ -19,6 +21,8 @@ namespace ComercioWeb
                 CargarUsuarios();
             }
         }
+
+
 
         private void CargarUsuarios()
         {

@@ -94,9 +94,26 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-   
+    
     <div class="card">
     <h2>Listado de ventas</h2>
+
+    <div class="form-grid" style="margin-bottom: 16px;">
+        <div class="form-group">
+            <label>Buscar por cliente o factura:</label>
+            <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
+                AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
+        </div>
+        <div class="form-group">
+            <label>Estado:</label>
+            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control"
+                AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged">
+                <asp:ListItem Text="Todos" Value="" />
+                <asp:ListItem Text="Pagado" Value="Pagado" />
+                <asp:ListItem Text="Pendiente" Value="Pendiente" />
+            </asp:DropDownList>
+        </div>
+    </div>
     
         <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false"
             DataKeyNames="Id" EmptyDataText="No hay ventas cargadas.">

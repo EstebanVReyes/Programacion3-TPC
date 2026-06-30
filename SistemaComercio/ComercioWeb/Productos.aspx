@@ -104,6 +104,21 @@
     <div class="card">
         <h2>Listado de productos</h2>
 
+        <div class="form-grid" style="margin-bottom: 16px;">
+            <div class="form-group">
+                <label>Buscar por nombre:</label>
+                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
+                    AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
+            </div>
+            <div class="form-group">
+                <label>Categoría:</label>
+                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control"
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
+                    <asp:ListItem Text="Todas" Value="" />
+                </asp:DropDownList>
+            </div>
+        </div>
+
        <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" OnRowDataBound="gvProductos_RowDataBound">
    <Columns>
     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />

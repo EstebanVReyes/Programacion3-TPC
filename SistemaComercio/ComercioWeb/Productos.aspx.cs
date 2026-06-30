@@ -8,8 +8,6 @@ namespace ComercioWeb
 {
     public partial class Productos : System.Web.UI.Page
     {
-        
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"])))
@@ -19,29 +17,53 @@ namespace ComercioWeb
 
             if (!IsPostBack)
             {
+                CargarCategorias();
                 CargarProductos();
             }
         }
 
+        private void CargarCategorias()
+        {
+            CategoriaNegocio negocio = new CategoriaNegocio();
+            ddlCategoria.DataSource = negocio.Listar();
+            ddlCategoria.DataTextField = "Descripcion";
+            ddlCategoria.DataValueField = "Id";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("Todas", ""));
+        }
+
         private void CargarProductos()
         {
-          
             ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> lista = negocio.Listar();
+            Session["listaProductosPagina"] = lista;
+            gvProductos.DataSource = lista;
+            gvProductos.DataBind();
+        }
 
-            try
-            {
-               
-                gvProductos.DataSource = negocio.Listar();
-                gvProductos.DataBind();
-            }
-            catch (Exception ex)
-            {
-               
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarProductos();
+        }
 
-               
-                Session.Add("error", ex.ToString());
-               
-            }
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarProductos();
+        }
+
+        private void FiltrarProductos()
+        {
+            List<Producto> lista = (List<Producto>)Session["listaProductosPagina"];
+            string filtro = txtFiltro.Text.ToUpper();
+            string idCategoria = ddlCategoria.SelectedValue;
+
+            List<Producto> listaFiltrada = lista.FindAll(x =>
+                (filtro == "" || x.Nombre.ToUpper().Contains(filtro)) &&
+                (idCategoria == "" || x.Categoria.Id.ToString() == idCategoria)
+            );
+
+            gvProductos.DataSource = listaFiltrada;
+            gvProductos.DataBind();
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ComercioWeb.Site" %>
 <%@ Import Namespace="Negocio" %>
+<%@ Import Namespace="Dominio" %>
 
 <!DOCTYPE html>
 
@@ -227,21 +228,14 @@
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
 
-                        <strong>Administrador</strong>
+                        <strong><%= ((Usuario)Session["usuario"]).TipoUsuario %></strong>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li>
-                            <a class="dropdown-item" href="#">Perfil</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Configuración</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="Login.aspx">Cerrar sesión</a>
+                       <asp:LinkButton ID="btnCerrarSesion" runat="server"  CssClass="dropdown-item"  OnClick="btnCerrarSesion_Click" CausesValidation="false">
+    Cerrar sesión
+</asp:LinkButton>
                         </li>
                     </ul>
                 </div> 
