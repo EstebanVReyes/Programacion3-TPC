@@ -118,29 +118,8 @@ namespace ComercioWeb
             imgProducto.ImageUrl = txtUrlImagen.Text;
         }
 
-        protected void chkConfirmarEliminacion_CheckedChanged(object sender, EventArgs e)
-        {
-            btnEliminar.Visible = chkConfirmarEliminacion.Checked;
-        }
+       
 
-        protected void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (chkConfirmarEliminacion.Checked)
-                {
-                    ProductoNegocio negocio = new ProductoNegocio();
-                    int idAEliminar = int.Parse(txtId.Text);
 
-                    negocio.Eliminar(idAEliminar);
-                    Response.Redirect("Productos.aspx", false);
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMensajes.Text = "Error al eliminar: " + ex.Message;
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
-            }
-        }
     }
 }

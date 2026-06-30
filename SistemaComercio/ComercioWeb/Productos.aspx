@@ -96,7 +96,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-  
+    <asp:Label
+        ID="lblMensaje"
+        runat="server" />
+
 
     <div class="card">
         <h2>Listado de productos</h2>
@@ -120,15 +123,17 @@
                     Text="✍️ Editar"
                     CssClass="btn btn-primary btn-sm"
                     CommandName="EditarProducto"
-                    CommandArgument='<%# Eval("Id") %>' />
+                    CommandArgument='<%# Eval("Id") %>'
+                    OnClick="btnEditar_Click"/>
 
-                <asp:Button 
-                    ID="btnEliminar" 
+                <asp:Button
+                    ID="btnEliminar"
                     runat="server"
                     Text="🗑️ Eliminar"
                     CssClass="btn btn-danger btn-sm"
                     CommandName="EliminarProducto"
                     CommandArgument='<%# Eval("Id") %>'
+                    OnClick="btnEliminar_Click"
                     OnClientClick="return confirm('¿Seguro que querés eliminar este producto?');" />
             </ItemTemplate>
         </asp:TemplateField>

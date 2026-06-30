@@ -89,11 +89,7 @@
                 <a href="Clientes.aspx" style="margin-left: 15px; text-decoration: none; color: #6b7280; font-weight: bold;">Cancelar</a>
             </div>
 
-            <div class="seccion-eliminar">
-                <asp:CheckBox ID="chkConfirmarEliminacion" runat="server" Text=" Confirmar eliminación de este cliente" AutoPostBack="true" OnCheckedChanged="chkConfirmarEliminacion_CheckedChanged" />
-                <br /><br />
-                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar Cliente" CssClass="btn btn-danger" OnClick="btnEliminar_Click" Visible="false" />
-            </div>
+            
         </div>
 
         <div class="columna-der">

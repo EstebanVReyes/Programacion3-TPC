@@ -62,19 +62,7 @@ namespace ComercioWeb
             }
         }
 
-        protected void chkConfirmarEliminacion_CheckedChanged(object sender, EventArgs e)
-        {
-            btnEliminar.Visible = chkConfirmarEliminacion.Checked;
-        }
-
-        protected void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (chkConfirmarEliminacion.Checked)
-            {
-                ClienteNegocio negocio = new ClienteNegocio();
-                negocio.Eliminar(int.Parse(txtId.Text));
-                Response.Redirect("Clientes.aspx", false);
-            }
-        }
+     
+        
     }
 }

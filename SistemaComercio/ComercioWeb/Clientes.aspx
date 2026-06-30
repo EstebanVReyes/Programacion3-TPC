@@ -108,6 +108,8 @@
             color: #6b7280;
             font-style: italic;
         }
+
+     
     </style>
 </asp:Content>
 
@@ -132,15 +134,17 @@
             CssClass="btn btn-primary btn-sm"
             CommandName="EditarCliente"
             CommandArgument='<%# Eval("Id") %>' 
-            DataNavigateUrlFormatString="FormularioCliente.aspx?id={0}" />
+            DataNavigateUrlFormatString="FormularioCliente.aspx?id={0}" 
+            OnClick="btnEditar_Click"/>
 
-        <asp:Button 
-            ID="btnEliminar" 
+        <asp:Button
+            ID="btnEliminar"
             runat="server"
             Text="🗑️ Eliminar"
             CssClass="btn btn-danger btn-sm"
             CommandName="EliminarCliente"
             CommandArgument='<%# Eval("Id") %>'
+            OnClick="btnEliminar_Click"
             OnClientClick="return confirm('¿Seguro que querés eliminar este cliente?');" />
     </ItemTemplate>
 </asp:TemplateField>

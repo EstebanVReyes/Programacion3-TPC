@@ -75,11 +75,7 @@
             </div>
 
             
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ccc;">
-                <asp:CheckBox ID="chkConfirmarEliminacion" runat="server" Text="Confirmar Eliminación" AutoPostBack="true" OnCheckedChanged="chkConfirmarEliminacion_CheckedChanged" />
-                <br /><br />
-                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" Visible="false" />
-            </div>
+            
         </div>
 
         
