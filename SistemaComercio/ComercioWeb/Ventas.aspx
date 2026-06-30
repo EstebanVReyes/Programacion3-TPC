@@ -98,115 +98,31 @@
     <div class="card">
     <h2>Listado de ventas</h2>
     
-    <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false" 
-                  DataKeyNames="Id" OnSelectedIndexChanged="gvVentas_SelectedIndexChanged" EmptyDataText="No hay ventas cargadas.">
-        <Columns>
-            <asp:BoundField DataField="NumeroFactura" HeaderText="N° Factura" />
-            <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:TemplateField HeaderText="Cliente">
+        <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false"
+            DataKeyNames="Id" EmptyDataText="No hay ventas cargadas.">
+            <Columns>
+                <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                <asp:TemplateField HeaderText="Cliente">
+                    <ItemTemplate>
+                        <%# Eval("Cliente.Nombre") %> <%# Eval("Cliente.Apellido") %>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="NumeroFactura" HeaderText="N° Factura" />
+                <asp:BoundField DataField="Total" HeaderText="Total" DataFormatString="{0:C}" />
+            <asp:TemplateField HeaderText="Estado" >
                 <ItemTemplate>
-                    <%# Eval("Cliente.Nombre") %> <%# Eval("Cliente.Apellido") %>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:BoundField DataField="Total" HeaderText="Total" DataFormatString="{0:C}" />
-            <asp:BoundField DataField="Estado" HeaderText="Estado" />
-            <asp:CommandField ShowSelectButton="True" SelectText="🔍 Ver Detalle" ControlStyle-CssClass="btn btn-primary" />
-            <asp:TemplateField HeaderText="Enviar email">
-                <ItemTemplate>
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalEnviarMail"
-                        data-email='<%# Eval("Cliente.Email") %>'
-                        data-factura='<%# Eval("NumeroFactura") %>'
-                        onclick="cargarDatosMail(this)">
-                        📧 Enviar
-                    </button>
-                </ItemTemplate>
-</asp:TemplateField>
+   
+<%# Convert.ToString(Eval("Estado")) == "Pagado" 
+        ? "<i class='bi bi-check-circle-fill text-success'></i> Pagado" 
+        : "<span style='color: red;'>Pendiente</span>" %>
+</ItemTemplate>
+                 </asp:TemplateField>
+
+            <asp:HyperLinkField HeaderText="" Text="🔍 Ver Detalle" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="DetalleVenta.aspx?id={0}" ControlStyle-CssClass="btn btn-primary" />
+            
         </Columns>
     </asp:GridView>
 </div>
 
-<div class="card">
-    <h2><asp:Label ID="lblTituloDetalle" runat="server" Text="Seleccione una venta para ver sus detalles"></asp:Label></h2>
-    
-    <asp:GridView ID="gvDetalles" runat="server" CssClass="table" AutoGenerateColumns="false" EmptyDataText="Esperando selección...">
-        <Columns>
-            <asp:TemplateField HeaderText="Producto">
-                <ItemTemplate>
-                    <%# Eval("Producto.Nombre") %>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-            <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
-          
-        </Columns>
-    </asp:GridView>
-</div>
-
-    <div class="modal fade" id="modalEnviarMail" tabindex="-1" aria-labelledby="modalEnviarMailLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalEnviarMailLabel">Enviar Mail</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <label class="form-label">Email destino</label>
-                    <asp:TextBox 
-                        ID="txtEmailDestino" 
-                        runat="server" 
-                        CssClass="form-control" 
-                        placeholder="cliente@gmail.com" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Asunto</label>
-                    <asp:TextBox 
-                        ID="txtAsunto" 
-                        runat="server" 
-                        CssClass="form-control" 
-                        placeholder="Asunto del mail" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Mensaje</label>
-                    <asp:TextBox 
-                        ID="txtMensaje" 
-                        runat="server" 
-                        CssClass="form-control" 
-                        TextMode="MultiLine" 
-                        Rows="5" 
-                        placeholder="Escribí el mensaje..." />
-                </div>
-
-                <asp:Label 
-                    ID="lblMensajeMail" 
-                    runat="server" />
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancelar
-                </button>
-
-                <asp:Button 
-                    ID="btnEnviarMail" 
-                    runat="server" 
-                    Text="📧 Enviar"
-                    CssClass="btn btn-success"
-                    OnClick="btnEnviarMail_Click" />
-            </div>
-
-        </div>
-    </div>
-</div>
 
 </asp:Content>

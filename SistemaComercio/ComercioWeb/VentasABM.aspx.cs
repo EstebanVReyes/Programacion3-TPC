@@ -10,6 +10,11 @@ namespace ComercioWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"])))
+            {
+                Response.Redirect("Default.aspx");
+            }
+
             if (!IsPostBack)
             {
                 CargarClientes();
@@ -109,14 +114,14 @@ namespace ComercioWeb
 
                 Venta nuevaVenta = new Venta();
                 nuevaVenta.Cliente = new Cliente();
-                nuevaVenta.Detalles = new List<DetalleVenta>();
+                nuevaVenta.Detalles = new List<Dominio.DetalleVenta>();
 
                 nuevaVenta.NumeroFactura = "FAC-" + DateTime.Now.ToString("yyyyMMddHHmmss");
                 nuevaVenta.Cliente.Id = int.Parse(ddlCliente.SelectedValue);
                 nuevaVenta.Total = decimal.Parse(txtPrecioUnitario.Text) * cantidadIngresada;
 
 
-                DetalleVenta detalle = new DetalleVenta();
+                Dominio.DetalleVenta detalle = new Dominio.DetalleVenta();
                 detalle.Producto = new Producto();
                 detalle.Producto.Id = idProducto;
                 detalle.Cantidad = cantidadIngresada;

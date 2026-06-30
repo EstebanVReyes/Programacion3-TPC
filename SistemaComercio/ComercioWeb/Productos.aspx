@@ -104,7 +104,7 @@
     <div class="card">
         <h2>Listado de productos</h2>
 
-       <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id">
+       <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" OnRowDataBound="gvProductos_RowDataBound">
    <Columns>
     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
     <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />

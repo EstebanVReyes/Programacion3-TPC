@@ -12,6 +12,11 @@ namespace ComercioWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"])))
+            {
+                Response.Redirect("Default.aspx");
+            }
+
             if (!IsPostBack)
             {
                 CargarProductos();
@@ -46,8 +51,25 @@ namespace ComercioWeb
             Response.Redirect($"FormularioProducto.aspx?id={idProducto}");
         }
 
+        protected void gvProductos_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Button btnEliminar = (Button)e.Row.FindControl("btnEliminar");
+                if (btnEliminar != null)
+                {
+                    btnEliminar.Visible = Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]);
+                }
+            }
+        }
+
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"])))
+            {
+                Response.Redirect("Default.aspx");
+            }
+
             try
             {
                 Button btn = (Button)sender;
@@ -63,11 +85,6 @@ namespace ComercioWeb
                 Session.Add("error", ex.ToString());
                 lblMensaje.Text = "Error al eliminar el producto. Por favor, inténtelo de nuevo.";
             }
-        }
-
-        protected void btnEditar_Click1(object sender, EventArgs e)
-        {
-
         }
     }
 }

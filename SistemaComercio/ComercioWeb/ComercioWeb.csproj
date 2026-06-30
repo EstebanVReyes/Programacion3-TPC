@@ -67,6 +67,7 @@
     <Content Include="Default.aspx" />
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioProducto.aspx" />
+    <Content Include="FormularioUsuarios.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Productos.aspx" />
@@ -74,6 +75,7 @@
     <Content Include="Usuarios.aspx" />
     <Content Include="UsuariosABM.aspx" />
     <Content Include="Ventas.aspx" />
+    <Content Include="DetalleVenta.aspx" />
     <Content Include="VentasABM.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -112,6 +114,13 @@
     </Compile>
     <Compile Include="FormularioProducto.aspx.designer.cs">
       <DependentUpon>FormularioProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioUsuarios.aspx.cs">
+      <DependentUpon>FormularioUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioUsuarios.aspx.designer.cs">
+      <DependentUpon>FormularioUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,6 +174,13 @@
     </Compile>
     <Compile Include="Ventas.aspx.designer.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleVenta.aspx.cs">
+      <DependentUpon>DetalleVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleVenta.aspx.designer.cs">
+      <DependentUpon>DetalleVenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="VentasABM.aspx.cs">
       <DependentUpon>VentasABM.aspx</DependentUpon>

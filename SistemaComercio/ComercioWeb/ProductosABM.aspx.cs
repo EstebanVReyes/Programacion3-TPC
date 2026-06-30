@@ -15,7 +15,10 @@ namespace ComercioWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"])))
+            {
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)

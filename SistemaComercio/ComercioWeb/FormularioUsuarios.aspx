@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Alta de Usuarios" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UsuariosABM.aspx.cs" Inherits="ComercioWeb.UsuariosABM" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioUsuarios.aspx.cs" Inherits="ComercioWeb.FormularioUsuarios" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -90,28 +90,34 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <asp:TextBox ID="txtId" runat="server" Visible="false" />
+
     <div class="page-title">
         <h1>Usuarios</h1>
-        <p>Alta de usuarios del sistema.</p>
+        <p>
+            <asp:Label ID="lblSubtitle" runat="server" Text="Complete los datos del usuario." />
+        </p>
     </div>
 
     <div class="card">
-        <h2>Nuevo usuario</h2>
+        <h2>
+            <asp:Label ID="lblTitulo" runat="server" Text="Nuevo usuario" />
+        </h2>
 
         <div class="form-grid">
 
             <div class="form-group">
-                <label for="txtUsername">Nombre de usuario (Username)</label>
-                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control"  OnTextChanged="txtUsername_TextChanged" />
+                <label>Nombre de usuario:</label>
+                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" />
             </div>
 
             <div class="form-group">
-                <label for="txtPassword">Password</label>
-                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" />
+                <label>Password:</label>
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" />
             </div>
 
             <div class="form-group">
-                <label for="ddlTipoUsuario">Tipo de usuario (Rol)</label>
+                <label>Tipo de usuario (Rol):</label>
                 <asp:DropDownList ID="ddlTipoUsuario" runat="server" CssClass="form-control">
                     <asp:ListItem Text="Seleccione un rol..." Value="" />
                     <asp:ListItem Text="Administrador" Value="Administrador" />
@@ -123,23 +129,18 @@
 
         <div class="actions">
             <asp:Button 
-                ID="btnGuardar" 
+                ID="btnAceptar" 
                 runat="server" 
                 Text="Guardar usuario" 
                 CssClass="btn-form btn-form-primary" 
-                OnClick="btnGuardar_Click" />
+                OnClick="btnAceptar_Click" />
 
-            <asp:Button 
-                ID="btnLimpiar" 
-                runat="server" 
-                Text="Limpiar" 
-                CssClass="btn-form btn-form-secondary" 
-                OnClick="btnLimpiar_Click" />
+            <a href="Usuarios.aspx" style="margin-left: 10px; text-decoration: none; color: #6b7280; font-weight: bold;">Cancelar</a>
         </div>
 
         <br />
 
-        <asp:Label ID="lblMensaje" runat="server" />
+        <asp:Label ID="lblMensajes" runat="server" />
     </div>
 
 </asp:Content>

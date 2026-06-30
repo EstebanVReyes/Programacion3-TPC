@@ -12,10 +12,21 @@ namespace ComercioWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                Session.Add("Error", "Debe iniciar sesión para acceder a esta página.");
+            }
             if (!IsPostBack)
             {
-                CargarResumenVentas();
-                CargarProductosMasVendidos();
+                dashboardAdmin.Visible = Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"]);
+
+                if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"]))
+                {
+                    CargarResumenVentas();
+                    CargarProductosMasVendidos();
+                }
+
                 CargarProductosConMenosStock();
             }
         }

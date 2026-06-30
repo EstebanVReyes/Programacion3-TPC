@@ -129,43 +129,47 @@
         Información sobre las ventas realizadas los últimos 30 días.
     </p>
 
-    <div class="dashboard-container">
+    <div runat="server" id="dashboardAdmin">
 
-        <div class="cards-row">
+        <div class="dashboard-container">
 
-            <div class="info-card">
-                <h3>Total de productos vendidos</h3>
-                <p>
-                    <asp:Label ID="lblProductosVendidos" runat="server" Text="0"></asp:Label>
-                </p>
+            <div class="cards-row">
+
+                <div class="info-card">
+                    <h3>Total de productos vendidos</h3>
+                    <p>
+                        <asp:Label ID="lblProductosVendidos" runat="server" Text="0"></asp:Label>
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Importe total vendido</h3>
+                    <p>
+                        <asp:Label ID="lblImporteTotal" runat="server" Text="0"></asp:Label>
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Ventas del mes</h3>
+                    <p>
+                        <asp:Label ID="lblCantidadVentas" runat="server" Text="0"></asp:Label>
+                    </p>
+                </div>
+
             </div>
 
-            <div class="info-card">
-                <h3>Importe total vendido</h3>
-                <p>
-                    <asp:Label ID="lblImporteTotal" runat="server" Text="0"></asp:Label>
-                </p>
+            <div class="chart-container">
+                <asp:Chart ID="chartProductos" runat="server" Width="1200px" Height="400px" CssClass="chart-full">
+                    <Series>
+                        <asp:Series Name="Productos" ChartType="Column"></asp:Series>
+                    </Series>
+
+                    <ChartAreas>
+                        <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                    </ChartAreas>
+                </asp:Chart>
             </div>
 
-            <div class="info-card">
-                <h3>Ventas del mes</h3>
-                <p>
-                    <asp:Label ID="lblCantidadVentas" runat="server" Text="0"></asp:Label>
-                </p>
-            </div>
-
-        </div>
-
-        <div class="chart-container">
-            <asp:Chart ID="chartProductos" runat="server" Width="1200px" Height="400px" CssClass="chart-full">
-                <Series>
-                    <asp:Series Name="Productos" ChartType="Column"></asp:Series>
-                </Series>
-
-                <ChartAreas>
-                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                </ChartAreas>
-            </asp:Chart>
         </div>
 
     </div>
