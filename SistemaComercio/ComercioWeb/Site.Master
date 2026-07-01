@@ -134,6 +134,37 @@
     </li>
     <% } %>
 
+    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"])) { %>
+    <li class="mb-1">
+        <button 
+            class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#proveedores-collapse"
+            aria-expanded="false">
+            Proveedores
+        </button>
+
+        <div class="collapse" id="proveedores-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li>
+                    <a href="Proveedores.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Proveedores
+                    </a>
+                </li>
+                <% if (Seguridad.esAdmin(Session["usuario"])) { %>
+                <li>
+                    <a href="ProveedoresABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Agregar nuevo Proveedor
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </li>
+    <% } %>
+
+
     <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"])) { %>
     <li class="mb-1">
         <button 
