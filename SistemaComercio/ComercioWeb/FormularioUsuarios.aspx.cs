@@ -55,7 +55,7 @@ namespace ComercioWeb
                 if (Request.QueryString["id"] != null)
                 {
                     nuevo.ID = int.Parse(txtId.Text);
-                    negocio.Modificar(nuevo);
+                    //negocio.Modificar(nuevo);
                 }
                 else
                 {

@@ -72,6 +72,8 @@
     <Content Include="Login.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="ProductosABM.aspx" />
+    <Content Include="Proveedores.aspx" />
+    <Content Include="ProveedoresABM.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="UsuariosABM.aspx" />
     <Content Include="Ventas.aspx" />
@@ -147,6 +149,20 @@
       <DependentUpon>ProductosABM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedores.aspx.cs">
+      <DependentUpon>Proveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Proveedores.aspx.designer.cs">
+      <DependentUpon>Proveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProveedoresABM.aspx.cs">
+      <DependentUpon>ProveedoresABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProveedoresABM.aspx.designer.cs">
+      <DependentUpon>ProveedoresABM.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
