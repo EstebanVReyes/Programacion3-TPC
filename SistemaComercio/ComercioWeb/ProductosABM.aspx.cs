@@ -19,7 +19,27 @@ namespace ComercioWeb
             {
                 Response.Redirect("Default.aspx");
             }
+
+            if (!IsPostBack)
+            {
+                CargarProveedores();
+            }
+
+         
         }
+
+        protected void CargarProveedores()
+        {
+            ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+            List<Proveedor> listaProveedores = proveedorNegocio.Listar();
+            ddlProveedor.DataSource = listaProveedores;
+            ddlProveedor.DataTextField = "Nombre";
+            ddlProveedor.DataValueField = "Id";
+            ddlProveedor.DataBind();
+            ddlProveedor.Items.Insert(0, new ListItem("--Seleccione un proveedor--", "0"));
+        }
+
+
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -33,12 +53,14 @@ namespace ComercioWeb
                     Nombre = txtNombre.Text,
                     Descripcion = txtDescripcion.Text,
                     Precio = decimal.Parse(txtPrecio.Text),
-                    StockActual = int.Parse(txtStock.Text)
+                    StockActual = int.Parse(txtStock.Text),
+                    PorcentajeGanancia = decimal.Parse(txtPorcentajeGanancia.Text) 
+
                 };
 
                 
                 nuevoProducto.Codigo = "PROD-" + DateTime.Now.ToString("HHmmss"); 
-                nuevoProducto.PorcentajeGanancia = 30; 
+             
                 nuevoProducto.StockMinimo = 5;      
 
                 nuevoProducto.Marca = new Marca();
@@ -83,6 +105,7 @@ namespace ComercioWeb
             txtDescripcion.Text = "";
             txtPrecio.Text = "";
             txtStock.Text = "";
+            txtPorcentajeGanancia.Text = "";
         }
     }
 }
