@@ -68,6 +68,7 @@
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioProducto.aspx" />
     <Content Include="FormularioUsuarios.aspx" />
+    <Content Include="FormularioVentas.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Productos.aspx" />
@@ -123,6 +124,13 @@
     </Compile>
     <Compile Include="FormularioUsuarios.aspx.designer.cs">
       <DependentUpon>FormularioUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioVentas.aspx.cs">
+      <DependentUpon>FormularioVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioVentas.aspx.designer.cs">
+      <DependentUpon>FormularioVentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -136,7 +136,10 @@
                  </asp:TemplateField>
 
             <asp:HyperLinkField HeaderText="" Text="🔍 Ver Detalle" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="DetalleVenta.aspx?id={0}" ControlStyle-CssClass="btn btn-primary" />
-            
+             <asp:HyperLinkField HeaderText="Acción" Text="Editar ✍️" 
+                DataNavigateUrlFields="Id" 
+                DataNavigateUrlFormatString="FormularioVentas.aspx?id={0}" 
+                ControlStyle-CssClass="btn btn-primary" />
         </Columns>
     </asp:GridView>
 </div>

@@ -28,9 +28,13 @@ namespace Negocio
                     aux.Total = (decimal)datos.Lector["Total"];
 
                     aux.Cliente = new Cliente();
-                    aux.Cliente.Id = (int)datos.Lector["Id"];
+                   
+                    aux.Cliente.Id = (int)datos.Lector["IdCliente"];
                     aux.Cliente.Nombre = (string)datos.Lector["Nombre"];
                     aux.Cliente.Apellido = (string)datos.Lector["Apellido"];
+
+                    
+                    aux.Detalles = listarDetalles(aux.Id);
 
                     lista.Add(aux);
                 }
@@ -52,34 +56,34 @@ namespace Negocio
         {
             List<DetalleVenta> lista = new List<DetalleVenta>();
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
-                datos.SetearConsulta("SELECT DV.ID, DV.Cantidad, DV.PrecioUnitario, P.ID AS IdProducto, P.Nombre, P.Codigo FROM Detalles_Venta DV INNER JOIN Productos P ON DV.Producto_ID = P.ID WHERE DV.Venta_ID = @idVenta");
+                datos.SetearConsulta(@"
+                    SELECT D.ID AS IdDetalle, D.Cantidad, D.PrecioUnitario,
+                           P.ID AS IdProducto, P.Nombre AS NombreProducto
+                    FROM Detalles_Venta D
+                    INNER JOIN Productos P ON D.Producto_ID = P.ID
+                    WHERE D.Venta_ID = @idVenta");
                 datos.SetearParametro("@idVenta", idVenta);
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    DetalleVenta aux = new DetalleVenta();
+                    DetalleVenta detalle = new DetalleVenta();
+                    detalle.Id = (int)datos.Lector["IdDetalle"];
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalle.PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"];
+                    detalle.Producto = new Producto();
+                    detalle.Producto.Id = (int)datos.Lector["IdProducto"];
+                    detalle.Producto.Nombre = (string)datos.Lector["NombreProducto"];
 
-                    aux.Id = (int)datos.Lector["ID"];
-                    aux.Cantidad = (int)datos.Lector["Cantidad"];
-                    aux.PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"];
-
-                    aux.Producto = new Producto();
-                    aux.Producto.Id = (int)datos.Lector["Id"];
-                    aux.Producto.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Producto.Codigo = (string)datos.Lector["Codigo"];
-
-                    lista.Add(aux);
+                    lista.Add(detalle);
                 }
-
                 return lista;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al listar los detalles de la venta: " + ex.Message);
             }
             finally
             {
@@ -215,7 +219,106 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public void anularVenta(int idVenta)
+        {
+            ProductoNegocio negocioProd = new ProductoNegocio();
+            List<DetalleVenta> detalles = listarDetalles(idVenta);
 
+            foreach (DetalleVenta item in detalles)
+            {
+                negocioProd.actualizarStock(item.Producto.Id, item.Cantidad);
+            }
 
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.SetearConsulta("UPDATE Ventas SET Estado = 'Anulado' WHERE ID = @id");
+                datos.SetearParametro("@id", idVenta);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al anular la venta: " + ex.Message);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public void modificar(Venta ventaModificada)
+        {
+            ProductoNegocio negocioProd = new ProductoNegocio();
+
+            
+            List<DetalleVenta> detallesOriginales = listarDetalles(ventaModificada.Id);
+            foreach (DetalleVenta original in detallesOriginales)
+            {
+                negocioProd.actualizarStock(original.Producto.Id, original.Cantidad);
+            }
+
+           
+            AccesoDatos datosBorrar = new AccesoDatos();
+            try
+            {
+                datosBorrar.SetearConsulta("DELETE FROM Detalles_Venta WHERE Venta_ID = @idVenta");
+                datosBorrar.SetearParametro("@idVenta", ventaModificada.Id);
+                datosBorrar.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al borrar los detalles antiguos: " + ex.Message);
+            }
+            finally
+            {
+                datosBorrar.CerrarConexion();
+            }
+
+            
+            AccesoDatos datosCabecera = new AccesoDatos();
+            try
+            {
+                datosCabecera.SetearConsulta("UPDATE Ventas SET NumeroFactura = @numeroFactura, Estado = @estado, Total = @total, Cliente_ID = @idCliente WHERE ID = @id");
+                datosCabecera.SetearParametro("@numeroFactura", ventaModificada.NumeroFactura);
+                datosCabecera.SetearParametro("@estado", ventaModificada.Estado);
+                datosCabecera.SetearParametro("@total", ventaModificada.Total);
+                datosCabecera.SetearParametro("@idCliente", ventaModificada.Cliente.Id);
+                datosCabecera.SetearParametro("@id", ventaModificada.Id);
+                datosCabecera.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar la cabecera de la venta: " + ex.Message);
+            }
+            finally
+            {
+                datosCabecera.CerrarConexion();
+            }
+
+           
+            foreach (DetalleVenta item in ventaModificada.Detalles)
+            {
+                AccesoDatos datosDetalle = new AccesoDatos();
+                try
+                {
+                    datosDetalle.SetearConsulta("INSERT INTO Detalles_Venta (Venta_ID, Producto_ID, Cantidad, PrecioUnitario) VALUES (@idVenta, @idProducto, @cantidad, @precioUnitario)");
+                    datosDetalle.SetearParametro("@idVenta", ventaModificada.Id);
+                    datosDetalle.SetearParametro("@idProducto", item.Producto.Id);
+                    datosDetalle.SetearParametro("@cantidad", item.Cantidad);
+                    datosDetalle.SetearParametro("@precioUnitario", item.PrecioUnitario);
+                    datosDetalle.EjecutarAccion();
+
+           
+                    negocioProd.actualizarStock(item.Producto.Id, item.Cantidad * -1);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al insertar los nuevos detalles: " + ex.Message);
+                }
+                finally
+                {
+                    datosDetalle.CerrarConexion();
+                }
+            }
+        }
     }
 }

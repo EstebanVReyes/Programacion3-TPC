@@ -14,10 +14,10 @@ namespace Dominio
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
-               
-        public override string ToString()
+
+        public string NombreCompleto
         {
-            return Nombre + " " + Apellido;
+            get { return Nombre + " " + Apellido; }
         }
     }
 }

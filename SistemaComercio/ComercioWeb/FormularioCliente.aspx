@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Formulario de Cliente" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioCliente.aspx.cs" Inherits="ComercioWeb.FormularioCliente" %>
+﻿f<%@ Page Title="Formulario de Cliente" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioCliente.aspx.cs" Inherits="ComercioWeb.FormularioCliente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
