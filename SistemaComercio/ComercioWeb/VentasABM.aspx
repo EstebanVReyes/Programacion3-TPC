@@ -40,31 +40,36 @@
 
         <hr style="border: 1px solid #e5e7eb; margin: 20px 0;" />
 
-        <h4>Agregar Componentes</h4>
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="ddlProducto">Producto</label>
-                <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged">
-                    <asp:ListItem Text="Seleccione un producto..." Value="" />
-                </asp:DropDownList>
-            </div>
+       <h4>Agregar Componentes</h4>
+    <div class="form-grid">
+    <div class="form-group">
+        <label for="ddlProducto">Producto</label>
+        <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged">
+            <asp:ListItem Text="Seleccione un producto..." Value="" />
+        </asp:DropDownList>
+    </div>
 
-            <div class="form-group">
-                <label for="txtPrecioUnitario">Precio unitario ($)</label>
-                <asp:TextBox ID="txtPrecioUnitario" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#f3f4f6" />
-            </div>
+    <div class="form-group">
+        <label for="txtStock">Stock Disponible</label>
+        <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#f3f4f6" />
+    </div>
 
-            <div class="form-group">
-                <label for="txtCantidad">Cantidad</label>
-                <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number" />
-            </div>
+    <div class="form-group">
+        <label for="txtPrecioUnitario">Precio unitario ($)</label>
+        <asp:TextBox ID="txtPrecioUnitario" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#f3f4f6" />
+    </div>
 
-            <div class="form-group" style="justify-content: flex-end;">
-                <asp:Button ID="btnAgregar" runat="server" Text="Agregar a la lista" CssClass="btn btn-secondary" OnClick="btnAgregar_Click" />
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="txtCantidad">Cantidad</label>
+        <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number" />
+    </div>
 
-        <asp:GridView ID="dgvCarrito" runat="server" AutoGenerateColumns="False" CssClass="table" OnRowCommand="dgvCarrito_RowCommand" DataKeyNames="Producto.Id">
+    <div class="form-group" style="justify-content: flex-end;">
+        <asp:Button ID="btnAgregar" runat="server" Text="Agregar a la lista" CssClass="btn btn-secondary" OnClick="btnAgregar_Click" />
+    </div>
+</div>
+
+        <asp:GridView ID="dgvCarrito" runat="server" AutoGenerateColumns="False" CssClass="table" OnRowCommand="dgvCarrito_RowCommand" ShowHeaderWhenEmpty="true">
             <Columns>
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
                 <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />

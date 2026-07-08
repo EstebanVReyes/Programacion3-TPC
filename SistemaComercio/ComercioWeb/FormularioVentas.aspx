@@ -43,11 +43,15 @@
         <h4>Componentes de la Venta</h4>
         
         <div class="row mt-2 align-items-end">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <label>Producto a Vender:</label>
-                <asp:DropDownList ID="ddlProductos" runat="server" CssClass="form-control"></asp:DropDownList>
+                <asp:DropDownList ID="ddlProductos" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProductos_SelectedIndexChanged"></asp:DropDownList>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
+                <label>Stock Disponible:</label>
+                <asp:TextBox ID="txtStock" runat="server" CssClass="form-control bg-light" ReadOnly="true"></asp:TextBox>
+            </div>
+            <div class="col-md-2">
                 <label>Cantidad:</label>
                 <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
             </div>
@@ -58,12 +62,6 @@
 
         <br />
 
-        <!--
-            Sin DataKeyNames: "Producto.Id" no es válido (DetalleVenta no tiene esa
-            propiedad anidada accesible desde DataKeys) y "ProductoId" tampoco existe
-            como propiedad plana. El RowCommand identifica la fila a quitar por índice
-            (e.CommandArgument), así que no hace falta DataKeyNames.
-        -->
         <asp:GridView ID="dgvDetalles" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-striped" OnRowCommand="dgvDetalles_RowCommand" ShowHeaderWhenEmpty="true">
             <Columns>
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />

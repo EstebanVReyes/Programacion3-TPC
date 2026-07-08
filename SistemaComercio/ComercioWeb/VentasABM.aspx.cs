@@ -58,7 +58,7 @@ namespace ComercioWeb
             }
         }
 
-       
+
         protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -71,22 +71,25 @@ namespace ComercioWeb
 
                     if (productoSeleccionado != null)
                     {
-                        
                         txtPrecioUnitario.Text = productoSeleccionado.Precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                      
+                        txtStock.Text = productoSeleccionado.StockActual.ToString();
                     }
                 }
                 else
                 {
                     txtPrecioUnitario.Text = string.Empty;
+                    txtStock.Text = string.Empty;
                 }
+                ActualizarStockVisual();
             }
             catch (Exception ex)
             {
-                MostrarMensaje("Error al obtener el precio: " + ex.Message, System.Drawing.Color.Red);
+                MostrarMensaje("Error al obtener el precio y stock: " + ex.Message, System.Drawing.Color.Red);
             }
         }
 
-        
+
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -116,7 +119,6 @@ namespace ComercioWeb
 
                 if (prodSelect != null)
                 {
-                    
                     if (cantidad > prodSelect.StockActual)
                     {
                         MostrarMensaje($"❌ Stock insuficiente. Solo quedan {prodSelect.StockActual} unidades de {prodSelect.Nombre}.", System.Drawing.Color.Red);
@@ -125,11 +127,9 @@ namespace ComercioWeb
 
                     List<Dominio.DetalleVenta> temporal = ListaCarritoNueva;
 
-                    
                     Dominio.DetalleVenta detalleExistente = temporal.Find(x => x.Producto.Id == idProducto);
                     if (detalleExistente != null)
                     {
-                     
                         if ((detalleExistente.Cantidad + cantidad) > prodSelect.StockActual)
                         {
                             MostrarMensaje($"❌ No puede agregar más unidades. El stock máximo es {prodSelect.StockActual}.", System.Drawing.Color.Red);
@@ -139,7 +139,6 @@ namespace ComercioWeb
                     }
                     else
                     {
-                        
                         Dominio.DetalleVenta nuevoDetalle = new Dominio.DetalleVenta();
                         nuevoDetalle.Producto = prodSelect;
                         nuevoDetalle.Cantidad = cantidad;
@@ -147,12 +146,17 @@ namespace ComercioWeb
                         temporal.Add(nuevoDetalle);
                     }
 
-                    ListaCarritoNueva = temporal; 
+                   
+                    ListaCarritoNueva = temporal;
 
-                 
+                   
+                    ActualizarTablaYTotal();
+
+                    
                     ddlProducto.SelectedIndex = 0;
                     txtPrecioUnitario.Text = "";
                     txtCantidad.Text = "";
+                    txtStock.Text = "";
                     MostrarMensaje("Producto agregado correctamente.", System.Drawing.Color.Green);
                 }
                 else
@@ -165,8 +169,39 @@ namespace ComercioWeb
                 MostrarMensaje("Error al agregar producto: " + ex.Message, System.Drawing.Color.Red);
             }
         }
+        private void ActualizarStockVisual()
+        {
+           
+            if (!string.IsNullOrEmpty(ddlProducto.SelectedValue) && ddlProducto.SelectedValue != "0")
+            {
+                int idProd = int.Parse(ddlProducto.SelectedValue);
+                ProductoNegocio prodNegocio = new ProductoNegocio();
+                Producto prodSeleccionado = prodNegocio.Listar().Find(x => x.Id == idProd);
 
-        
+                if (prodSeleccionado != null)
+                {
+                    int stockRealDisponible = prodSeleccionado.StockActual;
+
+                   
+                    Dominio.DetalleVenta detalleExistente = ListaCarritoNueva.Find(x => x.Producto.Id == idProd);
+                    if (detalleExistente != null)
+                    {
+                      
+                        stockRealDisponible -= detalleExistente.Cantidad;
+                    }
+
+                  
+                    txtStock.Text = stockRealDisponible.ToString();
+                }
+            }
+            else
+            {
+                
+                txtStock.Text = "";
+            }
+        }
+
+
         protected void dgvCarrito_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Quitar")
@@ -181,6 +216,7 @@ namespace ComercioWeb
                         temporal.RemoveAt(index);
                         ListaCarritoNueva = temporal;
                         ActualizarTablaYTotal();
+                        ActualizarStockVisual();
                     }
                 }
                 catch (Exception ex)
@@ -204,7 +240,7 @@ namespace ComercioWeb
             lblTotal.Text = totalVenta.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
         }
 
-        
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -221,25 +257,52 @@ namespace ComercioWeb
                     return;
                 }
 
+                ProductoNegocio prodNegocio = new ProductoNegocio();
+                List<Producto> listaProductosDB = prodNegocio.Listar();
+
+                
+                foreach (var item in ListaCarritoNueva)
+                {
+                    Producto prodDB = listaProductosDB.Find(x => x.Id == item.Producto.Id);
+
+                    if (prodDB == null)
+                    {
+                        MostrarMensaje($"❌ El producto '{item.Producto.Nombre}' ya no existe en el sistema.", System.Drawing.Color.Red);
+                        return;
+                    }
+
+                    if (item.Cantidad > prodDB.StockActual)
+                    {
+                        MostrarMensaje($"❌ Stock insuficiente para '{item.Producto.Nombre}'. Stock disponible actual: {prodDB.StockActual}. Por favor, quite el artículo o ajuste la cantidad.", System.Drawing.Color.Red);
+                        return;
+                    }
+                }
+
+                
                 Venta nuevaVenta = new Venta();
                 VentaNegocio negocio = new VentaNegocio();
 
-                
-                nuevaVenta.NumeroFactura = "FAC-" + DateTime.Now.Ticks.ToString(); 
+                nuevaVenta.NumeroFactura = "FAC-" + DateTime.Now.Ticks.ToString();
                 nuevaVenta.Total = decimal.Parse(lblTotal.Text, System.Globalization.CultureInfo.InvariantCulture);
                 nuevaVenta.Cliente = new Cliente();
                 nuevaVenta.Cliente.Id = int.Parse(ddlCliente.SelectedValue);
-
-                
                 nuevaVenta.Detalles = ListaCarritoNueva;
 
-            
+               
                 negocio.agregar(nuevaVenta);
 
-              
+                
+                foreach (var item in ListaCarritoNueva)
+                {
+                    Producto prodDB = listaProductosDB.Find(x => x.Id == item.Producto.Id);
+                    prodDB.StockActual -= item.Cantidad; 
+                    
+                }
+
+                
                 Session["CarritoNuevaVenta"] = null;
 
-                // Redirigimos al listado
+                
                 Response.Redirect("Ventas.aspx", false);
             }
             catch (Exception ex)
@@ -255,6 +318,7 @@ namespace ComercioWeb
             ddlProducto.SelectedIndex = 0;
             txtCantidad.Text = "";
             txtPrecioUnitario.Text = "";
+            txtStock.Text = ""; 
             lblMensaje.Text = "";
             ActualizarTablaYTotal();
         }

@@ -7,7 +7,6 @@ namespace ComercioWeb
 {
     public partial class FormularioVenta : System.Web.UI.Page
     {
-        
         public List<Dominio.DetalleVenta> ListaCarritoEdicion
         {
             get
@@ -72,7 +71,6 @@ namespace ComercioWeb
                                 }
                             }
 
-                           
                             if (seleccionado.Detalles != null && seleccionado.Detalles.Count > 0)
                             {
                                 ListaCarritoEdicion = new List<Dominio.DetalleVenta>(seleccionado.Detalles);
@@ -92,6 +90,56 @@ namespace ComercioWeb
         }
 
        
+        protected void ddlProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarStockVisual();
+        }
+
+      
+        private void ActualizarStockVisual()
+        {
+            if (!string.IsNullOrEmpty(ddlProductos.SelectedValue) && ddlProductos.SelectedValue != "0")
+            {
+                int idProd = int.Parse(ddlProductos.SelectedValue);
+                ProductoNegocio prodNegocio = new ProductoNegocio();
+                Dominio.Producto prodSeleccionado = prodNegocio.Listar().Find(x => x.Id == idProd);
+
+                if (prodSeleccionado != null)
+                {
+                    int stockDisponible = prodSeleccionado.StockActual;
+
+                    
+                    if (!string.IsNullOrEmpty(txtIdVenta.Text))
+                    {
+                        int idVenta = int.Parse(txtIdVenta.Text);
+                        VentaNegocio ventaNegocio = new VentaNegocio();
+                        Dominio.Venta ventaOriginal = ventaNegocio.listar().Find(x => x.Id == idVenta);
+                        if (ventaOriginal != null && ventaOriginal.Detalles != null)
+                        {
+                            var detalleOriginal = ventaOriginal.Detalles.Find(x => x.Producto.Id == idProd);
+                            if (detalleOriginal != null)
+                            {
+                                stockDisponible += detalleOriginal.Cantidad;
+                            }
+                        }
+                    }
+
+                   
+                    Dominio.DetalleVenta existente = ListaCarritoEdicion.Find(x => x.Producto.Id == idProd);
+                    if (existente != null)
+                    {
+                        stockDisponible -= existente.Cantidad;
+                    }
+
+                    txtStock.Text = stockDisponible.ToString();
+                }
+            }
+            else
+            {
+                txtStock.Text = "";
+            }
+        }
+
         protected void btnAgregarAlCarrito_Click(object sender, EventArgs e)
         {
             try
@@ -125,8 +173,40 @@ namespace ComercioWeb
                     return;
                 }
 
+                
+                int stockMaximo = prodSeleccionado.StockActual;
+                if (!string.IsNullOrEmpty(txtIdVenta.Text))
+                {
+                    int idVenta = int.Parse(txtIdVenta.Text);
+                    VentaNegocio ventaNegocio = new VentaNegocio();
+                    Dominio.Venta ventaOriginal = ventaNegocio.listar().Find(x => x.Id == idVenta);
+                    if (ventaOriginal != null && ventaOriginal.Detalles != null)
+                    {
+                        var detalleOriginal = ventaOriginal.Detalles.Find(x => x.Producto.Id == idProducto);
+                        if (detalleOriginal != null)
+                        {
+                            stockMaximo += detalleOriginal.Cantidad;
+                        }
+                    }
+                }
+
                 List<Dominio.DetalleVenta> temporal = ListaCarritoEdicion;
                 Dominio.DetalleVenta existente = temporal.Find(x => x.Producto.Id == idProducto);
+
+                int cantidadAValidar = cantidad;
+                if (existente != null)
+                {
+                    cantidadAValidar += existente.Cantidad;
+                }
+
+                if (cantidadAValidar > stockMaximo)
+                {
+                    lblMensajes.Visible = true;
+                    int stockRestanteActual = stockMaximo - (existente != null ? existente.Cantidad : 0);
+                    lblMensajes.Text = $"❌ Stock insuficiente. Solo puede agregar {stockRestanteActual} unidades más de este producto.";
+                    lblMensajes.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
 
                 if (existente != null)
                 {
@@ -144,8 +224,10 @@ namespace ComercioWeb
                 ListaCarritoEdicion = temporal;
                 ActualizarGridYTotal();
 
+                
                 ddlProductos.SelectedIndex = 0;
                 txtCantidad.Text = "";
+                txtStock.Text = "";
 
                 lblMensajes.Visible = true;
                 lblMensajes.Text = "Producto agregado correctamente.";
@@ -159,7 +241,6 @@ namespace ComercioWeb
             }
         }
 
-        .
         protected void dgvDetalles_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Quitar")
@@ -174,6 +255,9 @@ namespace ComercioWeb
                         temporal.RemoveAt(index);
                         ListaCarritoEdicion = temporal;
                         ActualizarGridYTotal();
+
+                       
+                        ActualizarStockVisual();
                     }
                 }
                 catch (Exception ex)
@@ -228,7 +312,6 @@ namespace ComercioWeb
                 List<Dominio.Venta> listaVentas = negocio.listar();
                 Dominio.Venta ventaOriginal = listaVentas.Find(x => x.Id == idVenta);
 
-                
                 foreach (var item in ListaCarritoEdicion)
                 {
                     Dominio.Producto prodActual = productos.Find(x => x.Id == item.Producto.Id);
@@ -277,6 +360,8 @@ namespace ComercioWeb
                 ventaModificada.Total = total;
 
                 negocio.modificar(ventaModificada);
+
+                
 
                 Session["CarritoEdicionVenta"] = null;
                 Response.Redirect("Ventas.aspx", false);
