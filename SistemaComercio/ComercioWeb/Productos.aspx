@@ -121,9 +121,12 @@
 
        <asp:GridView ID="gvProductos" runat="server" CssClass="table" AutoGenerateColumns="false" DataKeyNames="Id" OnRowDataBound="gvProductos_RowDataBound">
    <Columns>
-    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-    <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
-    <asp:BoundField DataField="StockActual" HeaderText="Stock" />
+       <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+       <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
+       <asp:BoundField DataField="StockActual" HeaderText="Stock" />
+       
+        
+
     
     <asp:TemplateField HeaderText="Categoría">
         <ItemTemplate>

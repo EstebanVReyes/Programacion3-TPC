@@ -102,6 +102,18 @@
 
       <div class="form-grid">
           <div class="form-group">
+    <label for="txtProveedor">Proveedor</label>
+   <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-control">
+       <asp:ListItem Text="Seleccione un proveedor..." Value="" />
+   </asp:DropDownList>
+   <asp:RequiredFieldValidator ID="rfvProveedor" runat="server"
+       ControlToValidate="ddlProveedor"
+       InitialValue=""
+       ErrorMessage="Debe seleccionar un proveedor."
+       ForeColor="Red" Display="Dynamic" />
+</div>
+
+          <div class="form-group">
               <label for="txtNombre">Nombre</label>
               <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
               <asp:RequiredFieldValidator ID="rfvNombre" runat="server"
@@ -147,6 +159,22 @@
                     MinimumValue="1"
                     MaximumValue="100"
                     ErrorMessage="El stock debe estar entre 1 y 100."
+                    ForeColor="Red" Display="Dynamic" />
+          </div>
+          
+          <div class="form-group">
+              <label for="txtPorcentajeGanancia">Porcentaje Ganancia</label>
+              <asp:TextBox ID="txtPorcentajeGanancia" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                    ControlToValidate="txtPorcentajeGanancia"
+                    ErrorMessage="El porcentaje de la ganancia es obligatorio."
+                    ForeColor="Red" Display="Dynamic" />
+                <asp:RangeValidator ID="RangeValidator1" runat="server"
+                    ControlToValidate="txtPorcentajeGanancia"
+                    Type="Integer"
+                    MinimumValue="15"
+                    MaximumValue="40"
+                    ErrorMessage="El porcentaje de ganacia debe estar entre 15 y 40."
                     ForeColor="Red" Display="Dynamic" />
           </div>
       </div>
