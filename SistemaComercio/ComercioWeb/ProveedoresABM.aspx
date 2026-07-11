@@ -53,27 +53,7 @@
             outline: none;
             border-color: #2563eb;
         }
-
-        .productos-lista {
-            margin-top: 20px;
-        }
-
-        .productos-lista label {
-            font-weight: bold;
-            color: #374151;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .productos-scroll {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            padding: 12px;
-            background-color: #f9fafb;
-        }
-
+                
         .actions {
             margin-top: 24px;
             display: flex;
@@ -117,58 +97,88 @@
         .btn-danger:hover {
             background-color: #b91c1c;
         }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .table th {
+            background-color: #f3f4f6;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #d1d5db;
+        }
+
+        .table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="page-title">
-        <h1><asp:Literal ID="litTitulo" runat="server" Text="Nuevo Proveedor" /></h1>
-        <p>Completá los campos del formulario.</p>
+        <h1>Proveedores</h1>
+        <p>Seleccioná un proveedor y cargá los productos que trae.</p>
     </div>
 
     <div class="card">
+        <h2>Registrar productos del proveedor</h2>
 
+        <asp:Label ID="lblMensaje" runat="server" Font-Bold="true" style="display:block; margin-bottom: 15px;" Visible="false" />
+
+        <div class="form-group" style="margin-bottom: 20px; max-width: 50%;">
+            <label for="ddlProveedor">Proveedor</label>
+            <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-control"
+                AutoPostBack="true" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged">
+                <asp:ListItem Text="Seleccione un proveedor..." Value="" />
+            </asp:DropDownList>
+        </div>
+
+        <hr style="border: 1px solid #e5e7eb; margin: 20px 0;" />
+
+        <h4>Agregar Productos</h4>
         <div class="form-grid">
             <div class="form-group">
-                <label for="txtNombre">Nombre *</label>
-                <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+                <label for="ddlProducto">Producto</label>
+                <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-control">
+                    <asp:ListItem Text="Seleccione un producto..." Value="" />
+                </asp:DropDownList>
             </div>
 
             <div class="form-group">
-                <label for="txtTelefono">Teléfono</label>
-                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
+                <label for="txtCantidad">Cantidad</label>
+                <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number" />
             </div>
 
-            <div class="form-group" style="grid-column: span 2;">
-                <label for="txtDescripcion">Descripción</label>
-                <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control"
-                    TextMode="MultiLine" Rows="3" />
+            <div class="form-group" style="justify-content: flex-end;">
+                <asp:Button ID="btnAgregar" runat="server" Text="Agregar a la lista"
+                    CssClass="btn btn-secondary" OnClick="btnAgregar_Click" />
             </div>
         </div>
 
-        <div class="productos-lista">
-            <label>Productos asociados a este proveedor</label>
-            <div class="productos-scroll">
-                <asp:CheckBoxList ID="cblProductos" runat="server" />
-            </div>
-        </div>
+        <asp:GridView ID="dgvCarrito" runat="server" AutoGenerateColumns="false"
+            CssClass="table" OnRowCommand="dgvCarrito_RowCommand"
+            EmptyDataText="Todavía no se agregaron productos.">
+            <Columns>
+                <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
+                <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+                <asp:ButtonField CommandName="Quitar" Text="❌ Quitar"
+                    ControlStyle-CssClass="btn btn-danger" HeaderText="Acción" />
+            </Columns>
+        </asp:GridView>
+
+        <hr style="border: 1px solid #e5e7eb; margin: 20px 0;" />
 
         <div class="actions">
-            <asp:Button ID="btnGuardar" runat="server" Text="Guardar"
+            <asp:Button ID="btnGuardar" runat="server" Text="Guardar productos del proveedor"
                 CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-
-            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar Proveedor"
-                CssClass="btn btn-danger" OnClick="btnEliminar_Click"
-                Visible="false"
-                OnClientClick="return confirm('¿Estás seguro de que deseas dar de baja a este proveedor?');" />
-
-            <a href="Proveedores.aspx" class="btn btn-secondary">Cancelar</a>
+            <asp:Button ID="btnLimpiar" runat="server" Text="Cancelar / Limpiar"
+                CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />
         </div>
-
-        <br />
-        <asp:Label ID="lblMensaje" runat="server" />
-
     </div>
 
 </asp:Content>

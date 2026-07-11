@@ -14,6 +14,13 @@ namespace ComercioWeb
         {
             if (!IsPostBack)
             {
+                if (Session["MensajeExito"] != null)
+                {
+                    lblMensajes.Text = Session["MensajeExito"].ToString();
+                    lblMensajes.ForeColor = System.Drawing.Color.Green;
+                    Session["MensajeExito"] = null;
+                }
+
                 CargarProveedores();
             }
         }

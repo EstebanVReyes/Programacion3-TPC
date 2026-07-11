@@ -28,9 +28,9 @@
         .btn {
             border: none;
             border-radius: 6px;
-            padding: 10px 18px;
+            padding: 8px 14px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14px;
             text-decoration: none;
             display: inline-block;
         }
@@ -42,6 +42,15 @@
 
         .btn-primary:hover {
             background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #111827;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d1d5db;
         }
 
         .table {
@@ -60,16 +69,7 @@
         .table td {
             padding: 12px;
             border-bottom: 1px solid #e5e7eb;
-        }
-
-        .table a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        .table a:hover {
-            text-decoration: underline;
-        }
+        }           
     </style>
 </asp:Content>
 
@@ -81,24 +81,27 @@
     </div>
 
     <div style="margin-bottom: 16px;">
-        <a href="ProveedoresABM.aspx" class="btn btn-primary">+ Nuevo Proveedor</a>
+        <a href="ProveedoresABM.aspx" class="btn btn-primary">📦 Registrar productos de proveedor</a>
     </div>
 
     <div class="card">
         <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
 
         <asp:GridView ID="gvProveedores" runat="server" CssClass="table"
-            AutoGenerateColumns="false" DataKeyNames="Id">
+            AutoGenerateColumns="false" DataKeyNames="Id"
+            EmptyDataText="No hay proveedores cargados.">
             <Columns>
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                <asp:HyperLinkField HeaderText="Acción" Text="✍️ Editar"
+
+                <asp:HyperLinkField HeaderText="Acción"
+                    Text="✍️ Editar datos"
                     DataNavigateUrlFields="Id"
-                    DataNavigateUrlFormatString="ProveedoresABM.aspx?id={0}" />
+                    DataNavigateUrlFormatString="FormularioProveedor.aspx?id={0}"
+                    ControlStyle-CssClass="btn btn-secondary" />
             </Columns>
         </asp:GridView>
     </div>
 
 </asp:Content>
-

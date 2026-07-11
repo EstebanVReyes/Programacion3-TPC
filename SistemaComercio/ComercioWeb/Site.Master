@@ -154,7 +154,7 @@
                 </li>
                 <% if (Seguridad.esAdmin(Session["usuario"])) { %>
                 <li>
-                    <a href="ProveedoresABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                    <a href="FormularioProveedor.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
                         Agregar nuevo Proveedor
                     </a>
                 </li>

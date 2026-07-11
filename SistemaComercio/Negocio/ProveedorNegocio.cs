@@ -82,15 +82,14 @@ namespace Negocio
             }
         }
 
-        public int Agregar(Proveedor nuevo)
+        public void Agregar(Proveedor nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.SetearConsulta(
                     "INSERT INTO Proveedores (Nombre, Telefono, Descripcion) " +
-                    "VALUES (@Nombre, @Telefono, @Descripcion); " +
-                    "SELECT CAST(SCOPE_IDENTITY() AS INT)");
+                    "VALUES (@Nombre, @Telefono, @Descripcion)");
 
                 datos.SetearParametro("@Nombre", nuevo.Nombre);
                 datos.SetearParametro("@Telefono",
@@ -98,9 +97,7 @@ namespace Negocio
                 datos.SetearParametro("@Descripcion",
                     nuevo.Descripcion != null ? nuevo.Descripcion : (object)DBNull.Value);
 
-                datos.EjecutarLectura();
-                datos.Lector.Read();
-                return (int)datos.Lector[0];
+                datos.EjecutarAccion();
             }
             catch (Exception ex)
             {
@@ -159,47 +156,30 @@ namespace Negocio
             }
         }
 
-        public Dictionary<int, string> ListarProductosActivos()
+        public List<DetalleProveedor> ObtenerProductosDeProveedor(int proveedorId)
         {
-            Dictionary<int, string> dict = new Dictionary<int, string>();
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.SetearConsulta("SELECT ID, Nombre FROM Productos WHERE Estado = 1");
-                datos.EjecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    dict.Add((int)datos.Lector["ID"], (string)datos.Lector["Nombre"]);
-                }
-                return dict;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
-
-        public List<int> ObtenerProductosDeProveedor(int proveedorId)
-        {
-            List<int> ids = new List<int>();
+            List<DetalleProveedor> lista = new List<DetalleProveedor>();
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.SetearConsulta(
-                    "SELECT Producto_ID FROM Productos_Proveedores WHERE Proveedor_ID = @ProveedorId");
+                    "SELECT PP.Cantidad, P.ID AS IdProducto, P.Nombre AS NombreProducto " +
+                    "FROM Productos_Proveedores PP " +
+                    "INNER JOIN Productos P ON PP.Producto_ID = P.ID " +
+                    "WHERE PP.Proveedor_ID = @ProveedorId");
                 datos.SetearParametro("@ProveedorId", proveedorId);
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    ids.Add((int)datos.Lector["Producto_ID"]);
+                    DetalleProveedor detalle = new DetalleProveedor();
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalle.Producto = new Producto();
+                    detalle.Producto.Id = (int)datos.Lector["IdProducto"];
+                    detalle.Producto.Nombre = (string)datos.Lector["NombreProducto"];
+                    lista.Add(detalle);
                 }
-                return ids;
+                return lista;
             }
             catch (Exception ex)
             {
@@ -211,15 +191,15 @@ namespace Negocio
             }
         }
 
-        public void ActualizarProductosProveedor(int proveedorId, List<int> productosIds)
+        public void GuardarProductosProveedor(int proveedorId, List<DetalleProveedor> detalles)
         {
-            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datosBorrar = new AccesoDatos();
             try
             {
-                datos.SetearConsulta(
+                datosBorrar.SetearConsulta(
                     "DELETE FROM Productos_Proveedores WHERE Proveedor_ID = @ProveedorId");
-                datos.SetearParametro("@ProveedorId", proveedorId);
-                datos.EjecutarAccion();
+                datosBorrar.SetearParametro("@ProveedorId", proveedorId);
+                datosBorrar.EjecutarAccion();
             }
             catch (Exception ex)
             {
@@ -227,20 +207,21 @@ namespace Negocio
             }
             finally
             {
-                datos.CerrarConexion();
+                datosBorrar.CerrarConexion();
             }
 
-            foreach (int productoId in productosIds)
+            foreach (DetalleProveedor detalle in detalles)
             {
-                AccesoDatos datos2 = new AccesoDatos();
+                AccesoDatos datosInsertar = new AccesoDatos();
                 try
                 {
-                    datos2.SetearConsulta(
-                        "INSERT INTO Productos_Proveedores (Producto_ID, Proveedor_ID) " +
-                        "VALUES (@ProductoId, @ProveedorId)");
-                    datos2.SetearParametro("@ProductoId", productoId);
-                    datos2.SetearParametro("@ProveedorId", proveedorId);
-                    datos2.EjecutarAccion();
+                    datosInsertar.SetearConsulta(
+                        "INSERT INTO Productos_Proveedores (Producto_ID, Proveedor_ID, Cantidad) " +
+                        "VALUES (@ProductoId, @ProveedorId, @Cantidad)");
+                    datosInsertar.SetearParametro("@ProductoId", detalle.Producto.Id);
+                    datosInsertar.SetearParametro("@ProveedorId", proveedorId);
+                    datosInsertar.SetearParametro("@Cantidad", detalle.Cantidad);
+                    datosInsertar.EjecutarAccion();
                 }
                 catch (Exception ex)
                 {
@@ -248,7 +229,7 @@ namespace Negocio
                 }
                 finally
                 {
-                    datos2.CerrarConexion();
+                    datosInsertar.CerrarConexion();
                 }
             }
         }

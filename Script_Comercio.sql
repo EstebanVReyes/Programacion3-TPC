@@ -62,6 +62,7 @@ CREATE TABLE Productos (
 CREATE TABLE Productos_Proveedores (
     Producto_ID INT NOT NULL,
     Proveedor_ID INT NOT NULL,
+	Cantidad INT NOT NULL DEFAULT 1,
     PRIMARY KEY (Producto_ID, Proveedor_ID),
     FOREIGN KEY (Producto_ID) REFERENCES Productos(ID),
     FOREIGN KEY (Proveedor_ID) REFERENCES Proveedores(ID)
