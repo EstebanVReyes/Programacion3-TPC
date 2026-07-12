@@ -47,25 +47,26 @@ namespace ComercioWeb
             Response.Redirect($"FormularioUsuarios.aspx?id={idUsuario}");
         }
 
-        protected void btnEliminar_Click(object sender, EventArgs e)
+        protected void btnToggleEstado_Click(object sender, EventArgs e)
         {
             try
             {
                 Button btn = (Button)sender;
-
-                int idUsuario = int.Parse(btn.CommandArgument);
+                string[] args = btn.CommandArgument.Split('|');
+                int idUsuario = int.Parse(args[0]);
+                bool estadoActual = bool.Parse(args[1]);
 
                 UsuarioNegocio negocio = new UsuarioNegocio();
-                negocio.BajaLogica(idUsuario);
+                negocio.ToggleEstado(idUsuario, estadoActual);
 
                 CargarUsuarios();
 
-                lblMensajes.Text = "Usuario eliminado correctamente.";
+                lblMensajes.Text = estadoActual ? "Usuario desactivado correctamente." : "Usuario activado correctamente.";
                 lblMensajes.CssClass = "text-success";
             }
             catch (Exception ex)
             {
-                lblMensajes.Text = "Error al eliminar el usuario: " + ex.Message;
+                lblMensajes.Text = "Error al cambiar estado del usuario: " + ex.Message;
                 lblMensajes.CssClass = "text-danger";
             }
         }

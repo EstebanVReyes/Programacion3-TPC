@@ -90,11 +90,12 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("INSERT INTO Compras (FechaCompra, Total, Proveedor_ID) OUTPUT INSERTED.ID VALUES (@fecha, @total, @idProveedor)");
+                datos.SetearConsulta("INSERT INTO Compras (FechaCompra, Total, Proveedor_ID, Usuario_ID) OUTPUT INSERTED.ID VALUES (@fecha, @total, @idProveedor, @idUsuario)");
 
                 datos.SetearParametro("@fecha", nuevaCompra.Fecha);
                 datos.SetearParametro("@total", nuevaCompra.Total);
                 datos.SetearParametro("@idProveedor", nuevaCompra.Proveedor.Id);
+                datos.SetearParametro("@idUsuario", nuevaCompra.Usuario.ID);
 
                 datos.EjecutarLectura();
                 if (datos.Lector.Read())

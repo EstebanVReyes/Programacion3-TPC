@@ -53,7 +53,6 @@ namespace ComercioWeb
                     Nombre = txtNombre.Text,
                     Descripcion = txtDescripcion.Text,
                     Precio = decimal.Parse(txtPrecio.Text),
-                    StockActual = int.Parse(txtStock.Text),
                     PorcentajeGanancia = decimal.Parse(txtPorcentajeGanancia.Text) 
 
                 };
@@ -104,7 +103,6 @@ namespace ComercioWeb
             txtNombre.Text = "";
             txtDescripcion.Text = "";
             txtPrecio.Text = "";
-            txtStock.Text = "";
             txtPorcentajeGanancia.Text = "";
         }
     }

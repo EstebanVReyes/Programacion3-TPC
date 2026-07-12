@@ -146,21 +146,7 @@
                     ForeColor="Red" Display="Dynamic" />
           </div>
 
-          <div class="form-group">
-              <label for="txtStock">Stock</label>
-              <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="rfvStock" runat="server"
-                    ControlToValidate="txtStock"
-                    ErrorMessage="El stock es obligatorio."
-                    ForeColor="Red" Display="Dynamic" />
-                <asp:RangeValidator ID="rvStock" runat="server"
-                    ControlToValidate="txtStock"
-                    Type="Integer"
-                    MinimumValue="1"
-                    MaximumValue="100"
-                    ErrorMessage="El stock debe estar entre 1 y 100."
-                    ForeColor="Red" Display="Dynamic" />
-          </div>
+      
           
           <div class="form-group">
               <label for="txtPorcentajeGanancia">Porcentaje Ganancia</label>

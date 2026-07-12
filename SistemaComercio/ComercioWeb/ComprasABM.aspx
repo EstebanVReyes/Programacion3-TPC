@@ -33,7 +33,7 @@
 
         <div class="form-group" style="margin-bottom: 20px; max-width: 50%;">
             <label for="ddlProveedor">Proveedor</label>
-            <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-control">
+            <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged">
                 <asp:ListItem Text="Seleccione un proveedor..." Value="" />
             </asp:DropDownList>
         </div>

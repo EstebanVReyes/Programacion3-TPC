@@ -35,6 +35,9 @@ namespace ComercioWeb
             {
                 CargarDesplegables();
 
+                ProductoNegocio prodNegocio = new ProductoNegocio();
+                Session["productos"] = prodNegocio.Listar();
+
                 Session["CarritoNuevaCompra"] = null;
                 ActualizarTablaYTotal();
             }
@@ -51,12 +54,7 @@ namespace ComercioWeb
                 ddlProveedor.DataBind();
                 ddlProveedor.Items.Insert(0, new ListItem("Seleccione un proveedor...", ""));
 
-                ProductoNegocio productoNegocio = new ProductoNegocio();
-                ddlProducto.DataSource = productoNegocio.Listar();
-                ddlProducto.DataValueField = "Id";
-                ddlProducto.DataTextField = "Nombre";
-                ddlProducto.DataBind();
-                ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+                
             }
             catch (Exception ex)
             {
@@ -217,6 +215,7 @@ namespace ComercioWeb
                 nuevaCompra.Total = decimal.Parse(lblTotal.Text, System.Globalization.CultureInfo.InvariantCulture);
                 nuevaCompra.Proveedor = new Proveedor();
                 nuevaCompra.Proveedor.Id = int.Parse(ddlProveedor.SelectedValue);
+                nuevaCompra.Usuario = (Usuario)Session["usuario"];
                 nuevaCompra.Detalles = ListaCarritoNueva;
 
                 negocio.agregar(nuevaCompra);
@@ -229,6 +228,29 @@ namespace ComercioWeb
             {
                 MostrarMensaje("Error al registrar la compra: " + ex.Message, System.Drawing.Color.Red);
             }
+        }
+
+        public void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlProducto.Items.Clear();
+            ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+
+            if (!string.IsNullOrEmpty(ddlProveedor.SelectedValue))
+            {
+                int idProveedor = int.Parse(ddlProveedor.SelectedValue);
+                ProveedorNegocio provNegocio = new ProveedorNegocio();
+                List<DetalleProveedor> detalles = provNegocio.ObtenerProductosDeProveedor(idProveedor);
+                List<Producto> todos = (List<Producto>)Session["productos"];
+
+                ddlProducto.DataSource = todos.FindAll(p => detalles.Exists(d => d.Producto.Id == p.Id));
+                ddlProducto.DataValueField = "Id";
+                ddlProducto.DataTextField = "Nombre";
+                ddlProducto.DataBind();
+                ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+            }
+
+            txtPrecioCosto.Text = "";
+            txtCantidad.Text = "";
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
