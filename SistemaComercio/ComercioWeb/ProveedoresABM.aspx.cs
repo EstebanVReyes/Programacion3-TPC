@@ -29,8 +29,24 @@ namespace ComercioWeb
         {
             if (!IsPostBack)
             {
+                if (Request.QueryString["id"] != null)
+                {
+                    int idProveedor = int.Parse(Request.QueryString["id"]);
+                    ViewState["IdProveedor"] = idProveedor;
+                    ProveedorNegocio provNegocio = new ProveedorNegocio();
+                    Proveedor prov = provNegocio.ObtenerPorId(idProveedor);
+                    lblNombreProveedor.Text = prov.Nombre;
+                }
+
                 CargarDesplegables();
-                Session["CarritoProveedor"] = null;
+
+                if (Session["CarritoProveedor"] == null)
+                {
+                    ProveedorNegocio provNeg = new ProveedorNegocio();
+                    Session["CarritoProveedor"] = provNeg.ObtenerProductosDeProveedor(
+                        (int)ViewState["IdProveedor"]);
+                }
+
                 ActualizarTabla();
             }
         }
@@ -39,13 +55,6 @@ namespace ComercioWeb
         {
             try
             {
-                ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-                ddlProveedor.DataSource = proveedorNegocio.Listar();
-                ddlProveedor.DataValueField = "Id";
-                ddlProveedor.DataTextField = "Nombre";
-                ddlProveedor.DataBind();
-                ddlProveedor.Items.Insert(0, new ListItem("Seleccione un proveedor...", ""));
-
                 ProductoNegocio productoNegocio = new ProductoNegocio();
                 ddlProducto.DataSource = productoNegocio.Listar();
                 ddlProducto.DataValueField = "Id";
@@ -59,31 +68,13 @@ namespace ComercioWeb
             }
         }
 
-        protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Session["CarritoProveedor"] = null;
-            ActualizarTabla();
-        }
-
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(ddlProveedor.SelectedValue))
-                {
-                    MostrarMensaje("Primero seleccioná un proveedor.", System.Drawing.Color.Orange);
-                    return;
-                }
-
                 if (string.IsNullOrEmpty(ddlProducto.SelectedValue))
                 {
                     MostrarMensaje("Seleccioná un producto.", System.Drawing.Color.Orange);
-                    return;
-                }
-
-                if (!int.TryParse(txtCantidad.Text, out int cantidad) || cantidad <= 0)
-                {
-                    MostrarMensaje("La cantidad debe ser un número mayor a cero.", System.Drawing.Color.Orange);
                     return;
                 }
 
@@ -103,20 +94,19 @@ namespace ComercioWeb
                 DetalleProveedor detalleExistente = temporal.Find(d => d.Producto.Id == idProducto);
                 if (detalleExistente != null)
                 {
-                    detalleExistente.Cantidad += cantidad;
+                    MostrarMensaje("El producto ya está en la lista.", System.Drawing.Color.Orange);
+                    return;
                 }
-                else
-                {
-                    DetalleProveedor nuevoDetalle = new DetalleProveedor();
-                    nuevoDetalle.Producto = prodSeleccionado;
-                    nuevoDetalle.Cantidad = cantidad;
-                    temporal.Add(nuevoDetalle);
-                }
+
+                DetalleProveedor nuevoDetalle = new DetalleProveedor();
+                nuevoDetalle.Producto = new Producto();
+                nuevoDetalle.Producto.Id = prodSeleccionado.Id;
+                nuevoDetalle.Producto.Nombre = prodSeleccionado.Nombre;
+                temporal.Add(nuevoDetalle);
 
                 ListaCarritoProveedor = temporal;
 
                 ddlProducto.SelectedIndex = 0;
-                txtCantidad.Text = "";
 
                 ActualizarTabla();
                 MostrarMensaje("Producto agregado correctamente.", System.Drawing.Color.Green);
@@ -161,28 +151,18 @@ namespace ComercioWeb
         {
             try
             {
-                if (string.IsNullOrEmpty(ddlProveedor.SelectedValue))
-                {
-                    MostrarMensaje("Debe seleccionar un proveedor.", System.Drawing.Color.Orange);
-                    return;
-                }
-
                 if (ListaCarritoProveedor.Count == 0)
                 {
                     MostrarMensaje("Debe agregar al menos un producto.", System.Drawing.Color.Orange);
                     return;
                 }
 
-                int idProveedor = int.Parse(ddlProveedor.SelectedValue);
+                int idProveedor = (int)ViewState["IdProveedor"];
 
                 ProveedorNegocio negocio = new ProveedorNegocio();
                 negocio.GuardarProductosProveedor(idProveedor, ListaCarritoProveedor);
 
-                ProductoNegocio productoNegocio = new ProductoNegocio();
-                foreach (DetalleProveedor item in ListaCarritoProveedor)
-                {
-                    productoNegocio.actualizarStock(item.Producto.Id, item.Cantidad);
-                }
+               
 
                 Session["CarritoProveedor"] = null;
                 Session["MensajeExito"] = "✅ Productos ingresados al depósito correctamente.";
@@ -197,7 +177,7 @@ namespace ComercioWeb
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             Session["CarritoProveedor"] = null;
-            Response.Redirect("ProveedoresABM.aspx", false);
+            Response.Redirect("Proveedores.aspx", false);
         }
 
         private void MostrarMensaje(string texto, System.Drawing.Color color)

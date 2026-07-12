@@ -175,6 +175,23 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
+                datos.SetearConsulta("SELECT StockActual FROM Productos WHERE ID = @idProducto");
+                datos.SetearParametro("@idProducto", idProducto);
+                datos.EjecutarLectura();
+
+                int stockActual = 0;
+                if (datos.Lector.Read())
+                {
+                    stockActual = (int)datos.Lector["StockActual"];
+                }
+                datos.CerrarConexion();
+
+                if (stockActual + cantidadAjuste < 0)
+                {
+                    throw new Exception("Stock insuficiente. Stock actual: " + stockActual + ", intentando restar: " + Math.Abs(cantidadAjuste));
+                }
+
+                datos = new AccesoDatos();
                 datos.SetearConsulta("UPDATE Productos SET StockActual = StockActual + @cantidad WHERE ID = @idProducto");
 
                 datos.SetearParametro("@cantidad", cantidadAjuste);

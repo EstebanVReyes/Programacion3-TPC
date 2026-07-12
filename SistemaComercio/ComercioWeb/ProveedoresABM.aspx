@@ -131,11 +131,9 @@
         <asp:Label ID="lblMensaje" runat="server" Font-Bold="true" style="display:block; margin-bottom: 15px;" Visible="false" />
 
         <div class="form-group" style="margin-bottom: 20px; max-width: 50%;">
-            <label for="ddlProveedor">Proveedor</label>
-            <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-control"
-                AutoPostBack="true" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged">
-                <asp:ListItem Text="Seleccione un proveedor..." Value="" />
-            </asp:DropDownList>
+            <label>Proveedor</label>
+            <asp:Label ID="lblNombreProveedor" runat="server" CssClass="form-control"
+                style="background:#f3f4f6; padding:10px 12px; border-radius:6px;" />
         </div>
 
         <hr style="border: 1px solid #e5e7eb; margin: 20px 0;" />
@@ -149,11 +147,6 @@
                 </asp:DropDownList>
             </div>
 
-            <div class="form-group">
-                <label for="txtCantidad">Cantidad</label>
-                <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number" />
-            </div>
-
             <div class="form-group" style="justify-content: flex-end;">
                 <asp:Button ID="btnAgregar" runat="server" Text="Agregar a la lista"
                     CssClass="btn btn-secondary" OnClick="btnAgregar_Click" />
@@ -165,7 +158,7 @@
             EmptyDataText="Todavía no se agregaron productos.">
             <Columns>
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
-                <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+           
                 <asp:ButtonField CommandName="Quitar" Text="❌ Quitar"
                     ControlStyle-CssClass="btn btn-danger" HeaderText="Acción" />
             </Columns>

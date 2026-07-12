@@ -125,7 +125,7 @@
 
         <div class="form-grid">
             <div class="form-group">
-                <label>N° Compra:</label>
+                <label>Nro. Compra:</label>
                 <asp:Label ID="lblNumeroCompra" runat="server" CssClass="form-value" />
             </div>
 

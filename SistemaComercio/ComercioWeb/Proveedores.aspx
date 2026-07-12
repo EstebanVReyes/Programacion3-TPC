@@ -80,28 +80,32 @@
         <p>Listado de proveedores activos del sistema.</p>
     </div>
 
-    <div style="margin-bottom: 16px;">
-        <a href="ProveedoresABM.aspx" class="btn btn-primary">📦 Registrar productos de proveedor</a>
-    </div>
 
     <div class="card">
         <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
 
-        <asp:GridView ID="gvProveedores" runat="server" CssClass="table"
-            AutoGenerateColumns="false" DataKeyNames="Id"
-            EmptyDataText="No hay proveedores cargados.">
-            <Columns>
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
-                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+            <asp:GridView ID="gvProveedores" runat="server" CssClass="table"
+                AutoGenerateColumns="false" DataKeyNames="Id"
+                EmptyDataText="No hay proveedores cargados.">
+                <Columns>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                    <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
+                    <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
 
-                <asp:HyperLinkField HeaderText="Acción"
-                    Text="✍️ Editar datos"
-                    DataNavigateUrlFields="Id"
-                    DataNavigateUrlFormatString="FormularioProveedor.aspx?id={0}"
-                    ControlStyle-CssClass="btn btn-secondary" />
-            </Columns>
-        </asp:GridView>
+                    <asp:TemplateField HeaderText="Acción">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="hlAsignar" runat="server"
+                                Text="Administrar"
+                                NavigateUrl='<%# "ProveedoresABM.aspx?id=" + Eval("Id") %>'
+                                CssClass="btn btn-primary" />
+                            <asp:HyperLink ID="hlEditar" runat="server"
+                                Text="Editar"
+                                NavigateUrl='<%# "FormularioProveedor.aspx?id=" + Eval("Id") %>'
+                                CssClass="btn btn-secondary" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
     </div>
 
 </asp:Content>
