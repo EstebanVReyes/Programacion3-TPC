@@ -14,7 +14,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("SELECT ID, Username, PasswordHash, TipoUsuario, Estado FROM Usuarios WHERE Estado = 1");
+                datos.SetearConsulta("SELECT ID, Username, PasswordHash, TipoUsuario, Estado FROM Usuarios");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -103,6 +103,23 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw new Exception("Error al dar de baja el usuario: " + ex.Message);
+            }
+        }
+
+        public void ToggleEstado(int idUsuario, bool estadoActual)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                int nuevoEstado = estadoActual ? 0 : 1;
+                datos.SetearConsulta("UPDATE Usuarios SET Estado = @Estado WHERE ID = @Id");
+                datos.SetearParametro("@Estado", nuevoEstado);
+                datos.SetearParametro("@Id", idUsuario);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al cambiar el estado del usuario: " + ex.Message);
             }
         }
     }

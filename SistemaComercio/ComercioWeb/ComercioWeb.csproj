@@ -64,7 +64,10 @@
   <ItemGroup>
     <Content Include="Clientes.aspx" />
     <Content Include="ClientesABM.aspx" />
+    <Content Include="Compras.aspx" />
+    <Content Include="ComprasABM.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DetalleCompra.aspx" />
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioProducto.aspx" />
     <Content Include="FormularioProveedor.aspx" />
@@ -98,12 +101,33 @@
     <Compile Include="ClientesABM.aspx.designer.cs">
       <DependentUpon>ClientesABM.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Compras.aspx.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras.aspx.designer.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ComprasABM.aspx.cs">
+      <DependentUpon>ComprasABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComprasABM.aspx.designer.cs">
+      <DependentUpon>ComprasABM.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleCompra.aspx.cs">
+      <DependentUpon>DetalleCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleCompra.aspx.designer.cs">
+      <DependentUpon>DetalleCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioCliente.aspx.cs">
       <DependentUpon>FormularioCliente.aspx</DependentUpon>

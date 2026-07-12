@@ -130,6 +130,8 @@
                     <asp:ListItem Text="Seleccione un rol..." Value="" />
                     <asp:ListItem Text="Administrador" Value="Administrador" />
                     <asp:ListItem Text="Vendedor" Value="Vendedor" />
+                    <asp:ListItem Text="Cajero" Value="Cajero" />
+                    <asp:ListItem Text="Deposito" Value="Deposito" />
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvTipoUsuario" runat="server"
                     ControlToValidate="ddlTipoUsuario"
