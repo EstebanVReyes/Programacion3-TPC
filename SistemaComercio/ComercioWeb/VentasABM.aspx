@@ -73,7 +73,8 @@
             <Columns>
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
                 <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
+               <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
+                <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" DataFormatString="{0:C}" />
                 <asp:ButtonField CommandName="Quitar" Text="❌ Quitar" ControlStyle-CssClass="btn btn-danger" HeaderText="Acción" />
             </Columns>
         </asp:GridView>

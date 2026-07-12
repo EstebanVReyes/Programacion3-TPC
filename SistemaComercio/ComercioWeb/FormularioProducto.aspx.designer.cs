@@ -42,6 +42,15 @@ namespace ComercioWeb
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
+        /// rfvNombre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNombre;
+
+        /// <summary>
         /// txtPrecio control.
         /// </summary>
         /// <remarks>
@@ -51,13 +60,22 @@ namespace ComercioWeb
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
 
         /// <summary>
-        /// txtStock control.
+        /// rfvPrecio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStock;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPrecio;
+
+        /// <summary>
+        /// cvPrecio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvPrecio;
 
         /// <summary>
         /// ddlCategorias control.
@@ -67,6 +85,15 @@ namespace ComercioWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategorias;
+
+        /// <summary>
+        /// rfvCategoria control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCategoria;
 
         /// <summary>
         /// btnAceptar control.

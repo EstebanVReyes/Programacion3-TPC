@@ -165,7 +165,7 @@ namespace ComercioWeb
                
 
                 Session["CarritoProveedor"] = null;
-                Session["MensajeExito"] = "✅ Productos ingresados al depósito correctamente.";
+                Session["MensajeExito"] = "✅ Productos asociados al proveedor correctamente.";
                 Response.Redirect("Proveedores.aspx", false);
             }
             catch (Exception ex)

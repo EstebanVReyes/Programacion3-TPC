@@ -22,22 +22,13 @@ namespace ComercioWeb
 
             if (!IsPostBack)
             {
-                CargarProveedores();
+               
             }
 
          
         }
 
-        protected void CargarProveedores()
-        {
-            ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-            List<Proveedor> listaProveedores = proveedorNegocio.Listar();
-            ddlProveedor.DataSource = listaProveedores;
-            ddlProveedor.DataTextField = "Nombre";
-            ddlProveedor.DataValueField = "Id";
-            ddlProveedor.DataBind();
-            ddlProveedor.Items.Insert(0, new ListItem("--Seleccione un proveedor--", "0"));
-        }
+       
 
 
 

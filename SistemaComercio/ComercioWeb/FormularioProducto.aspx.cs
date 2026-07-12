@@ -31,7 +31,6 @@ namespace ComercioWeb
                             txtId.Text = seleccionado.Id.ToString();
                             txtNombre.Text = seleccionado.Nombre;
                             txtPrecio.Text = Math.Round(seleccionado.Precio, 2).ToString();
-                            txtStock.Text = seleccionado.StockActual.ToString();
                             txtDescripcion.Text = seleccionado.Descripcion;
 
                             
@@ -79,7 +78,6 @@ namespace ComercioWeb
 
                 nuevoProducto.Nombre = txtNombre.Text;
                 nuevoProducto.Precio = decimal.Parse(txtPrecio.Text);
-                nuevoProducto.StockActual = int.Parse(txtStock.Text);
                 nuevoProducto.Descripcion = txtDescripcion.Text;
 
                 nuevoProducto.Codigo = "PROD-" + DateTime.Now.ToString("HHmmss");

@@ -71,7 +71,8 @@ namespace ComercioWeb
 
                     if (productoSeleccionado != null)
                     {
-                        txtPrecioUnitario.Text = productoSeleccionado.Precio.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                        decimal precioConGanancia = productoSeleccionado.Precio * (1 + productoSeleccionado.PorcentajeGanancia / 100);
+                        txtPrecioUnitario.Text = precioConGanancia.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
                       
                         txtStock.Text = productoSeleccionado.StockActual.ToString();
                     }
@@ -142,7 +143,9 @@ namespace ComercioWeb
                         Dominio.DetalleVenta nuevoDetalle = new Dominio.DetalleVenta();
                         nuevoDetalle.Producto = prodSelect;
                         nuevoDetalle.Cantidad = cantidad;
-                        nuevoDetalle.PrecioUnitario = precio;
+                        decimal precioConGanancia = prodSelect.Precio * (1 + prodSelect.PorcentajeGanancia / 100);
+                        nuevoDetalle.PrecioUnitario = precioConGanancia;
+                        nuevoDetalle.Subtotal = nuevoDetalle.PrecioUnitario * cantidad;
                         temporal.Add(nuevoDetalle);
                     }
 
@@ -234,7 +237,7 @@ namespace ComercioWeb
             decimal totalVenta = 0;
             foreach (var item in ListaCarritoNueva)
             {
-                totalVenta += (item.PrecioUnitario * item.Cantidad);
+                totalVenta += item.Subtotal ;
             }
 
             lblTotal.Text = totalVenta.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);

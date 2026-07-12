@@ -101,17 +101,7 @@
       <h2>Nuevo producto</h2>
 
       <div class="form-grid">
-          <div class="form-group">
-    <label for="txtProveedor">Proveedor</label>
-   <asp:DropDownList ID="ddlProveedor" runat="server" CssClass="form-control">
-       <asp:ListItem Text="Seleccione un proveedor..." Value="" />
-   </asp:DropDownList>
-   <asp:RequiredFieldValidator ID="rfvProveedor" runat="server"
-       ControlToValidate="ddlProveedor"
-       InitialValue=""
-       ErrorMessage="Debe seleccionar un proveedor."
-       ForeColor="Red" Display="Dynamic" />
-</div>
+          
 
           <div class="form-group">
               <label for="txtNombre">Nombre</label>
