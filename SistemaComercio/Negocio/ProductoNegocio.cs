@@ -137,6 +137,39 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public List<Proveedor> ObtenerProveedores(int idProducto)
+        {
+            List<Proveedor> lista = new List<Proveedor>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.SetearConsulta(@"
+                    SELECT PR.ID, PR.Nombre
+                    FROM Productos_Proveedores PP
+                    INNER JOIN Proveedores PR ON PP.Proveedor_ID = PR.ID
+                    WHERE PP.Producto_ID = @idProducto");
+                datos.SetearParametro("@idProducto", idProducto);
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Proveedor aux = new Proveedor();
+                    aux.Id = (int)datos.Lector["ID"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
         public void actualizarStock(int idProducto, int cantidadAjuste)
         {
             AccesoDatos datos = new AccesoDatos();

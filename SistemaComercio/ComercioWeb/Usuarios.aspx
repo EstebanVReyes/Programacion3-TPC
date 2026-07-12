@@ -90,6 +90,13 @@
             <Columns>
                 <asp:BoundField DataField="Username" HeaderText="Nombre de Usuario" />
                 <asp:BoundField DataField="TipoUsuario" HeaderText="Rol del Sistema" />
+                <asp:TemplateField HeaderText="Estado">
+                    <ItemTemplate>
+                        <asp:Label runat="server" 
+                            Text='<%# (bool)Eval("Estado") ? "Activo" : "Desactivado" %>'
+                            ForeColor='<%# (bool)Eval("Estado") ? System.Drawing.Color.Green : System.Drawing.Color.Red %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:Button 
@@ -100,13 +107,12 @@
                             CommandArgument='<%# Eval("ID") %>' 
                             OnClick="btnEditar_Click"/>
                         <asp:Button
-                            ID="btnEliminar"
+                            ID="btnToggleEstado"
                             runat="server"
-                            Text="🗑️ Eliminar"
+                            Text='<%# (bool)Eval("Estado") ? "🔴 Desactivar" : "🟢 Activar" %>'
                             CssClass="btn btn-danger btn-sm"
-                            CommandArgument='<%# Eval("ID") %>'
-                            OnClick="btnEliminar_Click"
-                            OnClientClick="return confirm('¿Seguro que querés eliminar este usuario?');" />
+                            CommandArgument='<%# Eval("ID") + "|" + Eval("Estado") %>'
+                            OnClick="btnToggleEstado_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
