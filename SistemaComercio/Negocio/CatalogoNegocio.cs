@@ -13,15 +13,15 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("SELECT ID, Nombre FROM Categorias");
+                datos.SetearConsulta("SELECT C.ID, C.Nombre, COUNT(P.ID) AS CantidadProductos FROM Categorias C LEFT JOIN Productos P ON P.Categoria_ID = C.ID GROUP BY C.ID, C.Nombre");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Categoria aux = new Categoria();
                     aux.Id = (int)datos.Lector["ID"];
-                   
                     aux.Descripcion = (string)datos.Lector["Nombre"];
+                    aux.CantidadProductos = (int)datos.Lector["CantidadProductos"];
 
                     lista.Add(aux);
                 }

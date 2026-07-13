@@ -84,6 +84,10 @@
     <Content Include="Ventas.aspx" />
     <Content Include="DetalleVenta.aspx" />
     <Content Include="VentasABM.aspx" />
+    <Content Include="Marcas.aspx" />
+    <Content Include="MarcasABM.aspx" />
+    <Content Include="Categorias.aspx" />
+    <Content Include="CategoriasABM.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +248,34 @@
     </Compile>
     <Compile Include="VentasABM.aspx.designer.cs">
       <DependentUpon>VentasABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Marcas.aspx.cs">
+      <DependentUpon>Marcas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Marcas.aspx.designer.cs">
+      <DependentUpon>Marcas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MarcasABM.aspx.cs">
+      <DependentUpon>MarcasABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarcasABM.aspx.designer.cs">
+      <DependentUpon>MarcasABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categorias.aspx.cs">
+      <DependentUpon>Categorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categorias.aspx.designer.cs">
+      <DependentUpon>Categorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategoriasABM.aspx.cs">
+      <DependentUpon>CategoriasABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategoriasABM.aspx.designer.cs">
+      <DependentUpon>CategoriasABM.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

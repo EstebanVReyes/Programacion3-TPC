@@ -13,7 +13,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("SELECT ID, Nombre FROM Marcas");
+                datos.SetearConsulta("SELECT M.ID, M.Nombre, COUNT(P.ID) AS CantidadProductos FROM Marcas M LEFT JOIN Productos P ON P.Marca_ID = M.ID GROUP BY M.ID, M.Nombre");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -21,6 +21,7 @@ namespace Negocio
                     Marca aux = new Marca();
                     aux.Id = (int)datos.Lector["ID"];
                     aux.Descripcion = (string)datos.Lector["Nombre"];
+                    aux.CantidadProductos = (int)datos.Lector["CantidadProductos"];
 
                     lista.Add(aux);
                 }

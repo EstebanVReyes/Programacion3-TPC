@@ -117,11 +117,6 @@
 
         <div class="collapse" id="productos-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li>
-                    <a href="Productos.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
-                        Lista de Productos
-                    </a>
-                </li>
                 <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"])) { %>
                 <li>
                     <a href="ProductosABM.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
@@ -129,6 +124,21 @@
                     </a>
                 </li>
                 <% } %>
+                <li>
+                    <a href="Productos.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Productos
+                    </a>
+                </li>
+                <li>
+                    <a href="Marcas.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Marcas
+                    </a>
+                </li>
+                <li>
+                    <a href="Categorias.aspx" class="link-light d-inline-flex text-decoration-none rounded ms-3">
+                        Lista de Categorias
+                    </a>
+                </li>
             </ul>
         </div>
     </li>
