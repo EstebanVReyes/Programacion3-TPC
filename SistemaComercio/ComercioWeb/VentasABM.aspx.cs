@@ -145,7 +145,6 @@ namespace ComercioWeb
                         nuevoDetalle.Cantidad = cantidad;
                         decimal precioConGanancia = prodSelect.Precio * (1 + prodSelect.PorcentajeGanancia / 100);
                         nuevoDetalle.PrecioUnitario = precioConGanancia;
-                        nuevoDetalle.Subtotal = nuevoDetalle.PrecioUnitario * cantidad;
                         temporal.Add(nuevoDetalle);
                     }
 

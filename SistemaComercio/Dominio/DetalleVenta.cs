@@ -15,6 +15,6 @@ namespace Dominio
 
         public decimal PorcentajeGanancia { get; set; }
 
-        public decimal Subtotal { get; set; }
+        public decimal Subtotal { get { return PrecioUnitario * Cantidad; } }
     }
 }

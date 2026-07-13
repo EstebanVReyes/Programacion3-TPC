@@ -139,6 +139,7 @@ namespace ComercioWeb
 
                     ActualizarTablaYTotal();
 
+                    ddlProveedor.Enabled = false;
                     ddlProducto.SelectedIndex = 0;
                     txtPrecioCosto.Text = "";
                     txtCantidad.Text = "";
@@ -169,6 +170,9 @@ namespace ComercioWeb
                         temporal.RemoveAt(index);
                         ListaCarritoNueva = temporal;
                         ActualizarTablaYTotal();
+
+                        if (temporal.Count == 0)
+                            ddlProveedor.Enabled = true;
                     }
                 }
                 catch (Exception ex)
@@ -256,6 +260,7 @@ namespace ComercioWeb
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             Session["CarritoNuevaCompra"] = null;
+            ddlProveedor.Enabled = true;
             ddlProveedor.SelectedIndex = 0;
             ddlProducto.SelectedIndex = 0;
             txtCantidad.Text = "";
