@@ -91,7 +91,6 @@ namespace Negocio
             }
         }
 
-
         public void agregar(Venta nuevaVenta)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -102,7 +101,7 @@ namespace Negocio
                 datos.SetearConsulta("INSERT INTO Ventas (NumeroFactura, Estado, Total, Cliente_ID, Usuario_ID) OUTPUT INSERTED.ID VALUES (@numeroFactura, @estado, @total, @idCliente, @idUsuario)");
 
                 datos.SetearParametro("@numeroFactura", nuevaVenta.NumeroFactura);
-                datos.SetearParametro("@estado", "Pagado");
+                datos.SetearParametro("@estado", "Pendiente");
                 datos.SetearParametro("@total", nuevaVenta.Total);
                 datos.SetearParametro("@idCliente", nuevaVenta.Cliente.Id);
                 datos.SetearParametro("@idUsuario", 2);
@@ -232,13 +231,32 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.SetearConsulta("UPDATE Ventas SET Estado = 'Anulado' WHERE ID = @id");
+                datos.SetearConsulta("UPDATE Ventas SET Estado = 'Anulada' WHERE ID = @id");
                 datos.SetearParametro("@id", idVenta);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al anular la venta: " + ex.Message);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void informarPago(int idVenta)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.SetearConsulta("UPDATE Ventas SET Estado = 'Pagado' WHERE ID = @id");
+                datos.SetearParametro("@id", idVenta);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al informar el pago: " + ex.Message);
             }
             finally
             {

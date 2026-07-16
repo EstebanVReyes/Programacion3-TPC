@@ -1,73 +1,48 @@
-﻿<%@ Page Title="Modificar Venta" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioVenta.aspx.cs" Inherits="ComercioWeb.FormularioVenta" %>
+﻿<%@ Page Title="Detalle de Venta" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioVenta.aspx.cs" Inherits="ComercioWeb.FormularioVenta" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
-        <h2>Modificar o Eliminar Venta</h2>
+        <h2>Detalle de Venta</h2>
         
         <asp:Label ID="lblMensajes" runat="server" Visible="false" CssClass="alert alert-warning d-block"></asp:Label>
 
         <div class="row mt-3">
             <div class="col-md-6">
-                <label>Id Venta (Autogenerado):</label>
+                <label>Id Venta:</label>
                 <asp:TextBox ID="txtIdVenta" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
             </div>
             <div class="col-md-6">
                 <label>Número de Factura:</label>
-                <asp:TextBox ID="txtNumeroFactura" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtNumeroFactura" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-md-6">
                 <label>Fecha de Venta:</label>
-                <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
             </div>
             <div class="col-md-6">
                 <label>Cliente:</label>
-                <asp:DropDownList ID="ddlClientes" runat="server" CssClass="form-control"></asp:DropDownList>
+                <asp:TextBox ID="txtCliente" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-md-6">
-                <label>Estado del Pago:</label>
-                <asp:DropDownList ID="ddlEstadoPago" runat="server" CssClass="form-control">
-                    <asp:ListItem Text="Pagado" Value="Pagado"></asp:ListItem>
-                    <asp:ListItem Text="Pendiente" Value="Pendiente"></asp:ListItem>
-                    <asp:ListItem Text="Anulado" Value="Anulado"></asp:ListItem>
-                </asp:DropDownList>
+                <label>Estado:</label>
+                <asp:Label ID="lblEstado" runat="server" CssClass="form-control bg-light"></asp:Label>
             </div>
         </div>
 
         <hr class="mt-4 mb-4" />
-        <h4>Componentes de la Venta</h4>
-        
-        <div class="row mt-2 align-items-end">
-            <div class="col-md-4">
-                <label>Producto a Vender:</label>
-                <asp:DropDownList ID="ddlProductos" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProductos_SelectedIndexChanged"></asp:DropDownList>
-            </div>
-            <div class="col-md-2">
-                <label>Stock Disponible:</label>
-                <asp:TextBox ID="txtStock" runat="server" CssClass="form-control bg-light" ReadOnly="true"></asp:TextBox>
-            </div>
-            <div class="col-md-2">
-                <label>Cantidad:</label>
-                <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-            </div>
-            <div class="col-md-4">
-                <asp:Button ID="btnAgregarAlCarrito" runat="server" Text="Agregar a la lista" CssClass="btn btn-secondary w-100" OnClick="btnAgregarAlCarrito_Click" />
-            </div>
-        </div>
+        <h4>Productos</h4>
 
-        <br />
-
-        <asp:GridView ID="dgvDetalles" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-striped" OnRowCommand="dgvDetalles_RowCommand" ShowHeaderWhenEmpty="true">
+        <asp:GridView ID="dgvDetalles" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-striped" ShowHeaderWhenEmpty="true">
             <Columns>
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Producto" />
                 <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
                 <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
-                <asp:ButtonField CommandName="Quitar" Text="❌ Quitar" ControlStyle-CssClass="btn btn-danger btn-sm" HeaderText="Acción" />
             </Columns>
         </asp:GridView>
 
@@ -82,12 +57,11 @@
 
         <div class="row mt-4 mb-5">
             <div class="col-md-6">
-                <asp:Button ID="btnAceptar" runat="server" Text="Guardar Cambios" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
-                <a href="Ventas.aspx" class="btn btn-light border ms-2">Cancelar</a>
+                <asp:Button ID="btnInformarPago" runat="server" Text="Informar Pago" CssClass="btn btn-success" OnClick="btnInformarPago_Click" Visible="false" />
+                <asp:Button ID="btnAnular" runat="server" Text="Anular Venta" CssClass="btn btn-danger ms-2" OnClick="btnAnular_Click" Visible="false" />
             </div>
             <div class="col-md-6 text-end">
-                <asp:CheckBox ID="chkConfirmarEliminacion" runat="server" Text=" Confirmar Anulación" AutoPostBack="true" OnCheckedChanged="chkConfirmarEliminacion_CheckedChanged" />
-                <asp:Button ID="btnEliminar" runat="server" Text="Anular Venta" CssClass="btn btn-danger ms-2" OnClick="btnEliminar_Click" Visible="false" />
+                <a href="Ventas.aspx" class="btn btn-light border">Volver</a>
             </div>
         </div>
     </div>

@@ -111,6 +111,7 @@
                 <asp:ListItem Text="Todos" Value="" />
                 <asp:ListItem Text="Pagado" Value="Pagado" />
                 <asp:ListItem Text="Pendiente" Value="Pendiente" />
+                <asp:ListItem Text="Anulada" Value="Anulada" />
             </asp:DropDownList>
         </div>
     </div>
@@ -131,15 +132,21 @@
    
 <%# Convert.ToString(Eval("Estado")) == "Pagado" 
         ? "<i class='bi bi-check-circle-fill text-success'></i> Pagado" 
+        : Convert.ToString(Eval("Estado")) == "Anulada"
+        ? "<span style='color: gray;'>Anulada</span>"
         : "<span style='color: red;'>Pendiente</span>" %>
 </ItemTemplate>
                  </asp:TemplateField>
 
             <asp:HyperLinkField HeaderText="" Text="🔍 Ver Detalle" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="DetalleVenta.aspx?id={0}" ControlStyle-CssClass="btn btn-primary" />
-             <asp:HyperLinkField HeaderText="Acción" Text="Editar ✍️" 
-                DataNavigateUrlFields="Id" 
-                DataNavigateUrlFormatString="FormularioVentas.aspx?id={0}" 
-                ControlStyle-CssClass="btn btn-primary" />
+            <asp:TemplateField HeaderText="Acción">
+                <ItemTemplate>
+                    <asp:HyperLink runat="server" Text="Editar"
+                        NavigateUrl='<%# "FormularioVentas.aspx?id=" + Eval("Id") %>'
+                        Visible='<%# Eval("Estado").ToString() == "Pendiente" %>'
+                        CssClass="btn btn-primary" />
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
 </div>
