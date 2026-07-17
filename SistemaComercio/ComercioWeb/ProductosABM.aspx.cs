@@ -70,7 +70,6 @@ namespace ComercioWeb
                 {
                     Nombre = txtNombre.Text,
                     Descripcion = txtDescripcion.Text,
-                    Precio = decimal.Parse(txtPrecio.Text),
                     PorcentajeGanancia = decimal.Parse(txtPorcentajeGanancia.Text),
                     UrlImagen = txtUrlImagen.Text.Trim()
                 };
@@ -96,8 +95,8 @@ namespace ComercioWeb
             }
             catch (FormatException)
             {
-               
-                lblMensaje.Text = "Por favor, ingrese números válidos en Precio y Stock.";
+
+                lblMensaje.Text = "Por favor, ingrese un número válido en el Porcentaje de Ganancia.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
             catch (Exception ex)
@@ -118,7 +117,6 @@ namespace ComercioWeb
         {
             txtNombre.Text = "";
             txtDescripcion.Text = "";
-            txtPrecio.Text = "";
             txtPorcentajeGanancia.Text = "";
 
             txtUrlImagen.Text = "";

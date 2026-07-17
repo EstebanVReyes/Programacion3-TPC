@@ -30,7 +30,7 @@ namespace ComercioWeb
                         {
                             txtId.Text = seleccionado.Id.ToString();
                             txtNombre.Text = seleccionado.Nombre;
-                            txtPrecio.Text = Math.Round(seleccionado.Precio, 2).ToString();
+                            txtPorcentajeGanancia.Text = Math.Round(seleccionado.PorcentajeGanancia, 2).ToString();
                             txtDescripcion.Text = seleccionado.Descripcion;
 
                             
@@ -90,12 +90,11 @@ namespace ComercioWeb
                 ProductoNegocio negocio = new ProductoNegocio();
 
                 nuevoProducto.Nombre = txtNombre.Text;
-                nuevoProducto.Precio = decimal.Parse(txtPrecio.Text);
                 nuevoProducto.Descripcion = txtDescripcion.Text;
                 nuevoProducto.UrlImagen = txtUrlImagen.Text.Trim();
 
                 nuevoProducto.Codigo = "PROD-" + DateTime.Now.ToString("HHmmss");
-                nuevoProducto.PorcentajeGanancia = 30;
+                nuevoProducto.PorcentajeGanancia = decimal.Parse(txtPorcentajeGanancia.Text);
                 nuevoProducto.StockMinimo = 5;
 
                 nuevoProducto.Categoria = new Categoria();
@@ -123,7 +122,7 @@ namespace ComercioWeb
             }
             catch (FormatException)
             {
-                lblMensajes.Text = "Por favor, ingrese números válidos en Precio.";
+                lblMensajes.Text = "Por favor, ingrese un número válido en el Porcentaje de Ganancia.";
                 lblMensajes.ForeColor = System.Drawing.Color.Red;
             }
             catch (Exception ex)

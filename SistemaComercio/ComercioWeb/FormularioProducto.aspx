@@ -57,22 +57,22 @@
                     ForeColor="Red" Display="Dynamic" />
             </div>
 
-            <div>
-                <label>Precio:</label>
-                <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="rfvPrecio" runat="server"
-                    ControlToValidate="txtPrecio"
-                    ErrorMessage="El precio es obligatorio."
-                    ForeColor="Red" Display="Dynamic" />
-                <asp:CompareValidator ID="cvPrecio" runat="server"
-                    ControlToValidate="txtPrecio"
-                    Operator="DataTypeCheck"
-                    Type="Double"
-                    ErrorMessage="El precio debe ser un número válido."
-                    ForeColor="Red" Display="Dynamic" />
+            <div class="form-group">
+                <label for="txtPorcentajeGanancia">Porcentaje Ganancia</label>
+                <asp:TextBox ID="txtPorcentajeGanancia" runat="server" CssClass="form-control" />
+                   <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                       ControlToValidate="txtPorcentajeGanancia"
+                       ErrorMessage="El porcentaje de la ganancia es obligatorio."
+                       ForeColor="Red" Display="Dynamic" />
+                   <asp:RangeValidator ID="RangeValidator1" runat="server"
+                       ControlToValidate="txtPorcentajeGanancia"
+                       Type="Integer"
+                       MinimumValue="15"
+                       MaximumValue="40"
+                       ErrorMessage="El porcentaje de ganacia debe estar entre 15 y 40."
+                       ForeColor="Red" Display="Dynamic" />
             </div>
 
-         
             <div class="form-group">
                 <label for="ddlCategorias">Categoría</label>
                 <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-control"></asp:DropDownList>
