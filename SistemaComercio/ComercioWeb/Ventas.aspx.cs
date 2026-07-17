@@ -18,6 +18,7 @@ namespace ComercioWeb
             if (!IsPostBack)
             {
                 CargarVentas();
+                CargarCatalogo(); 
             }
         }
 
@@ -63,5 +64,84 @@ namespace ComercioWeb
 
             gvVentas.DataBind();
         }
+
+
+
+        public void CargarCatalogo()
+        {
+            
+            CategoriaNegocio negocio = new CategoriaNegocio();
+
+            ddlCategoria.DataSource = negocio.Listar();
+            ddlCategoria.DataTextField = "Descripcion"; 
+            ddlCategoria.DataValueField = "Id";
+            ddlCategoria.DataBind();
+
+
+            ddlCategoria.Items.Insert(0, new ListItem("Seleccione una Categoría...", "0"));
+
+       
+            ddlProducto.Items.Clear();
+            ddlProducto.Items.Insert(0, new ListItem("Esperando categoría...", "0"));
+        }
+
+      
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idCategoria = int.Parse(ddlCategoria.SelectedValue);
+
+            if (idCategoria > 0)
+            {
+             
+                CargarProductos(idCategoria);
+            }
+            else
+            {
+             
+                ddlProducto.Items.Clear();
+                ddlProducto.Items.Insert(0, new ListItem("Esperando categoría...", "0"));
+            }
+        }
+
+        private void CargarProductos(int idCategoria)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+
+            
+            ddlProducto.DataSource = negocio.listarPorCategoria(idCategoria);
+            ddlProducto.DataTextField = "Nombre"; 
+            ddlProducto.DataValueField = "Id";   
+            ddlProducto.DataBind();
+
+            ddlProducto.Items.Insert(0, new ListItem("Seleccione un Producto...", "0"));
+        }
+
+
+        protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idProducto = int.Parse(ddlProducto.SelectedValue);
+
+           
+            List<Venta> lista = (List<Venta>)Session["listaVentas"];
+
+            if (idProducto > 0)
+            {
+                
+                List<Venta> listaFiltrada = lista.FindAll(venta =>
+                    venta.Detalles != null &&
+                    venta.Detalles.Exists(detalle => detalle.Producto.Id == idProducto)
+                );
+
+                gvVentas.DataSource = listaFiltrada;
+            }
+            else
+            {
+               
+                gvVentas.DataSource = lista;
+            }
+
+           
+            gvVentas.DataBind();
+        }
     }
-}
+    }

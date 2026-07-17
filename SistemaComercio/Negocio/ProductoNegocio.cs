@@ -247,6 +247,59 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public List<Producto> listarPorCategoria(int idCategoria)
+        {
+            List<Producto> lista = new List<Producto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+               
+                string consulta = "SELECT P.ID, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.Marca_ID, P.Categoria_ID, M.Nombre AS MarcaNombre, C.Nombre AS CategoriaNombre, P.UrlImagen FROM Productos P INNER JOIN Marcas M ON P.Marca_ID = M.ID INNER JOIN Categorias C ON P.Categoria_ID = C.ID WHERE P.Estado = 1 AND P.Categoria_ID = @idCategoria";
+
+                datos.SetearConsulta(consulta);
+                datos.SetearParametro("@idCategoria", idCategoria);
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Producto aux = new Producto();
+
+                    aux.Id = (int)datos.Lector["ID"];
+                    aux.Codigo = (string)datos.Lector["Codigo"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Precio = (decimal)datos.Lector["Precio"];
+                    aux.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
+                    aux.StockActual = (int)datos.Lector["StockActual"];
+                    aux.StockMinimo = (int)datos.Lector["StockMinimo"];
+
+                    if (!(datos.Lector["UrlImagen"] is DBNull))
+                    {
+                        aux.UrlImagen = (string)datos.Lector["UrlImagen"];
+                    }
+
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = (int)datos.Lector["Marca_ID"];
+                    aux.Marca.Descripcion = (string)datos.Lector["MarcaNombre"];
+
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)datos.Lector["Categoria_ID"];
+                    aux.Categoria.Descripcion = (string)datos.Lector["CategoriaNombre"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
 
     }
 

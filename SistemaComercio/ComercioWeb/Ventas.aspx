@@ -93,28 +93,46 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     
     <div class="card">
-    <h2>Listado de ventas</h2>
+        <h2>Listado de ventas</h2>
 
-    <div class="form-grid" style="margin-bottom: 16px;">
-        <div class="form-group">
-            <label>Buscar por cliente o factura:</label>
-            <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
-                AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
+        <div class="form-grid" style="margin-bottom: 16px;">
+            <!-- Filtro de Cliente/Factura original -->
+            <div class="form-group">
+                <label>Buscar por cliente o factura:</label>
+                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
+                    AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
+            </div>
+
+            <!-- Filtro de Estado original -->
+            <div class="form-group">
+                <label>Estado:</label>
+                <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control"
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged">
+                    <asp:ListItem Text="Todos" Value="" />
+                    <asp:ListItem Text="Pagado" Value="Pagado" />
+                    <asp:ListItem Text="Pendiente" Value="Pendiente" />
+                    <asp:ListItem Text="Anulada" Value="Anulada" />
+                </asp:DropDownList>
+            </div>
+
+            <!-- NUEVO: Filtro de Categoría -->
+            <div class="form-group">
+                <label>Filtrar por Categoría:</label>
+                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control"
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
+                </asp:DropDownList>
+            </div>
+
+           
+            <div class="form-group">
+                <label>Filtrar por Producto:</label>
+                <asp:DropDownList ID="ddlProducto" runat="server" CssClass="form-control"
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged">
+                </asp:DropDownList>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Estado:</label>
-            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control"
-                AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged">
-                <asp:ListItem Text="Todos" Value="" />
-                <asp:ListItem Text="Pagado" Value="Pagado" />
-                <asp:ListItem Text="Pendiente" Value="Pendiente" />
-                <asp:ListItem Text="Anulada" Value="Anulada" />
-            </asp:DropDownList>
-        </div>
-    </div>
     
         <asp:GridView ID="gvVentas" runat="server" CssClass="table" AutoGenerateColumns="false"
             DataKeyNames="Id" EmptyDataText="No hay ventas cargadas.">
@@ -127,29 +145,27 @@
                 </asp:TemplateField>
                 <asp:BoundField DataField="NumeroFactura" HeaderText="N° Factura" />
                 <asp:BoundField DataField="Total" HeaderText="Total" DataFormatString="{0:C}" />
-            <asp:TemplateField HeaderText="Estado" >
-                <ItemTemplate>
-   
-<%# Convert.ToString(Eval("Estado")) == "Pagado" 
-        ? "<i class='bi bi-check-circle-fill text-success'></i> Pagado" 
-        : Convert.ToString(Eval("Estado")) == "Anulada"
-        ? "<span style='color: gray;'>Anulada</span>"
-        : "<span style='color: red;'>Pendiente</span>" %>
-</ItemTemplate>
-                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Estado" >
+                    <ItemTemplate>
+                        <%# Convert.ToString(Eval("Estado")).Trim() == "Pagado" 
+                            ? "<i class='bi bi-check-circle-fill text-success'></i> Pagado" 
+                            : Convert.ToString(Eval("Estado")).Trim() == "Anulada"
+                            ? "<span style='color: gray;'>Anulada</span>"
+                            : "<span style='color: red;'>Pendiente</span>" %>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-            <asp:HyperLinkField HeaderText="" Text="🔍 Ver Detalle" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="DetalleVenta.aspx?id={0}" ControlStyle-CssClass="btn btn-primary" />
-            <asp:TemplateField HeaderText="Acción">
-                <ItemTemplate>
-                    <asp:HyperLink runat="server" Text="Editar"
-                        NavigateUrl='<%# "FormularioVentas.aspx?id=" + Eval("Id") %>'
-                        Visible='<%# Eval("Estado").ToString() == "Pendiente" %>'
-                        CssClass="btn btn-primary" />
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-</div>
-
-
+                <asp:HyperLinkField HeaderText="" Text="🔍 Ver Detalle" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="DetalleVenta.aspx?id={0}" ControlStyle-CssClass="btn btn-primary" />
+                
+                <asp:TemplateField HeaderText="Acción">
+                    <ItemTemplate>
+                        <asp:HyperLink runat="server" Text="Editar"
+                            NavigateUrl='<%# "FormularioVentas.aspx?id=" + Eval("Id") %>'
+                            Visible='<%# Eval("Estado").ToString().Trim() == "Pendiente" %>'
+                            CssClass="btn btn-primary" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+    </div>
 </asp:Content>
