@@ -25,6 +25,7 @@ namespace ComercioWeb
                 {
                     CargarResumenVentas();
                     CargarProductosMasVendidos();
+                    CargarResumenCompras();
                 }
 
                 CargarProductosConMenosStock();
@@ -57,6 +58,17 @@ namespace ComercioWeb
                     producto.CantidadVendida
                 );
             }
+        }
+
+        private void CargarResumenCompras()
+        {
+            CompraNegocio negocio = new CompraNegocio();
+
+            ResumenCompra resumen = negocio.ObtenerResumenComprasUltimos30Dias();
+
+            lblCantidadCompras.Text = resumen.CantidadCompras.ToString();
+            lblProductosComprados.Text = resumen.CantidadProductosComprados.ToString();
+            lblImporteTotalCompras.Text = "$" + resumen.ImporteTotal.ToString("N2");
         }
 
         private void CargarProductosConMenosStock()

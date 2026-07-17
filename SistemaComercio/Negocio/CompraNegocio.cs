@@ -140,5 +140,34 @@ namespace Negocio
                 }
             }
         }
+        public ResumenCompra ObtenerResumenComprasUltimos30Dias()
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("EXEC SP_ComprasUltimos30Dias");
+                datos.EjecutarLectura();
+
+                ResumenCompra resumen = new ResumenCompra();
+
+                if (datos.Lector.Read())
+                {
+                    resumen.CantidadCompras = Convert.ToInt32(datos.Lector["CantidadCompras"]);
+                    resumen.CantidadProductosComprados = Convert.ToInt32(datos.Lector["CantidadProductosComprados"]);
+                    resumen.ImporteTotal = Convert.ToDecimal(datos.Lector["ImporteTotal"]);
+                }
+
+                return resumen;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }
