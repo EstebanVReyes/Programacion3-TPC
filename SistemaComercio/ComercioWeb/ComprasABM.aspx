@@ -66,7 +66,7 @@
 
     <div class="form-group">
         <label for="txtPrecioCosto">Precio de costo ($)</label>
-        <asp:TextBox ID="txtPrecioCosto" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#f3f4f6" />
+        <asp:TextBox ID="txtPrecioCosto" runat="server" CssClass="form-control" BackColor="#f3f4f6" />
     </div>
 
     <div class="form-group">
