@@ -127,7 +127,7 @@
         <h1 class="home-title">Dashboard de Información</h1>
 
         <p class="home-description">
-            Información sobre ventas y compras realizadas los últimos 30 días.
+            Información sobre ventas realizadas los últimos 30 días.
         </p>
     </div>
 

@@ -15,6 +15,24 @@ namespace ComercioWeb
     {
 
         /// <summary>
+        /// dashboardAdminTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardAdminTitle;
+
+        /// <summary>
+        /// dashboardVentas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardVentas;
+
+        /// <summary>
         /// lblProductosVendidos control.
         /// </summary>
         /// <remarks>
@@ -51,24 +69,6 @@ namespace ComercioWeb
         protected global::System.Web.UI.DataVisualization.Charting.Chart chartProductos;
 
         /// <summary>
-        /// dlProductosMenosStock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlProductosMenosStock;
-
-        /// <summary>
-        /// dashboardVentas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardVentas;
-
-        /// <summary>
         /// dashboardCompras control.
         /// </summary>
         /// <remarks>
@@ -76,15 +76,6 @@ namespace ComercioWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardCompras;
-
-        /// <summary>
-        /// dashboardAdminTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardAdminTitle;
 
         /// <summary>
         /// lblCantidadCompras control.
@@ -112,5 +103,14 @@ namespace ComercioWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProductosComprados;
+
+        /// <summary>
+        /// dlProductosMenosStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList dlProductosMenosStock;
     }
 }
