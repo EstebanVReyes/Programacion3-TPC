@@ -67,6 +67,13 @@
     <div class="form-group">
         <label for="txtPrecioCosto">Precio de costo ($)</label>
         <asp:TextBox ID="txtPrecioCosto" runat="server" CssClass="form-control" BackColor="#f3f4f6" />
+         <asp:RangeValidator ID="RangeValidator1" runat="server"
+     ControlToValidate="txtPrecioCosto"
+     Type="Integer"
+     MinimumValue="500"
+     MaximumValue="10000000"
+     ErrorMessage="El precio no puede ser inferior a 500."
+     ForeColor="Red" Display="Dynamic" />
     </div>
 
     <div class="form-group">
