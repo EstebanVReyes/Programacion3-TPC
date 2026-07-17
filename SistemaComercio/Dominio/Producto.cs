@@ -23,6 +23,7 @@ namespace Dominio
         public int StockActual { get; set; }
         public int StockMinimo { get; set; }
         public decimal PorcentajeGanancia { get; set; }
+        public string UrlImagen { get; set; }
 
         public List<Proveedor> Proveedores { get; set; }
 

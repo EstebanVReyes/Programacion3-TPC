@@ -15,7 +15,7 @@ namespace Negocio
             try
             {
 
-                datos.SetearConsulta("SELECT P.ID, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.Marca_ID, P.Categoria_ID, M.Nombre AS MarcaNombre, C.Nombre AS CategoriaNombre FROM Productos P INNER JOIN Marcas M ON P.Marca_ID = M.ID INNER JOIN Categorias C ON P.Categoria_ID = C.ID WHERE P.Estado = 1");
+                datos.SetearConsulta("SELECT P.ID, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.UrlImagen, P.Marca_ID, P.Categoria_ID, M.Nombre AS MarcaNombre, C.Nombre AS CategoriaNombre FROM Productos P INNER JOIN Marcas M ON P.Marca_ID = M.ID INNER JOIN Categorias C ON P.Categoria_ID = C.ID WHERE P.Estado = 1");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -29,6 +29,9 @@ namespace Negocio
                     aux.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
                     aux.StockActual = (int)datos.Lector["StockActual"];
                     aux.StockMinimo = (int)datos.Lector["StockMinimo"];
+
+                    if (!(datos.Lector["UrlImagen"] is DBNull))
+                        aux.UrlImagen = (string)datos.Lector["UrlImagen"];
 
                     aux.Marca = new Marca();
                     aux.Marca.Id = (int)datos.Lector["Marca_ID"];
@@ -59,7 +62,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.SetearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, Precio, PorcentajeGanancia, StockActual, StockMinimo, Categoria_ID, Marca_ID) VALUES (@Codigo, @Nombre, @Desc, @Precio, @Porcentaje, @Stock, @StockMin, @IdCat, @IdMarca)");
+                datos.SetearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, Precio, PorcentajeGanancia, StockActual, StockMinimo, Categoria_ID, Marca_ID, UrlImagen) VALUES (@Codigo, @Nombre, @Desc, @Precio, @Porcentaje, @Stock, @StockMin, @IdCat, @IdMarca, @UrlImagen)");
 
                 datos.SetearParametro("@Codigo", nuevo.Codigo);
                 datos.SetearParametro("@Nombre", nuevo.Nombre);
@@ -70,7 +73,8 @@ namespace Negocio
                 datos.SetearParametro("@StockMin", nuevo.StockMinimo);
                 datos.SetearParametro("@IdCat", nuevo.Categoria.Id);
                 datos.SetearParametro("@IdMarca", nuevo.Marca.Id);
-
+                datos.SetearParametro("@UrlImagen", string.IsNullOrWhiteSpace(nuevo.UrlImagen) ? (object)DBNull.Value : nuevo.UrlImagen);
+                
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -90,7 +94,7 @@ namespace Negocio
             try
             {
 
-                datos.SetearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Desc, Precio = @Precio, PorcentajeGanancia = @Porcentaje, StockActual = @Stock, StockMinimo = @StockMin, Categoria_ID = @IdCat, Marca_ID = @IdMarca WHERE ID = @Id");
+                datos.SetearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Desc, Precio = @Precio, PorcentajeGanancia = @Porcentaje, StockActual = @Stock, StockMinimo = @StockMin, Categoria_ID = @IdCat, Marca_ID = @IdMarca, UrlImagen = @UrlImagen WHERE ID = @Id");
 
                 datos.SetearParametro("@Codigo", producto.Codigo);
                 datos.SetearParametro("@Nombre", producto.Nombre);
@@ -101,6 +105,7 @@ namespace Negocio
                 datos.SetearParametro("@StockMin", producto.StockMinimo);
                 datos.SetearParametro("@IdCat", producto.Categoria.Id);
                 datos.SetearParametro("@IdMarca", producto.Marca.Id);
+                datos.SetearParametro("@UrlImagen", string.IsNullOrWhiteSpace(producto.UrlImagen) ? (object)DBNull.Value : producto.UrlImagen);
                 datos.SetearParametro("@Id", producto.Id);
 
                 datos.EjecutarAccion();

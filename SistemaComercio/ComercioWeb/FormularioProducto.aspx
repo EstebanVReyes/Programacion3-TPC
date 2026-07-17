@@ -82,9 +82,17 @@
                     ErrorMessage="Debe seleccionar una categoría."
                     ForeColor="Red" Display="Dynamic" />
             </div>
-                
             
-
+            <div class="form-group">
+                <label>Marca</label>
+                <asp:DropDownList ID="ddlMarcas" runat="server" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="rfvMarca" runat="server"
+                    ControlToValidate="ddlMarcas"
+                    InitialValue=""
+                    ErrorMessage="Debe seleccionar una marca."
+                    ForeColor="Red" Display="Dynamic" />
+            </div>
+            
             <div class="acciones-inferiores">
                 <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
                 <a href="Productos.aspx" style="margin-left: 10px;">Cancelar</a>

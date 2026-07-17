@@ -52,6 +52,7 @@ CREATE TABLE Productos (
     PorcentajeGanancia DECIMAL(5,2) NOT NULL,
     StockActual INT DEFAULT 0 NOT NULL,
     StockMinimo INT DEFAULT 0 NOT NULL,
+	UrlImagen VARCHAR(500) NULL,
     Categoria_ID INT NOT NULL,
     Marca_ID INT NOT NULL,
     Estado BIT DEFAULT 1,

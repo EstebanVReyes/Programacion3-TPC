@@ -136,8 +136,6 @@
                     ForeColor="Red" Display="Dynamic" />
           </div>
 
-      
-          
           <div class="form-group">
               <label for="txtPorcentajeGanancia">Porcentaje Ganancia</label>
               <asp:TextBox ID="txtPorcentajeGanancia" runat="server" CssClass="form-control" />
@@ -153,6 +151,37 @@
                     ErrorMessage="El porcentaje de ganacia debe estar entre 15 y 40."
                     ForeColor="Red" Display="Dynamic" />
           </div>
+      
+          <div class="form-group">
+              <label for="ddlCategorias">Categoría</label>
+              <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-control" />
+              <asp:RequiredFieldValidator ID="rfvCategoria" runat="server"
+                  ControlToValidate="ddlCategorias"
+                  InitialValue=""
+                  ErrorMessage="Debe seleccionar una categoría."
+                  ForeColor="Red" Display="Dynamic" />
+          </div>
+
+          <div class="form-group">
+              <label for="ddlMarcas">Marca</label>
+              <asp:DropDownList ID="ddlMarcas" runat="server" CssClass="form-control" />
+              <asp:RequiredFieldValidator ID="rfvMarca" runat="server"
+                  ControlToValidate="ddlMarcas"
+                  InitialValue=""
+                  ErrorMessage="Debe seleccionar una marca."
+                  ForeColor="Red" Display="Dynamic" />
+          </div>
+
+          <div class="form-group">
+              <label for="txtUrlImagen">URL Imagen</label>
+              <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtUrlImagen_TextChanged" />
+          </div>
+
+          <div class="form-group">
+              <label>Vista Previa</label>
+              <asp:Image ID="imgProducto" runat="server" ImageUrl="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid #d1d5db;" />
+          </div>
+      
       </div>
 
       <div class="actions">
