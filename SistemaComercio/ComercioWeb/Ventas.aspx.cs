@@ -10,7 +10,7 @@ namespace ComercioWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"])))
+            if (!(Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"])))
             {
                 Response.Redirect("Default.aspx");
             }

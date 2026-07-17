@@ -60,13 +60,31 @@ namespace ComercioWeb
         protected global::System.Web.UI.WebControls.DataList dlProductosMenosStock;
 
         /// <summary>
-        /// dashboardAdmin control.
+        /// dashboardVentas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardAdmin;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardVentas;
+
+        /// <summary>
+        /// dashboardCompras control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardCompras;
+
+        /// <summary>
+        /// dashboardAdminTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dashboardAdminTitle;
 
         /// <summary>
         /// lblCantidadCompras control.

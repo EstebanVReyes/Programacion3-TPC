@@ -123,13 +123,15 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h1 class="home-title">Dashboard de Información</h1>
+    <div runat="server" id="dashboardAdminTitle">
+        <h1 class="home-title">Dashboard de Información</h1>
 
-    <p class="home-description">
-        Información sobre ventas y compras realizadas los últimos 30 días.
-    </p>
+        <p class="home-description">
+            Información sobre ventas y compras realizadas los últimos 30 días.
+        </p>
+    </div>
 
-    <div runat="server" id="dashboardAdmin">
+    <div runat="server" id="dashboardVentas">
 
         <div class="dashboard-container">
 
@@ -171,6 +173,14 @@
                     </ChartAreas>
                 </asp:Chart>
             </div>
+
+        </div>
+
+    </div>
+
+    <div runat="server" id="dashboardCompras">
+
+        <div class="dashboard-container">
 
             <h2>Compras de los últimos 30 días</h2>
 

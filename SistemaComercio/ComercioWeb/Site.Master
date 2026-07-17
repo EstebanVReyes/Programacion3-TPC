@@ -144,7 +144,7 @@
     </li>
     <% } %>
 
-    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"])) { %>
+    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"]) || Seguridad.esCajero(Session["usuario"])) { %>
     <li class="mb-1">
         <button 
             class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
@@ -175,7 +175,7 @@
     <% } %>
 
 
-    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"])) { %>
+    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esDeposito(Session["usuario"]) || Seguridad.esCajero(Session["usuario"])) { %>
     <li class="mb-1">
         <button 
             class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"
@@ -203,7 +203,7 @@
     </li>
     <% } %>
 
-    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"])) { %>
+    <% if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"])) { %>
     <li class="mb-1">
         <button 
             class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white w-100 dropdown-toggle"

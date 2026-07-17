@@ -38,6 +38,21 @@
             </asp:DropDownList>
         </div>
 
+    <div class="form-grid" style="margin-bottom: 20px;">
+        <div class="form-group">
+            <label for="ddlCategoria">Categoría</label>
+            <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
+                <asp:ListItem Text="Todas" Value="" />
+            </asp:DropDownList>
+        </div>
+        <div class="form-group">
+            <label for="ddlMarca">Marca</label>
+            <asp:DropDownList ID="ddlMarca" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlMarca_SelectedIndexChanged">
+                <asp:ListItem Text="Todas" Value="" />
+            </asp:DropDownList>
+        </div>
+    </div>
+
         <hr style="border: 1px solid #e5e7eb; margin: 20px 0;" />
 
        <h4>Agregar Componentes</h4>

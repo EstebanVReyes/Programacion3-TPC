@@ -28,7 +28,10 @@ namespace ComercioWeb
             if (!IsPostBack)
             {
                 CargarDesplegables();
-               
+
+                ProductoNegocio prodNegocio = new ProductoNegocio();
+                Session["productosVenta"] = prodNegocio.Listar();
+
                 Session["CarritoNuevaVenta"] = null;
                 ActualizarTablaYTotal();
             }
@@ -41,21 +44,66 @@ namespace ComercioWeb
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
                 ddlCliente.DataSource = clienteNegocio.Listar();
                 ddlCliente.DataValueField = "Id";
-                ddlCliente.DataTextField = "NombreCompleto"; // Ajustado según tu clase Cliente
+                ddlCliente.DataTextField = "NombreCompleto";
                 ddlCliente.DataBind();
                 ddlCliente.Items.Insert(0, new ListItem("Seleccione un cliente...", ""));
 
-                ProductoNegocio productoNegocio = new ProductoNegocio();
-                ddlProducto.DataSource = productoNegocio.Listar();
-                ddlProducto.DataValueField = "Id";
-                ddlProducto.DataTextField = "Nombre";
-                ddlProducto.DataBind();
-                ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+                CategoriaNegocio catNegocio = new CategoriaNegocio();
+                ddlCategoria.DataSource = catNegocio.Listar();
+                ddlCategoria.DataValueField = "Id";
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataBind();
+                ddlCategoria.Items.Insert(0, new ListItem("Todas", ""));
+
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                ddlMarca.DataSource = marcaNegocio.Listar();
+                ddlMarca.DataValueField = "Id";
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataBind();
+                ddlMarca.Items.Insert(0, new ListItem("Todas", ""));
+
+                FiltrarProductos();
             }
             catch (Exception ex)
             {
                 MostrarMensaje("Error al cargar datos: " + ex.Message, System.Drawing.Color.Red);
             }
+        }
+
+        private void FiltrarProductos()
+        {
+            List<Producto> todos = (List<Producto>)Session["productosVenta"];
+            List<Producto> filtrados = new List<Producto>(todos);
+
+            if (!string.IsNullOrEmpty(ddlCategoria.SelectedValue))
+            {
+                int idCat = int.Parse(ddlCategoria.SelectedValue);
+                filtrados = filtrados.FindAll(p => p.Categoria.Id == idCat);
+            }
+
+            if (!string.IsNullOrEmpty(ddlMarca.SelectedValue))
+            {
+                int idMarca = int.Parse(ddlMarca.SelectedValue);
+                filtrados = filtrados.FindAll(p => p.Marca.Id == idMarca);
+            }
+
+            ddlProducto.Items.Clear();
+            ddlProducto.DataSource = filtrados;
+            ddlProducto.DataValueField = "Id";
+            ddlProducto.DataTextField = "Nombre";
+            ddlProducto.DataBind();
+            ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+        }
+
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlMarca.SelectedIndex = 0;
+            FiltrarProductos();
+        }
+
+        protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarProductos();
         }
 
 
@@ -317,11 +365,14 @@ namespace ComercioWeb
         {
             Session["CarritoNuevaVenta"] = null;
             ddlCliente.SelectedIndex = 0;
+            ddlCategoria.SelectedIndex = 0;
+            ddlMarca.SelectedIndex = 0;
             ddlProducto.SelectedIndex = 0;
             txtCantidad.Text = "";
             txtPrecioUnitario.Text = "";
-            txtStock.Text = ""; 
+            txtStock.Text = "";
             lblMensaje.Text = "";
+            FiltrarProductos();
             ActualizarTablaYTotal();
         }
 

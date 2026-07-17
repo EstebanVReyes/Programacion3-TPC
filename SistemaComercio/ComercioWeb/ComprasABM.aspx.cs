@@ -54,7 +54,19 @@ namespace ComercioWeb
                 ddlProveedor.DataBind();
                 ddlProveedor.Items.Insert(0, new ListItem("Seleccione un proveedor...", ""));
 
-                
+                CategoriaNegocio catNegocio = new CategoriaNegocio();
+                ddlCategoria.DataSource = catNegocio.Listar();
+                ddlCategoria.DataValueField = "Id";
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataBind();
+                ddlCategoria.Items.Insert(0, new ListItem("Todas", ""));
+
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                ddlMarca.DataSource = marcaNegocio.Listar();
+                ddlMarca.DataValueField = "Id";
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataBind();
+                ddlMarca.Items.Insert(0, new ListItem("Todas", ""));
             }
             catch (Exception ex)
             {
@@ -236,25 +248,55 @@ namespace ComercioWeb
 
         public void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlProducto.Items.Clear();
-            ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+            ddlCategoria.SelectedIndex = 0;
+            ddlMarca.SelectedIndex = 0;
+            FiltrarProductos();
+            txtPrecioCosto.Text = "";
+            txtCantidad.Text = "";
+        }
+
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlMarca.SelectedIndex = 0;
+            FiltrarProductos();
+        }
+
+        protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarProductos();
+        }
+
+        private void FiltrarProductos()
+        {
+            List<Producto> todos = (List<Producto>)Session["productos"];
+            List<Producto> filtrados = new List<Producto>(todos);
 
             if (!string.IsNullOrEmpty(ddlProveedor.SelectedValue))
             {
-                int idProveedor = int.Parse(ddlProveedor.SelectedValue);
+                int idProv = int.Parse(ddlProveedor.SelectedValue);
                 ProveedorNegocio provNegocio = new ProveedorNegocio();
-                List<DetalleProveedor> detalles = provNegocio.ObtenerProductosDeProveedor(idProveedor);
-                List<Producto> todos = (List<Producto>)Session["productos"];
-
-                ddlProducto.DataSource = todos.FindAll(p => detalles.Exists(d => d.Producto.Id == p.Id));
-                ddlProducto.DataValueField = "Id";
-                ddlProducto.DataTextField = "Nombre";
-                ddlProducto.DataBind();
-                ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
+                List<DetalleProveedor> detalles = provNegocio.ObtenerProductosDeProveedor(idProv);
+                filtrados = filtrados.FindAll(p => detalles.Exists(d => d.Producto.Id == p.Id));
             }
 
-            txtPrecioCosto.Text = "";
-            txtCantidad.Text = "";
+            if (!string.IsNullOrEmpty(ddlCategoria.SelectedValue))
+            {
+                int idCat = int.Parse(ddlCategoria.SelectedValue);
+                filtrados = filtrados.FindAll(p => p.Categoria.Id == idCat);
+            }
+
+            if (!string.IsNullOrEmpty(ddlMarca.SelectedValue))
+            {
+                int idMarca = int.Parse(ddlMarca.SelectedValue);
+                filtrados = filtrados.FindAll(p => p.Marca.Id == idMarca);
+            }
+
+            ddlProducto.Items.Clear();
+            ddlProducto.DataSource = filtrados;
+            ddlProducto.DataValueField = "Id";
+            ddlProducto.DataTextField = "Nombre";
+            ddlProducto.DataBind();
+            ddlProducto.Items.Insert(0, new ListItem("Seleccione un producto...", ""));
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
@@ -262,6 +304,8 @@ namespace ComercioWeb
             Session["CarritoNuevaCompra"] = null;
             ddlProveedor.Enabled = true;
             ddlProveedor.SelectedIndex = 0;
+            ddlCategoria.SelectedIndex = 0;
+            ddlMarca.SelectedIndex = 0;
             ddlProducto.SelectedIndex = 0;
             txtCantidad.Text = "";
             txtPrecioCosto.Text = "";

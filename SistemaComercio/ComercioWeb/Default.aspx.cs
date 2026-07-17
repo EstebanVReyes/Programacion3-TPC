@@ -19,12 +19,18 @@ namespace ComercioWeb
             }
             if (!IsPostBack)
             {
-                dashboardAdmin.Visible = Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"]);
+                dashboardAdminTitle.Visible = Seguridad.esAdmin(Session["usuario"]);
+                dashboardVentas.Visible = Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]);
+                dashboardCompras.Visible = Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"]);
 
-                if (Seguridad.esAdmin(Session["usuario"]) || Seguridad.esVendedor(Session["usuario"]) || Seguridad.esCajero(Session["usuario"]))
+                if (dashboardVentas.Visible)
                 {
                     CargarResumenVentas();
                     CargarProductosMasVendidos();
+                }
+
+                if (dashboardCompras.Visible)
+                {
                     CargarResumenCompras();
                 }
 
