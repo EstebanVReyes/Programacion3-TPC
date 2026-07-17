@@ -40,7 +40,7 @@
 
     <div class="form-grid" style="margin-bottom: 20px;">
         <div class="form-group">
-            <label for="ddlCategoria">Categoría</label>
+            <label for="ddlCategoria">Categoria</label>
             <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
                 <asp:ListItem Text="Todas" Value="" />
             </asp:DropDownList>
