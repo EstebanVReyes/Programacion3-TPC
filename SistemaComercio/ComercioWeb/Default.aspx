@@ -123,10 +123,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h1 class="home-title">Dashboard de Ventas</h1>
+    <h1 class="home-title">Dashboard de Información</h1>
 
     <p class="home-description">
-        Información sobre las ventas realizadas los últimos 30 días.
+        Información sobre ventas y compras realizadas los últimos 30 días.
     </p>
 
     <div runat="server" id="dashboardAdmin">
@@ -158,6 +158,8 @@
 
             </div>
 
+            <h2>Productos con más ventas</h2>
+
             <div class="chart-container">
                 <asp:Chart ID="chartProductos" runat="server" Width="1200px" Height="400px" CssClass="chart-full">
                     <Series>
@@ -168,6 +170,33 @@
                         <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
                     </ChartAreas>
                 </asp:Chart>
+            </div>
+
+            <h2>Compras de los últimos 30 días</h2>
+
+            <div class="cards-row">
+
+                <div class="info-card">
+                    <h3>Total de compras realizadas</h3>
+                    <p>
+                        <asp:Label ID="lblCantidadCompras" runat="server" Text="0"></asp:Label>
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Importe total gastado</h3>
+                    <p>
+                        <asp:Label ID="lblImporteTotalCompras" runat="server" Text="0"></asp:Label>
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Productos comprados</h3>
+                    <p>
+                        <asp:Label ID="lblProductosComprados" runat="server" Text="0"></asp:Label>
+                    </p>
+                </div>
+
             </div>
 
         </div>
